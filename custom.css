@@ -1,0 +1,17 @@
+/* kya docs register tweaks beyond docs.json. */
+:root {
+  --primary: #2a9d8f;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

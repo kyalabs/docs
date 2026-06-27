@@ -1,33 +1,23 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+# Documentation Project Instructions
 
-# Documentation project instructions
+## About This Project
 
-## About this project
+- This is the public GitHub source for the kya labs Mintlify docs site.
+- Pages are MDX files with YAML frontmatter.
+- Configuration lives in `docs.json`.
+- Preview locally with `mint dev`.
+- The public site is `docs.kyalabs.io`; the Mintlify backing domain is `kyalabs.mintlify.app`.
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
-- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+## Style
 
-## Terminology
+- Write for a technical enterprise buyer.
+- Use active voice and precise, buyer-safe language.
+- Use sentence case for headings.
+- Use code formatting for file names, commands, paths, and code references.
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+## Content Boundaries
 
-## Style preferences
-
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
-
-## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Treat this repository as public.
+- Do not include internal endpoints, keys, database/table names, vendor operations, stage-gate names, issue IDs, or internal working notes.
+- Do not use absolute hard-stop access language where `reached` / `access-limited` is the intended buyer-facing framing.
+- Keep commercial/pricing language out of the v1 docs unless explicitly approved.

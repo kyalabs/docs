@@ -1,0 +1,92 @@
+---
+title: "Two Lanes: How Agents Actually Shop"
+description: "Real agents reach the web two different ways — browsing pages and searching natively. We capture each one the way it works and resolve both to a single honest number."
+---
+
+Real agents reach the web two different ways. If you measure both as if they were one thing, the headline number misleads. Here is how we keep it honest.
+
+## The question this answers
+
+When a shopper asks an AI about your category, the agent answering them gets to the web one of two ways. It **browses** — opens pages and reads them — or it **searches natively**, asking a search-grounded model that returns answers with citations baked in. These are not the same act. They do not see the same things, and a model that can read your product page is telling you something different from one that only ever saw a cited snippet about you.
+
+Our answer: we run **both lanes**, we capture each one the way it actually works, and we resolve both to a single evidence-backed number — so "19 of 25 agents surfaced Brand X" means the same thing whether the agent browsed or searched.
+
+## The two lanes
+
+A panel is a weighted sample of the agents real shoppers use, and each cell **retrieves the way the real agent it stands in for retrieves** — fixed when the study is set up, never switched mid-run to save effort.
+
+<CardGroup cols={2}>
+  <Card title="Browse lane" icon="window">
+    The agent fetches pages and reads them. It can hit a working product page, a 404, a slow page it can't fully read, or a site that does not serve automated traffic at all. What it could and couldn't read is itself a finding.
+  </Card>
+  <Card title="Search-native lane" icon="magnifying-glass">
+    The cell sends the question to a search-grounded model — search-native (Perplexity Sonar) — and gets an answer with citations attached. It never "visits" your site; it sees whatever the search index surfaced and cited. This lane is often where brands are cited well even when the browse lane can't reach them.
+  </Card>
+</CardGroup>
+
+The rule is fidelity, not convenience: **a browse cell is never quietly re-routed through search to make a run easier.** That would measure a different agent than the one your customer is using. The buyer surface speaks to which lane a cell stands in — not to how that lane is served.
+
+## Why two lanes need two rails of evidence
+
+Because a search-native cell is a counted member of the panel, its evidence has to count the same way a browse cell's does. So every piece of evidence — from either lane — is one **source card** carrying its origin:
+
+- **Fetch** — a page the browse agent read.
+- **Citation** — a source the search-native model cited.
+
+Same shape, same currency. A browse card and a search-native card both resolve to the same source identifier that the report cites.
+
+<Note>
+  The effect is **one source-backed denominator across both lanes.** When the report says a number of agents surfaced you, that count includes the search-native cells — it does not score only the browse cells or silently drop the lane that tends to cite brands best. The shared source-card shape and the unified count are how the extract is built today.
+</Note>
+
+Every recommendation and finding in the report carries at least one evidence reference back to a source card. Citations are at the clause level, not hand-waved at the end.
+
+## How we say "we couldn't reach it"
+
+The browse lane regularly meets sites that do not serve automated traffic. The lazy way to report that is a flat refusal label, and it is also wrong, because it hides *who* turned the agent away and *how completely*.
+
+On any single finding, reach resolves to a simple, honest split:
+
+<CardGroup cols={2}>
+  <Card title="Reached" icon="circle-check">
+    The agent reached the page and read it.
+  </Card>
+  <Card title="Access-limited" icon="circle-half-stroke">
+    The page turned the agent's traffic away. The finding is about the site's posture to agents — established before any verdict copy describes it.
+  </Card>
+</CardGroup>
+
+That two-state headline is what a buyer reads. The finer detail — how completely a site is access-limited, and to which kind of traffic — **rides on the per-finding receipt**, not the headline.
+
+The distinction matters because it is the difference between a real trend and a fake one. A finding that a site is access-limited to automation is a durable signal about how a brand shows up to agents. Treating every reach gap as the same kind of refusal is **reach-coloring** — an artifact of our own reach on one run, not a fact about the site. We attribute before we conclude: when a page turns an agent away, we establish what kind of access limit it is before any verdict copy names it.
+
+<Note>
+  We report reach this way as a matter of **methodology discipline.** A deterministic register check runs over every report to record any wording slip; it is observe-only and graduating, not a machine guarantee.
+</Note>
+
+## Attribution before the verdict, not spin after
+
+The access posture is determined as part of the run, not narrated afterward to make a weak result sound stronger. A page that turned an agent away is probed for its true posture; only then does the finding get its label.
+
+This is the same discipline the [panel doc](/panel-as-an-instrument) describes for claims generally — counts before rates, evidence before conclusion — applied to the one place it is easiest to cheat: calling a self-inflicted reach gap a property of someone else's site. The honest split (the site limited us vs. we under-read it) rides with each source card, so a reach gap can never silently become a fake month-over-month trend.
+
+## What changes when the world changes
+
+The two lanes track the real consumer-agent mix, so as that mix shifts, the lane weights are a versioned property of the panel — the same lane vocabulary, browse and search-native, appears in the [panel-as-an-instrument doc](/panel-as-an-instrument) as part of panel composition. A provider changing how its search-native model cites, or a site changing how it treats automated traffic, shows up as a posture change or a citation change in the findings — surfaced, not absorbed. The categories are stable; what moves between them is the signal.
+
+## Short answers
+
+<AccordionGroup>
+  <Accordion title="If a browse agent can't reach my page, doesn't that just mean your tool is broken?">
+    Not without attribution. We establish whether the page is reached or access-limited — and, on the receipt, how completely — before we call it anything. The finding is about your site's posture to agents, not about our reach on one run.
+  </Accordion>
+  <Accordion title="Why count search-native agents at all if they never visit my site?">
+    Because real shoppers use them, and they are often where your brand is cited well. Dropping them would flatter or distort the number. Both lanes resolve to the same evidence currency, so the headline count is honest across them.
+  </Accordion>
+  <Accordion title="Can you just pick the lane that makes me look best?">
+    No. Lane assignment is a property of the agent a cell stands in for, fixed at study setup, never a runtime knob. A different lane mix is a different, visibly described instrument.
+  </Accordion>
+  <Accordion title="How do I audit a 'couldn't reach' finding?">
+    Every finding carries its source cards and its access posture with it. Ask for the evidence behind any reach claim; the posture and its basis travel with the report.
+  </Accordion>
+</AccordionGroup>

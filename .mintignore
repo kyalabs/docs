@@ -5,3 +5,7 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Repo and agent guidance
+AGENTS.md
+.gitignore

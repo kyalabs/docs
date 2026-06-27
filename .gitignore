@@ -1,0 +1,3 @@
+mint-dev.*.log
+.mintlify/
+node_modules/

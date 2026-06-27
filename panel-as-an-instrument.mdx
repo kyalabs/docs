@@ -1,0 +1,72 @@
+---
+title: "The Panel as an Instrument"
+description: "Panel composition, version pinning, and how a measurement stays comparable as the model world changes."
+---
+
+AI models update constantly. If the thing doing the shopping changes under you, how can a measurement taken in June be compared to one taken in September?
+
+Our answer: the panel is a **versioned instrument**, not a dial. Its composition is locked per study, every run is stamped with exactly what produced it, and any change to the instrument is by design a versioned event rather than a silent one.
+
+## What a panel is
+
+A **panel version** is a locked tuple of three things:
+
+- **Composition** — which model families, how many trips each, and across which lanes (browse and search-native; [Two Lanes](/two-lanes) covers what those modes are and how each is captured). The families are **GPT, Gemini, Claude, and Perplexity Sonar** (the search-native lane). The panel-of-record is a 25-trip mixed panel, composed by design to track the live consumer-agent mix: a majority of trips on the most-used family, the rest split across the others, with Perplexity Sonar reading the way people ask rather than browse. Smaller studies run a lighter default composition; the study always declares which one it ran on.
+- **Methodology version** — the documented procedure the runs follow.
+- **Mission shape** — the declared question, the denominators, and the claim classes (see [Pre-registered protocol](#pre-registered-protocol)).
+
+A study always declares which panel version it ran on. **Same panel version + same mission = comparable runs.** That is the contract.
+
+<Note>
+  By design, the panel is composed against the mix of assistants real shoppers use, not a single model. When that mix shifts, the panel is meant to move with it — which is the point of the next two sections.
+</Note>
+
+## Version pinning
+
+Every run is stamped at dispatch with:
+
+- the **methodology version and a hash of the exact methodology document** the run followed,
+- the **harness version** that produced it, and
+- a **hash of the exact brief** the agents received.
+
+These stamps travel with the run all the way through to the report. The practical effect: any number in any report can be traced back to precisely which instrument produced it — and a re-run on the same stamps is a true re-measurement, not an impression.
+
+This is enforced, not aspirational. The methodology stamp is checked against the procedure actually loaded on the machine at run time; a mismatch is caught rather than quietly absorbed.
+
+## Drift, deprecation, and what counts as a change
+
+Two different things can change, and we treat them differently.
+
+<CardGroup cols={2}>
+  <Card title="We change the panel" icon="git-branch">
+    Composition, lanes, weights, or methodology. By design, that is a **new panel version**: versions are numbered, the prior version's definition is frozen, and a study declares which one it ran on. The protocol we commit to is to surface a version change before your next run executes on it, and where providers still serve the older models, to offer a **bridge run** (the same mission on both panel versions) so a trendline survives the transition. This notification-and-bridge protocol is methodology discipline we hold to, not a knob that turns itself.
+  </Card>
+  <Card title="The world changes under a pinned panel" icon="radar">
+    A provider updates a model behind its public name. We deliberately measure the **live consumer mix**: when the models people actually use shift, that movement is signal, not noise. We record the served model identity per trip, so a material provider-side shift can be surfaced in the run's findings rather than silently absorbed.
+  </Card>
+</CardGroup>
+
+We record the served model identity per trip rather than hard-pinning to a frozen snapshot, because a hard-pinned panel would diverge from what real shoppers experience. The discipline is **record-and-disclose**: the panel tracks the world, and the seam is visible to you.
+
+**Deprecation.** When a provider retires a model, a provider deprecation is treated as a panel change — by design, a new numbered version, with the bridge-run protocol offered where it is feasible. Because every run is stamped with its panel version (see [Version pinning](#version-pinning)), panel history stays interpretable: any past report can still be read against the exact version it ran on.
+
+## Pre-registered protocol
+
+Missions, denominators, and claim classes are declared **before** the run. Counts come before rates; every claim carries its evidence reference; the claim boundaries print on the report. We don't move the goalposts after seeing results — structurally, the report generator can't.
+
+## Stability protocol
+
+This is the protocol the instrument follows, not a machine-guaranteed property of every run. The discipline is stated here; the specifics travel with each study.
+
+By design, a panel version remains the panel-of-record for a stated window unless a provider deprecation forces a change. Baseline re-runs are meant to execute on the original panel version where providers still serve it, with the bridge protocol applying otherwise. And if a receipt doesn't hold up on re-inspection, the study re-runs rather than standing on a number it can no longer defend.
+
+## Short answers
+
+**"Can't you just tweak the panel until it says what someone wants?"**
+No. Composition is locked per version, the stamp makes the instrument's identity visible to you, and the protocol is pre-registered. A tweaked panel is a *different, visibly numbered instrument* — not a quiet adjustment.
+
+**"What happens when the next major model ships?"**
+If it changes what consumers' agents actually are, the panel version is meant to increment to match the world — and the protocol we commit to is to give you notice and offer a bridge run, so your trendline shows the seam instead of hiding it.
+
+**"How do I audit this?"**
+Every report's receipts carry the stamps. Ask for any run's evidence; traceability is enforced, not best-effort.
