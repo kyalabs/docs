@@ -1,128 +1,35 @@
 ---
-title: "Open the Hood"
-description: "A standing research rig that measures how AI shopping agents see your category — and shows you the whole engine. The five stages of a run, and the two ways to run it."
+title: "Welcome to kya"
+description: "A compact guide to how kya turns agent shopping behavior into evidence a technical buyer can inspect."
 ---
 
-When a shopper asks an AI about your category, an agent answers them — it shops the live web, reads what it can reach, and lands on a recommendation. **Voice of Agent** is a standing research rig that runs that act at scale, on purpose, and brings you the read.
+kya studies how AI agents shop: what they see, what they cite, what they miss, and what that means for a brand that expects more shoppers to arrive through agents.
 
-The point of these docs is the opposite of a black box. We show you the whole engine: how a study is composed, how each agent shops, what gets captured, how the report stays bound to the evidence, and what happens when a run can't get a clean read. The hood stays open.
-
-A study runs in five stages. Every claim it produces opens to the receipt behind it.
+These docs open the hood on **ShoppiPanel**, our research rig for measuring that behavior. They are written for technical buyers, design partners, and operators who want to understand the method before they trust the report.
 
 <CardGroup cols={2}>
-  <Card title="① Question" icon="circle-question">
-    What you ask: how do agents shop your category, and where do you land in the answer?
+  <Card title="Start with the rig" icon="route" href="/how-it-works/overview">
+    Follow the path from buyer question to panel, runs, evidence, honesty checks, and delivered report.
   </Card>
-  <Card title="② Panel" icon="layer-group">
-    A versioned, stamped panel of agents: GPT, Gemini, Claude, and Perplexity Sonar.
+  <Card title="Inspect the instrument" icon="gauge" href="/how-it-works/panel-as-an-instrument">
+    See how the panel is treated like a versioned measurement instrument, not a one-off prompt.
   </Card>
-  <Card title="③ Runs" icon="globe">
-    Agents shop the live web — every step receipted.
+  <Card title="Understand retrieval" icon="split" href="/how-it-works/two-lanes">
+    Learn why browse and search-native agents are measured as different lanes with one shared denominator.
   </Card>
-  <Card title="④ Evidence" icon="receipt">
-    Per-run receipts: transcript, journey, access posture, outcome — all retained.
-  </Card>
-  <Card title="⑤ Report" icon="file-chart-column">
-    The read plus structured data. The headline is computed from the evidence, then narrated.
+  <Card title="Check the evidence" icon="shield-check" href="/evidence/honesty-layer">
+    See the layer that keeps counts, access posture, and claims tied to receipts.
   </Card>
 </CardGroup>
 
----
+## What to read first
 
-## The five stages
+If you are new to the system, read [Open the Hood](/how-it-works/overview) first. It gives you the full map without forcing you through implementation detail.
 
-### ① Question — what you ask
+If you are validating the methodology, start with [The Panel as an Instrument](/how-it-works/panel-as-an-instrument), then [Two Lanes](/how-it-works/two-lanes), then [The Honesty Layer](/evidence/honesty-layer).
 
-A study begins with a declared question about your category: how the agents real shoppers use treat your brand, and where you land when one of them answers. The question, its denominators, and the classes of claim it can support are written down **before** the run — so results are read against a fixed mission, never against goalposts moved after the fact.
-
-### ② Panel — the instrument
-
-The agents that do the shopping are a **panel**: a weighted sample drawn from GPT, Gemini, Claude, and Perplexity Sonar, locked for the duration of a study and stamped onto every run. Same panel, same question, comparable runs — quarter over quarter. AI models change constantly; the panel is treated as a versioned instrument so a measurement taken in one quarter can be compared to the next, with any change to the instrument recorded as a numbered, visible event rather than silently absorbed.
-
-<Card title="The Panel as an Instrument" icon="layer-group" href="/panel-as-an-instrument">
-  Panel composition, version pinning, and the stability policy that keeps measurements comparable over time.
-</Card>
-
-### ③ Runs — agents shop the live web
-
-Real agents reach the web two different ways, and a study runs both. Some **browse** — they open pages and read them. Some are **search-native** — Perplexity Sonar asks a search-grounded model that answers with citations already attached, and never visits your site directly. These are different acts that see different things, so each agent in the panel retrieves the way the real agent it stands in for retrieves, fixed when the study is set up and never quietly switched to make a run cheaper.
-
-The browse lane regularly meets pages that don't serve automated traffic. We don't flatten that into one word. On any finding, reach is reported honestly as **reached** or **access-limited**, with the finer detail carried on the receipt — so a gap in reach is recorded as what it is, never laundered into a false fact about your site.
-
-<Card title="Two Lanes: How Agents Actually Shop" icon="globe" href="/two-lanes">
-  Browse versus search-native capture, the honest access model, and why both lanes resolve to one evidence currency.
-</Card>
-
-### ④ Evidence — per-run receipts
-
-Each run is one agent making one trip, and what it does is written down as it happens — not reconstructed afterward. A run retains its **transcript** (the agent's own turn-by-turn record, redacted of anything personal), its **journey** (the sources it actually touched and where each came from), its **access posture** (reached or access-limited, per attempt), and the plain facts: which model stood in for it, which lane it ran, whether it gathered enough evidence to count.
-
-Every source a run touches becomes one uniform **evidence card**, in the same shape whether it came from a browsed page or a cited source. That shared shape is what a single count across both lanes is built on: browse and search-native cells fold into one source-backed denominator, end-to-end. No claim in the report floats: every finding and every count carries at least one reference back to a card, and that evidence is retrievable.
-
-<Card title="Anatomy of a Run" icon="receipt" href="/anatomy-of-a-run">
-  One trip from journey to receipt — and how every number in the report walks back to the runs that produced it.
-</Card>
-
-### ⑤ Report — what lands
-
-The report is a projection of the runs, and it is built so the dishonest version is unreachable rather than merely discouraged. Before any prose is written, the thesis is **computed** from the audited evidence: which brand each agent landed on, how many runs were informative versus planned, the verdict class, and a confidence band tied to how much evidence actually carried. The language model narrates that computed object — it cannot author a different one. A headline that contradicts the underlying counts does not ship.
-
-Counts come before rates. Every claim opens to its evidence. The limits of the read — what a controlled-mission study does and does not claim — travel on the face of the artifact, not as a disclaimer someone might forget.
-
-<CardGroup cols={2}>
-  <Card title="The Honesty Layer" icon="shield-check" href="/honesty-layer">
-    The four mechanisms that bind the report to the evidence: the computed headline, the hold that reconciles it against the audited counts, the claim boundary, and honest failure.
-  </Card>
-  <Card title="Run Lifecycle & Reliability" icon="arrows-rotate" href="/run-lifecycle-and-reliability">
-    How studies are queued, what a partial result means versus a failed one, and what a re-run actually is.
-  </Card>
-</CardGroup>
+If you are evaluating operational reliability, read [Anatomy of a Run](/evidence/anatomy-of-a-run) and [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
 
 <Note>
-  By design, a delivered report whose receipts don't hold on re-inspection is re-run: the engine treats a study that can't stand behind its evidence as one that didn't land.
+  These pages describe the research method and evidence surface. They deliberately avoid packaging terms, internal operations, and private system details.
 </Note>
-
----
-
-## Two ways to run it
-
-The same rig serves two postures. They differ in how much of the engine you drive and how much of the raw layer you take.
-
-<CardGroup cols={2}>
-  <Card title="Pro — self-serve" icon="play">
-    **Ask a category question.** You bring the question; the standard panel runs it; the report lands on your desk. On-demand reads in your category, on a standard panel and a set configuration, delivered as the read plus structured data.
-
-    You touch **① Question** and **⑤ Report** — the rig runs the middle.
-  </Card>
-  <Card title="Custom — open the hood" icon="wrench">
-    **Configure the system itself** and take the raw evidence layer. Tune the panel, the model mix, and the persona cohorts; design the missions; work the structured data directly. Custom research scoped to your priorities, with control beyond Pro.
-
-    You open **② Panel**, **③ Runs**, and **④ Evidence** — and take the data.
-  </Card>
-</CardGroup>
-
-The tiers map onto **which stages of the rig you control** — not onto how much of the truth you get. Every study, on either posture, produces the same receipted evidence and the same honest report.
-
----
-
-## How to read these docs
-
-Each stage above links to the page that opens it up. Read them in order for the full picture, or jump to the one that answers your question:
-
-<CardGroup cols={2}>
-  <Card title="The Panel as an Instrument" href="/panel-as-an-instrument">
-    Why anything measured this month is comparable next month.
-  </Card>
-  <Card title="Two Lanes" href="/two-lanes">
-    How agents actually reach the web, and how reach is reported honestly.
-  </Card>
-  <Card title="Anatomy of a Run" href="/anatomy-of-a-run">
-    A single trip, from journey to a receipt you can open.
-  </Card>
-  <Card title="The Honesty Layer" href="/honesty-layer">
-    Why the report cannot drift from what the evidence supports.
-  </Card>
-  <Card title="Run Lifecycle & Reliability" href="/run-lifecycle-and-reliability">
-    Queueing, partial versus failed runs, and re-runs.
-  </Card>
-</CardGroup>

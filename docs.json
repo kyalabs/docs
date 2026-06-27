@@ -16,6 +16,9 @@
       "family": "Newsreader"
     }
   },
+  "icons": {
+    "library": "lucide"
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
@@ -30,16 +33,52 @@
   "navigation": {
     "groups": [
       {
-        "group": "How it works",
+        "group": "Start here",
+        "icon": "sparkles",
         "pages": [
-          "index",
-          "panel-as-an-instrument",
-          "two-lanes",
-          "anatomy-of-a-run",
-          "honesty-layer",
-          "run-lifecycle-and-reliability"
+          "index"
+        ]
+      },
+      {
+        "group": "How it works",
+        "icon": "route",
+        "pages": [
+          "how-it-works/overview",
+          "how-it-works/panel-as-an-instrument",
+          "how-it-works/two-lanes"
+        ]
+      },
+      {
+        "group": "Evidence & reliability",
+        "icon": "shield-check",
+        "pages": [
+          "evidence/anatomy-of-a-run",
+          "evidence/honesty-layer",
+          "evidence/run-lifecycle-and-reliability"
         ]
       }
     ]
-  }
+  },
+  "redirects": [
+    {
+      "source": "/panel-as-an-instrument",
+      "destination": "/how-it-works/panel-as-an-instrument"
+    },
+    {
+      "source": "/two-lanes",
+      "destination": "/how-it-works/two-lanes"
+    },
+    {
+      "source": "/anatomy-of-a-run",
+      "destination": "/evidence/anatomy-of-a-run"
+    },
+    {
+      "source": "/honesty-layer",
+      "destination": "/evidence/honesty-layer"
+    },
+    {
+      "source": "/run-lifecycle-and-reliability",
+      "destination": "/evidence/run-lifecycle-and-reliability"
+    }
+  ]
 }

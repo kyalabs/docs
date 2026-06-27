@@ -40,16 +40,16 @@ Two consequences a buyer should hold onto:
 
 ## The panel behind one report
 
-The size and composition of a single study's panel — how many agent trips compose one report, and across which agent families — is the **panel-of-record**, covered in [The Panel as an Instrument](/panel-as-an-instrument). The panel-of-record is a fixed, mixed composition of agent trips; a lighter default panel runs quick reads. Reliability is defined the same way at either width: each trip runs through the same queue, the same typed lifecycle, and the same evidence floor — a smaller panel is fewer trips, not a different contract.
+The size and composition of a single study's panel — how many agent trips compose one report, and across which agent families — is the **panel-of-record**, covered in [The Panel as an Instrument](/how-it-works/panel-as-an-instrument). The panel-of-record is a fixed, mixed composition of agent trips; a lighter default panel runs quick reads. Reliability is defined the same way at either width: each trip runs through the same queue, the same typed lifecycle, and the same evidence floor — a smaller panel is fewer trips, not a different contract.
 
 ## Partial vs failed — the distinction the whole contract turns on
 
-The most important reliability question is not "does it ever fail?" Every honest system that touches live surfaces sometimes can't get a clean read. The question is **what the system does with a thin result**. kya draws a hard line — the same line described in [The Honesty Layer](/honesty-layer).
+The most important reliability question is not "does it ever fail?" Every honest system that touches live surfaces sometimes can't get a clean read. The question is **what the system does with a thin result**. kya draws a hard line — the same line described in [The Honesty Layer](/evidence/honesty-layer).
 
 - A study that came back with thin or incomplete evidence still **delivers** — as **Partial success**: a usable report that ships with its limits printed on its face, marked **not research-grade** where that applies. Thin is **not** failed. A caveated run is never silently upgraded into a clean one, nor dressed down into a failure. It is delivered with the caveat the evidence earned.
 - **Failed** is reserved for a run that *could not form a study at all*. Two things land here. The rig failed to operate: the run went orphaned, got stuck, ran past its execution budget, or could not produce a report and could not be recovered. Or too few of the panel's cells returned a result to support a credible read, so the study collapses rather than shipping hollow. Either way it is a structural outcome — a first-class, named state in the data, not a verdict on how much evidence a *finished* study gathered.
 
-"Most of the panel's cells must return a result" is one count, not two. The panel spans browsing assistants and a search-native lane (Perplexity Sonar), and a **single source-backed denominator** spans both — so the floor a study has to clear, and the counts every claim divides by, are the same number whether a cell browsed or searched. The exact floor is qualitative here on purpose; the [Panel as an Instrument](/panel-as-an-instrument) owns the roster and how the cells compose.
+"Most of the panel's cells must return a result" is one count, not two. The panel spans browsing assistants and a search-native lane (Perplexity Sonar), and a **single source-backed denominator** spans both — so the floor a study has to clear, and the counts every claim divides by, are the same number whether a cell browsed or searched. The exact floor is qualitative here on purpose; the [Panel as an Instrument](/how-it-works/panel-as-an-instrument) owns the roster and how the cells compose.
 
 This is not a manual triage call. The caveat a partial report carries is **computed from the counts**, not eyeballed — the same compute-then-narrate discipline the honesty layer describes, applied to the report's research-grade standing. The terminal state is computed too, not judged: a run that cannot form a study projects to *Failed* directly from its terminal status. A thin study cannot be narrated into a clean one, and a finished study is never narrated into a failure. The state that drives the surface is settled before any report is dressed up.
 
@@ -79,7 +79,7 @@ The line that matters: a **finished** study is graded on its evidence — resear
 
 <Steps>
   <Step title="Same instrument, same mission">
-    A baseline re-run executes against the customer's **original panel version** where the model providers still permit it. Where a provider has retired a model, the bridge-run protocol from [The Panel as an Instrument](/panel-as-an-instrument) applies so the trendline survives the seam. Same panel version + same mission = a comparable re-measurement, by the versioning contract.
+    A baseline re-run executes against the customer's **original panel version** where the model providers still permit it. Where a provider has retired a model, the bridge-run protocol from [The Panel as an Instrument](/how-it-works/panel-as-an-instrument) applies so the trendline survives the seam. Same panel version + same mission = a comparable re-measurement, by the versioning contract.
   </Step>
   <Step title="Same lifecycle, no special path">
     Mechanically, a re-run rides the **same idempotent run identity and queue semantics** as the first run. It is the same typed lifecycle — Queued, Running, one of the seven states — not a separate code path. A re-run that itself comes back with thin evidence delivers as a caveated **Partial success** on the same rules; one that could not form a study resolves to *Failed*, on the same rules.

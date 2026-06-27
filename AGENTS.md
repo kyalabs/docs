@@ -7,6 +7,7 @@
 - Configuration lives in `docs.json`.
 - Preview locally with `mint dev`.
 - The public site is `docs.kyalabs.io`; the Mintlify backing domain is `kyalabs.mintlify.app`.
+- Git is the durable source of truth. Mintlify editor changes should be treated as Git commits and pulled before local edits.
 
 ## Style
 
@@ -14,6 +15,12 @@
 - Use active voice and precise, buyer-safe language.
 - Use sentence case for headings.
 - Use code formatting for file names, commands, paths, and code references.
+
+## Navigation
+
+- `index.mdx` is the welcome page.
+- `how-it-works/` contains the instrument and retrieval-method pages.
+- `evidence/` contains run anatomy, honesty, and lifecycle/reliability pages.
 
 ## Content Boundaries
 

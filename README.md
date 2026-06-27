@@ -12,3 +12,7 @@ mint dev
 ```
 
 The published site is intended to be no-indexed and access-gated from Mintlify's dashboard.
+
+## Editing model
+
+GitHub is the durable source of truth. Mintlify's editor can commit changes back to this repository, so pull before making local edits.

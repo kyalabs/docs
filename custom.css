@@ -1,6 +1,10 @@
 /* kya docs register tweaks beyond docs.json. */
 :root {
   --primary: #2a9d8f;
+  --accent: #2a9d8f;
+  --bg-root: #0a0b0d;
+  --bg-surface: #101114;
+  --bg-elevated: #15171b;
 }
 
 h1,
@@ -14,4 +18,8 @@ pre,
 kbd,
 samp {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+a {
+  text-underline-offset: 0.18em;
 }
