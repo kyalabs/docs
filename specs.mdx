@@ -1,0 +1,134 @@
+---
+title: "Technical Specs"
+description: "The reference for a technical evaluation: the panel, what's captured per trip, the output formats, the read path, data handling, and an honest line on what's live today versus being wired."
+---
+
+The reference for a technical evaluation — the panel, what each trip captures, what a study returns, and how the data comes out. Every line is the buyer-facing register; deeper mechanics link out. One table on this page, [Live today vs. by design](#live-today-vs-by-design), states plainly what is shipping now versus committed and being wired — read it before you trust any capability here as present-tense.
+
+## The panel
+
+The agents that do the shopping are a **panel** — a weighted sample of the assistants real shoppers use, locked per study and stamped onto every run.
+
+| Attribute | Specification |
+|---|---|
+| **Model families** | GPT, Gemini, Claude, and Perplexity Sonar (the search-native lane) |
+| **Panel-of-record** | A 25-trip mixed panel, composed to track the live consumer-agent mix — a majority of trips on the most-used family, the rest split across the others |
+| **Lighter default** | A smaller composition for quick reads; the study always declares which panel it ran on |
+| **Lanes** | **Browse** (the agent opens and reads pages) and **search-native** (a search-grounded model answers with citations attached) |
+| **Versioning** | Composition, methodology, and mission shape are a locked, numbered version; same version + same mission = comparable runs |
+
+The exact per-family weights are part of the instrument's configuration. The contract you can rely on is the version stamp: any number in any report traces to precisely which panel produced it. See [The Panel as an Instrument](/how-it-works/panel-as-an-instrument).
+
+## What's captured per trip
+
+Each trip is one agent making one shopping pass. Three things are recorded as they happen — not reconstructed afterward:
+
+| Captured | What it is |
+|---|---|
+| **Transcript** | The agent's turn-by-turn record — what it was asked, what it reasoned, what it said — with credential and secret-token patterns scrubbed |
+| **Journey** | The sources the trip actually touched: pages a browsing agent fetched, or sources a search-native agent was cited, each recorded with its origin |
+| **Access posture** | Whether the agent **reached** a page and read it, or was **access-limited** on a surface that turns automated traffic away — recorded per attempt |
+
+Each trip also carries the plain facts: which model family stood in for it, which lane it ran, and whether it gathered enough evidence to count. See [Anatomy of a Run](/evidence/anatomy-of-a-run).
+
+## What a study returns
+
+Every source a trip touches becomes one uniform **evidence card**, in the same shape whether it came from a browsed page or a cited source — so one source-backed count spans both lanes. The report package contains:
+
+<CardGroup cols={2}>
+  <Card title="The readable report" icon="file-chart-column">
+    The computed headline, the distribution, the count ledger, and the strategic implication — narrated from the evidence, never authored over it.
+  </Card>
+  <Card title="Structured data" icon="layers">
+    Machine-readable findings: per-trip outcomes, the count ledger, and the access posture of every surface — yours to read and query.
+  </Card>
+  <Card title="Receipts appendix" icon="receipt">
+    The evidence cards themselves — each naming the trip it came from, the source it represents, and its locator.
+  </Card>
+  <Card title="Proof view" icon="magnifying-glass">
+    The view that walks a number back to the trips and sources behind it. Every claim opens to at least one card.
+  </Card>
+</CardGroup>
+
+The package carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence opened — by you, without server access.
+
+## Access & delivery
+
+You reach a completed study more than one way. Which methods are wired into your engagement is set during scoping.
+
+| Method | What it is |
+|---|---|
+| **In-product** | Read the report, its receipts, and the proof view in the product — per-user access. |
+| **Export** | Download the report package and its structured data. |
+| **Cloud-storage handoff** | Delivery into your own cloud storage — an S3- or R2-compatible bucket. |
+| **API read** | Programmatic read of a study and its structured data — **in development**. |
+
+## The count ledger
+
+Before any rate or verdict, a report states its counts. A rate with no denominator is a place to hide; the ledger makes the denominator a first-class fact:
+
+| Count | Meaning |
+|---|---|
+| **Planned** | The trips the study set out to run |
+| **Completed** | The trips that ran to an answer |
+| **Access-limited** | Trips that met a surface turning away automated traffic — counted *as* access-limited, never silently dropped |
+| **Insufficient** | Trips that returned without enough evidence to count |
+| **Metric-eligible** | The trips that actually carry the report's numbers |
+
+The reasoning behind counts-before-rates is in [Anatomy of a Run](/evidence/anatomy-of-a-run).
+
+## Reliability & states
+
+A submitted study resolves to exactly one of seven buyer-facing states through a single deterministic projection — a total function with defined precedence, so an unknown condition falls back to a waiting state, never a confident-wrong one:
+
+`Queued` · `Running` · `Provider degraded` · `Delayed` · `Partial success` · `Failed` · `Report ready`
+
+Your integration reads one field; you never reverse-engineer run health from logs. Submission is idempotent — a duplicate resolves to one run, not two. Typical study turnaround is 24 hours or less; formal turnaround and availability commitments are scoped per engagement. See [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability) for what each state means and how a re-run works.
+
+## Data handling
+
+| Concern | Posture |
+|---|---|
+| **Personal data** | Studies run against public web surfaces and do not ingest your customers' or consumers' personal data. Captured text is automatically scrubbed of credential and secret-token patterns and reviewed before handoff; a content-level personal-data redaction pass is on the roadmap, not yet in place. |
+| **Data retention** | Raw study data is retained for up to 90 days and summarized data for up to 365 days; logs and queries are deleted on request. Windows are confirmed in enterprise contracting. |
+| **Buyer register** | A deterministic register check runs over every served surface to keep internal engine vocabulary off your report — observe-only and graduating, not a machine guarantee |
+| **Reach reporting** | Surfaces are reported as **reached** or **access-limited**, per finding — never as an absolute refusal label |
+
+<Note>
+  A data-handling and security overview is available to your security team during evaluation, and the detailed posture is set with you in enterprise contracting. It speaks to data handling, retention, the subprocessors that touch study data, and the redaction applied before delivery — shared directly with your team rather than published here.
+</Note>
+
+## Live today vs. by design
+
+We are deliberate about tense. What is wired is stated plainly; what is committed is stated as committed.
+
+| Capability | Status |
+|---|---|
+| The two lanes, captured to one evidence currency | **Live** |
+| Computed-then-narrated headline; the aggregate-claim hold | **Live** |
+| Claim boundary as a required field on every report | **Live** |
+| Partial-success marking and the terminal failed state | **Live** |
+| Read path that makes a report's evidence retrievable | **Live** |
+| Self-serve click-through from a number to its trips and sources | **Being wired** — by design, in progress |
+| The broader policy hold that holds a run before it can publish when it strays outside the sanctioned envelope | **Ratified, being wired** — integrity and budget holds are the live guarantees today |
+
+[The Honesty Layer](/evidence/honesty-layer) is the argument for why the "live" rows are structural, not editorial — the dishonest output is made unreachable in code, not caught by a reviewer at the end.
+
+---
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="What You Get" icon="file-chart-column" href="/what-you-get">
+    The deliverable in plain terms — the read, the data, and the evidence.
+  </Card>
+  <Card title="How It's Offered" icon="route" href="/how-its-offered">
+    The two postures and the engagement lifecycle.
+  </Card>
+  <Card title="The Honesty Layer" icon="shield-check" href="/evidence/honesty-layer">
+    Why a report cannot drift from what the evidence supports.
+  </Card>
+  <Card title="Run Lifecycle & Reliability" icon="refresh-cw" href="/evidence/run-lifecycle-and-reliability">
+    The seven states in full, partial vs. failed, and what a re-run is.
+  </Card>
+</CardGroup>

@@ -36,7 +36,9 @@
         "group": "Start here",
         "icon": "sparkles",
         "pages": [
-          "index"
+          "index",
+          "what-you-get",
+          "how-its-offered"
         ]
       },
       {
@@ -55,6 +57,13 @@
           "evidence/anatomy-of-a-run",
           "evidence/honesty-layer",
           "evidence/run-lifecycle-and-reliability"
+        ]
+      },
+      {
+        "group": "Reference",
+        "icon": "gauge",
+        "pages": [
+          "specs"
         ]
       }
     ]

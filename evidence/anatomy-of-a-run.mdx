@@ -13,7 +13,7 @@ When a trip runs, three things about it are written down as they happen — not 
 
 <CardGroup cols={3}>
   <Card title="The transcript">
-    The full turn-by-turn record of what the agent was asked, what it reasoned, and what it said. The agent's own words, captured at the time, redacted of anything personal.
+    The full turn-by-turn record of what the agent was asked, what it reasoned, and what it said. The agent's own words, captured at the time, with credential and secret-token patterns scrubbed.
   </Card>
   <Card title="The journey">
     Which sources the trip actually touched — the pages a browsing agent fetched, or the sources a search-native agent (Perplexity Sonar) was given as citations. Each source is recorded with where it came from.
@@ -95,7 +95,7 @@ trip → captured evidence → evidence card → cited count → retrievable rec
     Yes. The count is backed by evidence references that resolve to the trips behind it, and each trip's evidence — what it touched, what it said — is in the report's evidence ledger. The number is sourced, not asserted.
   </Accordion>
   <Accordion title="What exactly do you capture per agent?">
-    Its transcript (turn-by-turn, redacted), its journey (the sources it actually used and where they came from), its access posture (reached vs. access-limited), and the plain facts — model family (GPT, Gemini, Claude, or Perplexity Sonar), lane, and whether it counted.
+    Its transcript (turn-by-turn, with secret-token patterns scrubbed), its journey (the sources it actually used and where they came from), its access posture (reached vs. access-limited), and the plain facts — model family (GPT, Gemini, Claude, or Perplexity Sonar), lane, and whether it counted.
   </Accordion>
   <Accordion title="What happens when an agent couldn't reach my page?">
     The report says *access-limited* and counts that trip honestly in the denominator. A reach gap on one run is never converted into a false fact about your site or a fake trend.
