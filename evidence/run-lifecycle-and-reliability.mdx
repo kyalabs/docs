@@ -3,7 +3,7 @@ title: "Run Lifecycle & Reliability"
 description: "How a study is queued, what each outcome state means — partial versus failed versus held — and what a re-run actually is: the lifecycle contract behind repeated measurement."
 ---
 
-A Voice of Agent study is not a synchronous API call that returns in a second. It is a batch of agent trips run against live, changing shopping surfaces, and any one of them can be slow, access-limited, or inconclusive on a given day. A buyer evaluating kya for repeated measurement — a quarterly baseline, a competitive watch, a pre/post-launch read — needs to know exactly what happens across that batch: how runs are queued, what a *partial* result means versus a *failed* one versus a *held* one, and what a re-run actually is.
+A ShoppiPanel study is not a synchronous API call that returns in a second. It is a batch of agent trips run against live, changing shopping surfaces, and any one of them can be slow, access-limited, or inconclusive on a given day. A buyer evaluating kya for repeated measurement — a quarterly baseline, a competitive watch, a pre/post-launch read — needs to know exactly what happens across that batch: how runs are queued, what a *partial* result means versus a *failed* one versus a *held* one, and what a re-run actually is.
 
 This is the lifecycle contract. The reliability story is the same one that runs through the rest of these docs: **the state of your run is a typed, computed object — not a status someone eyeballs** — and the honest outcome is the one the system is built to produce.
 
@@ -69,6 +69,7 @@ Every state in the lifecycle resolves to a clear claim about your study — what
 | **Partial success** | A *delivered* report you can read, usable with its limits printed on its face — marked **not research-grade** where the evidence was thin. Never silently upgraded into a clean read. |
 | **Failed** | No study formed — the rig could not operate, or too few of the panel's cells returned a result. The run collapses rather than handing you a hollow report. |
 | **Delayed** | The run is held and being looked at — an integrity or budget hold, not yet an outcome. It is neither shipped nor failed while it sits here. |
+| **Provider degraded** | An upstream data provider faltered; the run is routing around it. Transient, not terminal. |
 | **Queued / Running** | In flight. Not terminal; the study has not yet resolved to an outcome. |
 
 The line that matters: a **finished** study is graded on its evidence — research-grade, or shipped-and-marked — while a study that **never formed** is a *Failed* run, a structurally different thing from a thin one. The honesty layer's discipline is what keeps those two from blurring: thin-but-usable ships marked, a study that could not form collapses, and neither is ever narrated into the other.
@@ -95,7 +96,7 @@ The line that matters: a **finished** study is graded on its evidence — resear
 Seven, and only seven, on your surface: *Queued, Running, Provider degraded, Delayed, Partial success, Failed, and Report ready.* Every internal condition maps to exactly one of them through a single deterministic projection.
 
 **What's the difference between "partial" and "failed"?**
-Partial success is a usable report with its caveats printed on it — thin evidence still ships, marked not research-grade where that applies. *Failed* is reserved for a run that could not form a study at all — the rig could not operate (orphaned, stuck, over its execution budget, or unable to produce a report), or too few of the panel's cells returned a result, so the run collapses rather than shipping hollow. It is a structural outcome, not a verdict on how much evidence a *finished* study gathered. The caveat on a partial is computed from the counts, not judged by hand.
+Partial success = a usable report that ships marked, where evidence was thin. Failed = a run that could not form a study at all. The full distinction is in [The Honesty Layer](/evidence/honesty-layer) and the section above.
 
 **What happens if I submit the same study twice?**
 It collapses to one run. Submission carries an idempotency key, so retries and duplicates resolve to the same run identity, the same status, and one result — never a double run.
@@ -105,3 +106,17 @@ A re-measurement on the same instrument — your original panel version where pr
 
 **Will my study just hang if you're at capacity?**
 No. Studies queue and wait for capacity rather than failing for lack of it; a queued study is durable and replayable, not dropped.
+
+## Where to go next
+
+<CardGroup cols={3}>
+  <Card title="The Panel as an Instrument" icon="layer-group" href="/how-it-works/panel-as-an-instrument">
+    The panel-of-record behind one report — roster, composition, and the versioning contract a re-run measures against.
+  </Card>
+  <Card title="The Honesty Layer" icon="shield-check" href="/evidence/honesty-layer">
+    The compute-then-narrate discipline that draws the partial-versus-failed line.
+  </Card>
+  <Card title="What You Get" icon="file-chart-column" href="/what-you-get">
+    What a finished study hands you, and how far you can lean on it.
+  </Card>
+</CardGroup>

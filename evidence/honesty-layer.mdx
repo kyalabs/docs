@@ -1,13 +1,13 @@
 ---
 title: "The Honesty Layer"
-description: "How a Voice of Agent report stays bound to what actually happened — the structural mechanisms that make an overstated report unreachable rather than merely discouraged."
+description: "How a ShoppiPanel report stays bound to what actually happened — the structural mechanisms that make an overstated report unreachable rather than merely discouraged."
 ---
 
-A Voice of Agent report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
+A ShoppiPanel report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
 
 The Honesty Layer is the part of the pipeline whose entire job is to keep the words in your report from drifting away from what the evidence supports. No human performs a review pass at the end to catch overstatement. Instead, the report is **built** so that the dishonest version is unreachable — not merely discouraged.
 
-This page explains the four mechanisms a technical buyer should understand before trusting the output, and then makes the underlying argument explicit: why this is structural, not editorial. Other pages in this documentation defer here for that argument.
+Four mechanisms make that true, and one argument ties them together: why this is structural, not editorial.
 
 <Note>
   The shortest version: the dishonest output is made unreachable in code, rather than caught after the fact by a reviewer. The trust you place in a report is not a request to trust a model's prose — it is a request to trust arithmetic, a schema contract, and a hold gate, all of which are auditable.
@@ -121,22 +121,13 @@ The honest version of all four mechanisms is the same sentence repeated: **the d
   </Step>
 </Steps>
 
-Read this as a buyer: the trust you place in a Voice of Agent report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
+Read this as a buyer: the trust you place in a ShoppiPanel report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
 
 ---
 
 ## Common questions
 
 <AccordionGroup>
-  <Accordion title="Does an AI write the headline?">
-    A model narrates a headline, but it cannot choose the conclusion. The conclusion — winner, distribution, verdict class, confidence — is computed from the audited evidence first, and the narration is bound to it. A headline that contradicts the computed verdict is replaced before the report ships.
-  </Accordion>
-  <Accordion title="What stops the headline and the body from disagreeing?">
-    A reconciliation hold. Every counted claim in the headline is checked against the audited trip tally — off the same distribution that produced the headline — and a mismatch holds the report rather than shipping it. This is one of only two situations where a report is stopped rather than shipped-with-disclosure; everything else that could be wrong with a study is disclosed, not held.
-  </Accordion>
-  <Accordion title="What if the study didn't gather enough evidence?">
-    If the study formed but the evidence is thin, it ships marked as not research-grade — a visibly thin read, never silently upgraded into a confident report. A separate case is a run that could not form a study at all: either the rig failed to operate, or too few of the panel's cells returned results to form a credible read. That is the terminal failed state — the run collapses rather than shipping a hollow report. The two are distinct: thin-but-formed ships flagged; could-not-form fails. The full lifecycle is in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
-  </Accordion>
   <Accordion title="Is the 'what we don't claim' language something you might forget to include?">
     No. The claim boundary is a required structural field, set when the report is built and rendered on every surface. A report missing it fails its own contract.
   </Accordion>

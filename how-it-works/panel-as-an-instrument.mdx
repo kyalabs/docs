@@ -39,7 +39,7 @@ Two different things can change, and we treat them differently.
 
 <CardGroup cols={2}>
   <Card title="We change the panel" icon="git-branch">
-    Composition, lanes, weights, or methodology. By design, that is a **new panel version**: versions are numbered, the prior version's definition is frozen, and a study declares which one it ran on. The protocol we commit to is to surface a version change before your next run executes on it, and where providers still serve the older models, to offer a **bridge run** (the same mission on both panel versions) so a trendline survives the transition. This notification-and-bridge protocol is methodology discipline we hold to, not a knob that turns itself.
+    Composition, lanes, weights, or methodology. By design, that is a **new panel version**: versions are numbered, the prior version's definition is frozen, and a study declares which one it ran on. We surface a version change before your next run executes on it, and where providers still serve the older models, we offer a **bridge run** (the same mission on both panel versions) so a trendline survives the transition.
   </Card>
   <Card title="The world changes under a pinned panel" icon="radar">
     A provider updates a model behind its public name. We deliberately measure the **live consumer mix**: when the models people actually use shift, that movement is signal, not noise. We record the served model identity per trip, so a material provider-side shift can be surfaced in the run's findings rather than silently absorbed.
@@ -62,11 +62,25 @@ By design, a panel version remains the panel-of-record for a stated window unles
 
 ## Short answers
 
-**"Can't you just tweak the panel until it says what someone wants?"**
-No. Composition is locked per version, the stamp makes the instrument's identity visible to you, and the protocol is pre-registered. A tweaked panel is a *different, visibly numbered instrument* — not a quiet adjustment.
+<AccordionGroup>
+  <Accordion title="Can't you just tweak the panel until it says what someone wants?">
+    No. Composition is locked per version, the stamp makes the instrument's identity visible to you, and the protocol is pre-registered. A tweaked panel is a *different, visibly numbered instrument* — not a quiet adjustment.
+  </Accordion>
+  <Accordion title="What happens when the next major model ships?">
+    If it changes what consumers' agents actually are, the panel version is meant to increment to match the world — and the protocol we commit to is to give you notice and offer a bridge run, so your trendline shows the seam instead of hiding it.
+  </Accordion>
+  <Accordion title="How do I audit this?">
+    Every report's receipts carry the stamps. Ask for any run's evidence; traceability is enforced, not best-effort.
+  </Accordion>
+</AccordionGroup>
 
-**"What happens when the next major model ships?"**
-If it changes what consumers' agents actually are, the panel version is meant to increment to match the world — and the protocol we commit to is to give you notice and offer a bridge run, so your trendline shows the seam instead of hiding it.
+## Where to go next
 
-**"How do I audit this?"**
-Every report's receipts carry the stamps. Ask for any run's evidence; traceability is enforced, not best-effort.
+<CardGroup cols={2}>
+  <Card title="Two Lanes" icon="globe" href="/how-it-works/two-lanes">
+    The browse and search-native modes a panel runs across, and how each is captured.
+  </Card>
+  <Card title="Anatomy of a Run" icon="receipt" href="/evidence/anatomy-of-a-run">
+    What a single run produces, end to end — from brief to stamped receipt.
+  </Card>
+</CardGroup>

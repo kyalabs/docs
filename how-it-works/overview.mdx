@@ -3,9 +3,9 @@ title: "Open the Hood"
 description: "A standing research rig that measures how AI shopping agents see your category — and shows you the whole engine. The five stages of a run, and the two ways to run it."
 ---
 
-When a shopper asks an AI about your category, an agent answers them — it shops the live web, reads what it can reach, and lands on a recommendation. **Voice of Agent** is a standing research rig that runs that act at scale, on purpose, and brings you the read.
+When a shopper asks an AI about your category, an agent answers them — it shops the live web, reads what it can reach, and lands on a recommendation. **ShoppiPanel** is a standing research rig that runs that act at scale, on purpose, and brings you the read.
 
-The point of these docs is the opposite of a black box. We show you the whole engine: how a study is composed, how each agent shops, what gets captured, how the report stays bound to the evidence, and what happens when a run can't get a clean read. The hood stays open.
+No black box. The whole engine is open to inspection: how a study is composed, how each agent shops, what gets captured, how the report stays bound to its evidence, and what happens when a run can't get a clean read.
 
 A study runs in five stages. Every claim it produces opens to the receipt behind it.
 
@@ -37,9 +37,9 @@ A study begins with a declared question about your category: how the agents real
 
 ### ② Panel — the instrument
 
-The agents that do the shopping are a **panel**: a weighted sample drawn from GPT, Gemini, Claude, and Perplexity Sonar, locked for the duration of a study and stamped onto every run. Same panel, same question, comparable runs — quarter over quarter. AI models change constantly; the panel is treated as a versioned instrument so a measurement taken in one quarter can be compared to the next, with any change to the instrument recorded as a numbered, visible event rather than silently absorbed.
+The agents that do the shopping are a **panel**: a weighted sample drawn from GPT, Gemini, Claude, and Perplexity Sonar, locked for the duration of a study and stamped onto every run. Same panel, same question, comparable runs — quarter over quarter. AI models change constantly, so the panel is pinned as a versioned instrument — a measurement from one quarter stays comparable to the next. Any change to the panel is recorded as a numbered, visible event, never silently absorbed.
 
-<Card title="The Panel as an Instrument" icon="layers" href="/how-it-works/panel-as-an-instrument">
+<Card title="The Panel as an Instrument" icon="layer-group" href="/how-it-works/panel-as-an-instrument">
   Panel composition, version pinning, and the stability policy that keeps measurements comparable over time.
 </Card>
 
@@ -55,7 +55,7 @@ The browse lane regularly meets pages that don't serve automated traffic. We don
 
 ### ④ Evidence — per-run receipts
 
-Each run is one agent making one trip, and what it does is written down as it happens — not reconstructed afterward. A run retains its **transcript** (the agent's own turn-by-turn record, with credential and secret-token patterns scrubbed), its **journey** (the sources it actually touched and where each came from), its **access posture** (reached or access-limited, per attempt), and the plain facts: which model stood in for it, which lane it ran, whether it gathered enough evidence to count.
+Each **run** — one agent's single trip through your category's question — is written down as it happens, not reconstructed afterward. A run retains its **transcript** (the agent's own turn-by-turn record, with credential and secret-token patterns scrubbed), its **journey** (the sources it actually touched and where each came from), its **access posture** (reached or access-limited, per attempt), and the plain facts: which model stood in for it, which lane it ran, whether it gathered enough evidence to count.
 
 Every source a run touches becomes one uniform **evidence card**, in the same shape whether it came from a browsed page or a cited source. That shared shape is what a single count across both lanes is built on: browse and search-native cells fold into one source-backed denominator, end-to-end. No claim in the report floats: every finding and every count carries at least one reference back to a card, and that evidence is retrievable.
 
