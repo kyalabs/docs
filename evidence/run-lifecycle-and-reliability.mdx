@@ -3,7 +3,7 @@ title: "Run Lifecycle & Reliability"
 description: "How a study is queued, what each outcome state means — partial versus failed versus held — and what a re-run actually is: the lifecycle contract behind repeated measurement."
 ---
 
-A Voice of Agent study is not a synchronous API call that returns in a second. It is a batch of agent trips run against live, changing shopping surfaces, and any one of them can be slow, access-limited, or inconclusive on a given day. A buyer evaluating kya for repeated measurement — a quarterly baseline, a competitive watch, a pre/post-launch read — needs to know exactly what happens across that batch: how runs are queued, what a *partial* result means versus a *failed* one versus a *held* one, and what a re-run actually is.
+A ShoppiPanel study is not a synchronous API call that returns in a second. It is a batch of agent trips run against live, changing shopping surfaces, and any one of them can be slow, access-limited, or inconclusive on a given day. A buyer evaluating kya for repeated measurement — a quarterly baseline, a competitive watch, a pre/post-launch read — needs to know exactly what happens across that batch: how runs are queued, what a *partial* result means versus a *failed* one versus a *held* one, and what a re-run actually is.
 
 This is the lifecycle contract. The reliability story is the same one that runs through the rest of these docs: **the state of your run is a typed, computed object — not a status someone eyeballs** — and the honest outcome is the one the system is built to produce.
 
@@ -69,6 +69,7 @@ Every state in the lifecycle resolves to a clear claim about your study — what
 | **Partial success** | A *delivered* report you can read, usable with its limits printed on its face — marked **not research-grade** where the evidence was thin. Never silently upgraded into a clean read. |
 | **Failed** | No study formed — the rig could not operate, or too few of the panel's cells returned a result. The run collapses rather than handing you a hollow report. |
 | **Delayed** | The run is held and being looked at — an integrity or budget hold, not yet an outcome. It is neither shipped nor failed while it sits here. |
+| **Provider degraded** | An upstream data provider faltered; the run is routing around it. Transient, not terminal. |
 | **Queued / Running** | In flight. Not terminal; the study has not yet resolved to an outcome. |
 
 The line that matters: a **finished** study is graded on its evidence — research-grade, or shipped-and-marked — while a study that **never formed** is a *Failed* run, a structurally different thing from a thin one. The honesty layer's discipline is what keeps those two from blurring: thin-but-usable ships marked, a study that could not form collapses, and neither is ever narrated into the other.
