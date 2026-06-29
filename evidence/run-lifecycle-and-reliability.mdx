@@ -96,7 +96,7 @@ The line that matters: a **finished** study is graded on its evidence — resear
 Seven, and only seven, on your surface: *Queued, Running, Provider degraded, Delayed, Partial success, Failed, and Report ready.* Every internal condition maps to exactly one of them through a single deterministic projection.
 
 **What's the difference between "partial" and "failed"?**
-Partial success is a usable report with its caveats printed on it — thin evidence still ships, marked not research-grade where that applies. *Failed* is reserved for a run that could not form a study at all — the rig could not operate (orphaned, stuck, over its execution budget, or unable to produce a report), or too few of the panel's cells returned a result, so the run collapses rather than shipping hollow. It is a structural outcome, not a verdict on how much evidence a *finished* study gathered. The caveat on a partial is computed from the counts, not judged by hand.
+Partial success = a usable report that ships marked, where evidence was thin. Failed = a run that could not form a study at all. The full distinction is in [The Honesty Layer](/evidence/honesty-layer) and the section above.
 
 **What happens if I submit the same study twice?**
 It collapses to one run. Submission carries an idempotency key, so retries and duplicates resolve to the same run identity, the same status, and one result — never a double run.
@@ -106,3 +106,17 @@ A re-measurement on the same instrument — your original panel version where pr
 
 **Will my study just hang if you're at capacity?**
 No. Studies queue and wait for capacity rather than failing for lack of it; a queued study is durable and replayable, not dropped.
+
+## Where to go next
+
+<CardGroup cols={3}>
+  <Card title="The Panel as an Instrument" icon="layer-group" href="/how-it-works/panel-as-an-instrument">
+    The panel-of-record behind one report — roster, composition, and the versioning contract a re-run measures against.
+  </Card>
+  <Card title="The Honesty Layer" icon="shield-check" href="/evidence/honesty-layer">
+    The compute-then-narrate discipline that draws the partial-versus-failed line.
+  </Card>
+  <Card title="What You Get" icon="file-chart-column" href="/what-you-get">
+    What a finished study hands you, and how far you can lean on it.
+  </Card>
+</CardGroup>

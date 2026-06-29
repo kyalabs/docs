@@ -128,15 +128,6 @@ Read this as a buyer: the trust you place in a ShoppiPanel report is not asking 
 ## Common questions
 
 <AccordionGroup>
-  <Accordion title="Does an AI write the headline?">
-    A model narrates a headline, but it cannot choose the conclusion. The conclusion — winner, distribution, verdict class, confidence — is computed from the audited evidence first, and the narration is bound to it. A headline that contradicts the computed verdict is replaced before the report ships.
-  </Accordion>
-  <Accordion title="What stops the headline and the body from disagreeing?">
-    A reconciliation hold. Every counted claim in the headline is checked against the audited trip tally — off the same distribution that produced the headline — and a mismatch holds the report rather than shipping it. This is one of only two situations where a report is stopped rather than shipped-with-disclosure; everything else that could be wrong with a study is disclosed, not held.
-  </Accordion>
-  <Accordion title="What if the study didn't gather enough evidence?">
-    If the study formed but the evidence is thin, it ships marked as not research-grade — a visibly thin read, never silently upgraded into a confident report. A separate case is a run that could not form a study at all: either the rig failed to operate, or too few of the panel's cells returned results to form a credible read. That is the terminal failed state — the run collapses rather than shipping a hollow report. The two are distinct: thin-but-formed ships flagged; could-not-form fails. The full lifecycle is in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
-  </Accordion>
   <Accordion title="Is the 'what we don't claim' language something you might forget to include?">
     No. The claim boundary is a required structural field, set when the report is built and rendered on every surface. A report missing it fails its own contract.
   </Accordion>
