@@ -76,8 +76,7 @@
           },
           "under-the-hood/data-outputs",
           "under-the-hood/api-reference",
-          "under-the-hood/data-handling-and-security",
-          "under-the-hood/live-today"
+          "under-the-hood/data-handling-and-security"
         ]
       },
       {
@@ -95,6 +94,7 @@
     ]
   },
   "redirects": [
+    { "source": "/under-the-hood/live-today", "destination": "/roadmap" },
     {
       "source": "/panel-as-an-instrument",
       "destination": "/how-it-works/panel-as-an-instrument"
