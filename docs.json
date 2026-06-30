@@ -95,9 +95,6 @@
     ]
   },
   "redirects": [
-    { "source": "/what-you-get", "destination": "/insights/overview" },
-    { "source": "/how-its-offered", "destination": "/offered/overview" },
-    { "source": "/how-it-works/overview", "destination": "/under-the-hood/overview" },
     {
       "source": "/panel-as-an-instrument",
       "destination": "/how-it-works/panel-as-an-instrument"
