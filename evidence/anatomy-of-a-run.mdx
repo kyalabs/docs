@@ -49,7 +49,7 @@ Before the report states any rate or any verdict, it states the counts. A shippe
   <Step title="Did not run">
     Trips that never executed or fell out of the pipeline before producing a result — counted, never silently dropped.
   </Step>
-  <Step title="Inconclusive">
+  <Step title="Insufficient">
     Trips that ran but came back without enough evidence to count.
   </Step>
   <Step title="Metric-eligible">
@@ -57,7 +57,7 @@ Before the report states any rate or any verdict, it states the counts. A shippe
   </Step>
 </Steps>
 
-A rate with no denominator is a place to hide. "Most agents recommended you" means nothing until you can see that it was, say, a clear majority of the metric-eligible trips — with the planned, did-not-run, and inconclusive trips all counted and visible. The ledger makes the denominator a first-class fact of the report, so the rate can be checked against it rather than taken on faith.
+A rate with no denominator is a place to hide. "Most agents recommended you" means nothing until you can see that it was, say, a clear majority of the metric-eligible trips — with the planned, did-not-run, and insufficient trips all counted and visible. The ledger makes the denominator a first-class fact of the report, so the rate can be checked against it rather than taken on faith.
 
 Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity — not a word guessed back out of its prose afterward. The count is not asserted; it is sourced. That sourced count is what the report's headline is computed from before any sentence is written — the mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
 
