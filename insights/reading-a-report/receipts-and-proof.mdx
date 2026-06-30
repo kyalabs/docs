@@ -20,7 +20,7 @@ A receipt is one trip's complete record. It contains:
 - **The artifact** — the agent's final answer, captured verbatim.
 - **The classification** — how this trip was scored against the metric (e.g., _surfaced / not surfaced_).
 
-A receipt is a queryable record, not a screenshot. You can open it in the platform, export it, and link to it.
+A receipt is a queryable record, not a screenshot. You can open it in the platform and link to it today; structured export is rolling out (see [What's exportable](#whats-exportable)).
 
 ## The proof view
 
@@ -36,8 +36,8 @@ The proof view is the platform UI for receipts. It opens to one number, then exp
   <Step title="Open a single trip.">
     The full receipt — agent, persona, mission, steps, sources, artifact, classification.
   </Step>
-  <Step title="Filter, if you need to.">
-    By agent, by persona cohort, by access posture. The denominator updates as you filter.
+  <Step title="Open the static proof artifact.">
+    The proof view is a static `proof_report.html` artifact alongside the receipts list — the captured record behind that number, not a live-filtering UI.
   </Step>
 </Steps>
 
@@ -49,11 +49,15 @@ It's also what separates the rig from a scraper dashboard: a scraper gives you a
 
 ## What's exportable
 
-| Object | Exportable |
+| Object | Status |
 | --- | --- |
-| The full receipt for one trip | Yes — JSON, includes the agent's verbatim artifact |
-| The receipt set behind one finding | Yes — bulk export, cloud-storage handoff |
-| The proof view itself (as a shared URL) | Yes — link to a specific number, scoped to your workspace |
+| The full receipt for one trip | Rolling out — JSON export, includes the agent's verbatim artifact. Today the read path is an operator-admin retrieval, not self-serve. |
+| The receipt set behind one finding | Rolling out — bulk export with cloud-storage handoff, on the same self-serve track. |
+| The proof view itself (as a shared link) | Yes — shareable via an unguessable link to a specific number. |
+
+<Note>
+  Per-trip JSON and bulk receipt export are **rolling out**: built, but served today through an operator-admin read path rather than an in-product self-serve action. Until that lands, ask us and we'll pull the export for you.
+</Note>
 
 See [data outputs & schema](/under-the-hood/data-outputs) for the field-level reference.
 

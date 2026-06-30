@@ -14,13 +14,14 @@ A verdict is one of a fixed set of classes. The class is determined by the metri
 
 | Class | What it says | When you see it |
 | --- | --- | --- |
-| **Surfaced** | You appear in the agent's answer for the category question, with a frequency above the panel's signal threshold. | A study where the brand reads with consistent agent visibility. |
-| **Mixed** | You surface in some agents and personas, not others — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
-| **Not surfaced** | You don't appear, or appear below threshold, across the panel. | Categories where the brand isn't yet part of the agent's recommendation set. |
-| **Access-limited** | The panel couldn't reach enough of your surfaces to call the question. | A reach issue, not an absence — see the reach findings. |
-| **Insufficient** | The denominator is too thin to support any verdict — usually a panel-size or persona-coverage issue. | Rare. Triggers a re-run, not a delivered finding. |
+| **A clear lead** | One brand led the majority of trips across the panel — a dominant winner, stated with its distribution ("leading, not unanimous"). | A study where one product consistently carries the agent's answer. |
+| **A contested lead** | A brand leads, but the margin is narrow and rivals trade places across agents and personas — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
+| **A genuine split** | No single brand leads; the panel divides across several products with no dominant winner. | Categories where the agent's recommendation set is genuinely fragmented. |
+| **No signal** | The evidence doesn't support naming a leader — too few informative trips, or no discernible pattern. | When the denominator is thin or the reads don't converge. |
 
-A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it.
+A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it. The verdict class is computed deterministically from the count ledger before any narrative is written — see [The Honesty Layer](/evidence/honesty-layer).
+
+A **no-signal** verdict can still be **delivered**. When the evidence is thin, the report ships marked **not research-grade** at **low confidence** — never silently upgraded into something it isn't. A modest study is not held back; it's labeled. A low-confidence delivery may prompt a re-run, but the system does not auto-rerun in place of delivering the finding.
 
 ## How confidence is read
 

@@ -19,7 +19,7 @@ When it ships, the API will let you read a delivered study and its data package 
 
 ## Planned read surface
 
-The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its findings, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs): read a study through the API and you get the same bytes the handoff would have written.
+The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its recommendations and non-recommendations, its verdict, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs): read a study through the API and you get the same bytes the handoff would have written.
 
 Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch — they are deliberately not pinned here while the surface is in development, so an integration you plan against the shape above doesn't harden against details that may still move.
 
@@ -27,7 +27,7 @@ Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1
 
 | Capability | Status |
 | --- | --- |
-| Read delivered studies, trips, findings, and sources | **v1 — committed.** |
+| Read delivered studies, trips, recommendations and non-recommendations, the verdict, and sources | **v1 — committed.** |
 | Webhook on study delivery — a notification carrying the study id and a manifest reference | **Planned.** |
 | Submit a study from a saved mission | **Planned (v2).** |
 | Compose a new mission via API | **Planned (v2).** |

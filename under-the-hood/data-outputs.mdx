@@ -1,140 +1,258 @@
 ---
 title: "Data outputs and schema"
-description: "The structured data a study returns — file layout in your cloud-storage handoff, schema reference, and field-level definitions."
+description: "The structured data a ShoppiPanel study returns — the single JSON extract, its top-level shape, and field-level definitions."
 sidebarTitle: "Data outputs & schema"
 ---
 
-A delivered study returns two artifacts: a **report** (the read) and a **data package** (the structured layer behind it). This page covers the data package.
+A delivered ShoppiPanel study returns two artifacts: a **report** (the read) and a **structured extract** (the machine-readable layer behind it). This page covers the structured extract.
 
-The data package is the machine-readable form of everything in the report. The report renders the data package; if a number is in the report, it's in the data package.
+The extract is the machine-readable form of everything in the report. The report renders the extract; if a number is in the report, it's in the extract.
 
 <Note>
-  **Draft — schema illustrative.** Field names, ID prefixes, and example values on this page are representative of the v1 design. Final field-level definitions ship with the data package as `schema/*.schema.json`. Verify with your kya labs contact before integrating.
+  **Maturity stamp.** The **shape, field names, and semantics on this page are live today** — they match the extract the engine emits per run (snake_case, schema `standard_extract.v0`). What is **rolling out** is the *self-serve export interface*: today the extract is handed to you operator-mediated (white-glove). A self-serve cloud-storage handoff is **planned for integration** — see [Transport](#transport). Confirm the integration path with your kya labs contact before you wire it into a pipeline.
 </Note>
 
 ## Delivery shape
 
+The extract is **one pretty-printed JSON file** per run — not gzipped, not newline-delimited, not split across multiple objects. One run produces one `standard_extract.v0.json` plus a companion `fidelity_receipt.v0.json` (the same fidelity receipt is also embedded under the extract's `fidelity_receipt` key).
+
 | Property | Value |
 | --- | --- |
-| **Format** | Newline-delimited JSON (JSONL), gzipped |
-| **Encoding** | UTF-8 |
-| **Transport** | Direct export, or cloud-storage handoff into a bucket you designate (S3- or R2-compatible) |
-| **Naming** | `kya-study-{studyId}/{objectName}.jsonl.gz` |
-| **Checksum** | A checksum manifest per object, so you can verify integrity on receipt |
+| **Format** | A single pretty-printed JSON document (UTF-8). Keys are snake_case. |
+| **Schema handle** | `standard_extract.v0` — carried on every extract as the top-level `schema_version` |
+| **Files per run** | `standard_extract.v0.json` (the extract) · `fidelity_receipt.v0.json` (the receipt, also embedded) |
+| **Content hash** | A single **run-level content hash** over the package — `sha256:<hex>`, content-addressed — so you can verify the package you received is the package we produced. **This is a per-run hash, not a per-object signed manifest.** |
 
-A study's package is immutable once delivered. Re-runs produce a new `studyId`; never a mutation of the old one.
+A run's extract is immutable once produced. Re-runs produce a new `run_id`; never a mutation of the old one.
 
-## The five objects in a package
+### Transport
 
-Every study delivers these five JSONL objects:
+| Path | Status |
+| --- | --- |
+| **Operator-mediated (white-glove) handoff** | **Live today.** Your kya labs contact delivers the extract for a delivered run. |
+| **Self-serve cloud-storage handoff** (into a bucket you designate) and **in-product structured-data export** | **Planned for integration — rolling out.** Until it lands, export runs with us in the loop. See [the roadmap](/roadmap). |
+
+<Note>
+  Never present the self-serve export or in-product structured-data export as a live, self-service feature today — it is rolling out. The **extract itself** (the JSON shape documented here) is what's live; the **interface that hands it to you without an operator** is what's being turned on.
+</Note>
+
+## Top-level shape
+
+The extract is a single object. These are its top-level keys, as the engine emits them:
 
 <CardGroup cols={2}>
-  <Card title="study.jsonl" icon="receipt">
-    One record. The study's metadata: mission, panel version, brand set, surface set, date, posture (Pro / Research), and the count ledger summary.
+  <Card title="identity" icon="receipt">
+    The run's identity and lineage: `run_id`, `study_id`, `report_slug`, methodology version + hash, compiler version, `generated_at`.
   </Card>
 
-  <Card title="trips.jsonl" icon="route">
-    One record per trip — the full receipt for one agent's run. The atomic unit of evidence.
+  <Card title="input" icon="book-open">
+    The redacted operator brief that framed the run: `focus_brand`, `category`, `research_question`, `study_type`, `competitive_set_posture`.
   </Card>
 
-  <Card title="findings.jsonl" icon="file-chart-column">
-    One record per finding (per verdict, per cut, per reach finding). Each carries the trip IDs that compute it.
+  <Card title="population" icon="layer-group">
+    The count ledger — how many cells were planned, completed, did not run, and are metric-eligible. Field-level breakdown [below](#population).
   </Card>
 
-  <Card title="sources.jsonl" icon="globe">
-    One record per (trip, URL) pair. The access posture, the request, the response signature.
+  <Card title="trips" icon="route">
+    One record per trip — the receipt for one agent's run. The atomic unit of evidence (steps, evidence refs, status, eligibility).
   </Card>
 
-  <Card title="manifest.json" icon="shield-check">
-    The checksum manifest — what you verify the package against on receipt.
+  <Card title="entities" icon="users">
+    The brands / products the study reasons over, derived from the manifest, the trips, and the filtered recommendations.
+  </Card>
+
+  <Card title="recommendations" icon="circle-check">
+    The recommendations the panel surfaced, each backed by source cards. Only recommendations whose evidence refs all resolve to a source card are carried.
+  </Card>
+
+  <Card title="non_recommendations" icon="split">
+    The companion set to `recommendations` (brands the panel reasoned over but did not recommend).
+  </Card>
+
+  <Card title="source_cards" icon="globe">
+    One record per fetched source — the access posture, the request, the response signature, the provenance.
+  </Card>
+
+  <Card title="citations" icon="file-chart-column">
+    One record per source card, projected as a citation (`source_id`, `url`, `title`, `provenance`, `snippet`, `trip_ids`).
+  </Card>
+
+  <Card title="caveats" icon="triangle-exclamation">
+    The qualifiers attached to the read — what to discount and why.
+  </Card>
+
+  <Card title="claim_boundary" icon="shield-check">
+    The claim boundaries from the compiler — what the study does and does not assert.
+  </Card>
+
+  <Card title="verdict" icon="gauge">
+    The publish verdict and any blockers, reconciled against the population.
+  </Card>
+
+  <Card title="telemetry" icon="wrench">
+    Run telemetry — trip and source-card rollups, cost ledger.
+  </Card>
+
+  <Card title="fidelity_receipt" icon="microscope">
+    The fidelity metrics and any research-grade flags. Also emitted as a standalone `fidelity_receipt.v0.json`.
   </Card>
 </CardGroup>
+
+<Note>
+  The extract also carries an envelope: `schema_version` (`standard_extract.v0`) and `generated_at` at the top level alongside the keys above.
+</Note>
 
 ## Schema reference
 
 <Note>
-  The schemas below are stable for v1. Field additions are non-breaking; field removals or type changes ship under a new major version with a migration window. The current schema version is recorded in `study.jsonl → schemaVersion`.
+  The shape below is **live today** — it matches what the engine emits. Field additions are non-breaking; field removals or type changes ship under a new schema handle. The current handle is recorded on every extract as the top-level `schema_version`.
 </Note>
 
-### `study.jsonl`
+### Envelope + `identity`
 
 ```json
 {
-  "studyId": "stu_01H...",
-  "schemaVersion": "1.0",
-  "missionId": "mis_01H...",
-  "panelVersion": "panel.2026-Q2.r3",
-  "posture": "pro",
-  "deliveredAt": "2026-06-30T14:22:00Z",
-  "brandSet": ["acme", "competitor-a", "competitor-b"],
-  "surfaceSet": ["product-pages", "comparison-pages", "support-articles"],
-  "countLedger": {
-    "planned": 100,
-    "completed": 78,
-    "accessLimited": 18,
-    "insufficient": 4,
-    "metricEligible": 78
+  "schema_version": "standard_extract.v0",
+  "generated_at": "2026-06-30T14:22:00Z",
+  "identity": {
+    "run_id": "run-023",
+    "study_id": "stu_2026q2_crm",
+    "report_slug": "crm-buyer-panel",
+    "methodology_version": "panel.2026-Q2.r3",
+    "methodology_version_sha": "a1b2c3...",
+    "compiler_version": "standard_extract.v0",
+    "generated_at": "2026-06-30T14:22:00Z"
   }
 }
 ```
 
-### `trips.jsonl`
+### `input`
 
 ```json
 {
-  "tripId": "trp_01H...",
-  "studyId": "stu_01H...",
-  "agent": { "vendor": "<agent-vendor>", "model": "<model-class>", "retrievalMode": "browse-native" },
-  "personaCohort": "smb-it-buyer",
+  "input": {
+    "focus_brand": "acme",
+    "category": "CRM for small teams",
+    "research_question": "Which CRM should a 20-person team pick?",
+    "study_type": "competitive-panel",
+    "competitive_set_posture": "named-set",
+    "redaction_status": "redacted_operator_brief"
+  }
+}
+```
+
+### `population`
+
+The count ledger. **`blocked` is an internal COUNT field — cells that never ran or failed the pipeline. Read it as "did not run."** It is not a reach posture, and it does not mean a page told the agent it was blocked. (Reach posture lives on each source card, as *reached / access-limited*.)
+
+```json
+{
+  "population": {
+    "planned": 100,
+    "completed_detailed": 62,
+    "completed_thin": 16,
+    "blocked": 18,
+    "insufficient": 4,
+    "metric_eligible": 78,
+    "source_backed": 78,
+    "cells_with_evidence": 80
+  }
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `planned` | Cells the run intended to dispatch. |
+| `completed_detailed` | Source-backed cells minus thin ones — full receipts. |
+| `completed_thin` | Source-backed but capture-degraded cells. |
+| `blocked` | **Did not run / incomplete** — cells that never ran or failed the pipeline. Internal count name; not a reach posture. |
+| `insufficient` | Planned cells that neither completed source-backed nor failed outright. |
+| `metric_eligible` | Cells eligible to compute a metric. |
+| `source_backed` | Cells that fetched a page *and* produced a usable recommendation. |
+| `cells_with_evidence` | Cells that fired and returned at least one usable evidence ref. |
+
+### `trips[]`
+
+```json
+{
+  "trip_id": "trp_01H...",
+  "status": "pass",
+  "agent": { "vendor": "<agent-vendor>", "model": "<model-class>", "retrieval_mode": "browse-native" },
+  "persona_cohort": "smb-it-buyer",
   "mission": "Which CRM should a 20-person team pick?",
   "steps": [ /* ordered step records — searches, fetches, citations */ ],
-  "sourceIds": ["src_01H...", "src_01H..."],
+  "evidence_refs": ["src_01H...", "src_01H..."],
+  "capture_state": "capture_ok",
+  "eligibility": { "compiler_eligible": true },
   "artifact": "The agent's verbatim final answer text.",
-  "classification": { "metric": "surfaced", "value": true, "confidence": 0.82 },
-  "completedAt": "2026-06-30T13:45:12Z"
+  "completed_at": "2026-06-30T13:45:12Z"
 }
 ```
 
-### `findings.jsonl`
+### `source_cards[]`
+
+Per-card reach posture is **reached / access-limited** — never the absolute word "blocked" on the buyer face.
 
 ```json
 {
-  "findingId": "fnd_01H...",
-  "studyId": "stu_01H...",
-  "kind": "verdict",
-  "scope": { "cut": "panel" },
-  "value": "mixed",
-  "denominator": { "type": "metricEligible", "count": 78 },
-  "supportingTripIds": ["trp_01H...", "trp_01H..."],
-  "confidence": 0.74
-}
-```
-
-### `sources.jsonl`
-
-```json
-{
-  "sourceId": "src_01H...",
-  "tripId": "trp_01H...",
+  "source_id": "src_01H...",
+  "cell_id": "trp_01H...",
   "url": "https://example.com/products/checkout",
-  "accessPosture": "access-limited",
-  "accessLimitedReason": "bot-challenge",
-  "httpStatus": 403,
-  "fetchedAt": "2026-06-30T13:44:50Z"
+  "access_posture": "access-limited",
+  "access_limited_reason": "bot-challenge",
+  "status": 403,
+  "provenance": "fetch",
+  "title": "Checkout — Example",
+  "gist": "...",
+  "fetched_at": "2026-06-30T13:44:50Z"
 }
 ```
 
-Full field-level definitions ship with the data package; the exact schema is confirmed with your kya labs contact before you integrate.
+### `citations[]`
+
+```json
+{
+  "citation_id": "src_01H...:citation",
+  "source_id": "src_01H...",
+  "url": "https://example.com/products/checkout",
+  "title": "Checkout — Example",
+  "provenance": "fetch",
+  "snippet": "...",
+  "trip_ids": ["trp_01H..."]
+}
+```
+
+### `fidelity_receipt`
+
+The fidelity metrics and any research-grade flags. Quality signals here **flag — they do not hold** the report. A run with a breached floor still ships, stamped with the flag.
+
+```json
+{
+  "fidelity_receipt": {
+    "metrics": {
+      "planned": 100,
+      "source_backed_count": 78,
+      "source_backed_coverage": 0.78,
+      "degraded_to_memory_count": 3
+    },
+    "blockers": [],
+    "warnings": [],
+    "artifact_ref": "compiled/fidelity_receipt.v0.json"
+  }
+}
+```
+
+Full field-level definitions ship alongside the extract; confirm the integration path with your kya labs contact before you wire it into a pipeline.
 
 ## Stability guarantees
 
 | Change type | Versioning |
 | --- | --- |
-| New optional field | Non-breaking. Same `schemaVersion`. |
-| New enum value (e.g., a new `accessLimitedReason`) | Non-breaking. Documented in the changelog. |
-| Removed field, type change, or semantic change | Breaking. New major `schemaVersion`, with a migration window. |
+| New optional field | Non-breaking. Same `schema_version`. |
+| New enum value (e.g., a new `access_limited_reason`) | Non-breaking. Documented in the changelog. |
+| Removed field, type change, or semantic change | Breaking. New `schema_version` handle, with a migration window. |
 
-The changelog is delivered with every package as `CHANGELOG.md`.
+The current schema handle is `standard_extract.v0`, recorded on every extract.
 
 ## Where to go next
 

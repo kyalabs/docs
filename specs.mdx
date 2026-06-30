@@ -12,7 +12,7 @@ The agents that do the shopping are a **panel** — a weighted sample of the ass
 | Attribute | Specification |
 |---|---|
 | **Model families** | GPT, Gemini, Claude, and Perplexity Sonar (the search-native lane) |
-| **Panel-of-record** | A 25-trip mixed panel, composed to track the live consumer-agent mix — a majority of trips on the most-used family, the rest split across the others |
+| **Panel-of-record** | A 25-trip mixed panel, composed to track the live consumer-agent mix — the largest share of trips on the most-used family — a plurality, not a majority — the rest split across the others |
 | **Lighter default** | A smaller composition for quick reads; the study always declares which panel it ran on |
 | **Lanes** | **Browse** (the agent opens and reads pages) and **search-native** (a search-grounded model answers with citations attached) |
 | **Versioning** | Composition, methodology, and mission shape are a locked, numbered version; same version + same mission = comparable runs |
@@ -50,7 +50,7 @@ Every source a trip touches becomes one uniform **evidence card**, in the same s
   </Card>
 </CardGroup>
 
-The package carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence opened — by you, without server access.
+The package carries a content hash and pointers to its core receipts, so a delivered report can be located and its contents verified — the hash lets you confirm the package you hold is the one we delivered, unchanged.
 
 ## Access & delivery
 
@@ -59,8 +59,8 @@ You reach a completed study more than one way. Which methods are wired into your
 | Method | What it is |
 |---|---|
 | **In-product** | Read the report, its receipts, and the proof view in the product — per-user access. |
-| **Export** | Download the report package and its structured data. |
-| **Cloud-storage handoff** | Delivery into your own cloud storage — an S3- or R2-compatible bucket. |
+| **Export** | Download the report package and its structured data — **rolling out**; scoped per engagement, with us in the loop until it lands. |
+| **Cloud-storage handoff** | Delivery into your own cloud storage — an S3- or R2-compatible bucket — **scoped per engagement**, not yet a wired self-serve method. |
 | **API read** | Programmatic read of a study and its structured data — **in development**. |
 
 ## The count ledger
@@ -71,8 +71,8 @@ Before any rate or verdict, a report states its counts. A rate with no denominat
 |---|---|
 | **Planned** | The trips the study set out to run |
 | **Completed** | The trips that ran to an answer |
-| **Access-limited** | Trips that met a surface turning away automated traffic — counted *as* access-limited, never silently dropped |
-| **Insufficient** | Trips that returned without enough evidence to count |
+| **Did not run** | Trips that never completed a run — the cell couldn't get through the pipeline, so no artifact was produced. Incomplete, not a result (the engine's internal `blocked` count; distinct from the reach posture). |
+| **Inconclusive** | Trips that ran but came back without enough evidence to count |
 | **Metric-eligible** | The trips that actually carry the report's numbers |
 
 The reasoning behind counts-before-rates is in [Anatomy of a Run](/evidence/anatomy-of-a-run).

@@ -61,7 +61,7 @@ Categories of subprocessor we use:
 - **Agent providers** (the model vendors whose agents the panel runs).
 - **Observability** (logging, metrics, error tracking).
 
-We do not use subprocessors for the capture or evidence layer itself — that runs on infrastructure we operate.
+The evidence-**scoring** layer runs on infrastructure we operate. The capture/fetch path — pulling public web content — may use a managed headless-browser provider; where it does, that provider is named in the subprocessor list. Transport (TLS) and at-rest encryption (AES-256) remain provider-backed as described above.
 
 ## Incident posture
 
