@@ -6,7 +6,7 @@ sidebarTitle: "Data outputs & schema"
 
 A delivered study returns two artifacts: a **report** (the read) and a **data package** (the structured layer behind it). This page covers the data package.
 
-The data package is the machine-readable form of everything in the report — and the form the rig itself reads from. The report renders the data package; if a number is in the report, it's in the data package.
+The data package is the machine-readable form of everything in the report. The report renders the data package; if a number is in the report, it's in the data package.
 
 <Note>
   **Draft — schema illustrative.** Field names, ID prefixes, and example values on this page are representative of the v1 design. Final field-level definitions ship with the data package as `schema/*.schema.json`. Verify with your kya labs contact before integrating.
@@ -18,9 +18,9 @@ The data package is the machine-readable form of everything in the report — an
 | --- | --- |
 | **Format** | Newline-delimited JSON (JSONL), gzipped |
 | **Encoding** | UTF-8 |
-| **Transport** | Cloud-storage handoff (S3, GCS, or Azure Blob) — your bucket, our pre-signed write |
+| **Transport** | Direct export, or cloud-storage handoff into a bucket you designate (S3- or R2-compatible) |
 | **Naming** | `kya-study-{studyId}/{objectName}.jsonl.gz` |
-| **Checksum** | SHA-256 manifest per object, signed |
+| **Checksum** | A checksum manifest per object, so you can verify integrity on receipt |
 
 A study's package is immutable once delivered. Re-runs produce a new `studyId`; never a mutation of the old one.
 
@@ -29,7 +29,7 @@ A study's package is immutable once delivered. Re-runs produce a new `studyId`; 
 Every study delivers these five JSONL objects:
 
 <CardGroup cols={2}>
-  <Card title="study.jsonl" icon="file">
+  <Card title="study.jsonl" icon="receipt">
     One record. The study's metadata: mission, panel version, brand set, surface set, date, posture (Pro / Research), and the count ledger summary.
   </Card>
 
@@ -41,12 +41,12 @@ Every study delivers these five JSONL objects:
     One record per finding (per verdict, per cut, per reach finding). Each carries the trip IDs that compute it.
   </Card>
 
-  <Card title="sources.jsonl" icon="link">
+  <Card title="sources.jsonl" icon="globe">
     One record per (trip, URL) pair. The access posture, the request, the response signature.
   </Card>
 
-  <Card title="manifest.json" icon="signature">
-    The signed checksum manifest. Required for verification on receipt.
+  <Card title="manifest.json" icon="shield-check">
+    The checksum manifest — what you verify the package against on receipt.
   </Card>
 </CardGroup>
 
@@ -84,7 +84,7 @@ Every study delivers these five JSONL objects:
 {
   "tripId": "trp_01H...",
   "studyId": "stu_01H...",
-  "agent": { "vendor": "openai", "model": "gpt-class", "retrievalMode": "browse-native" },
+  "agent": { "vendor": "<agent-vendor>", "model": "<model-class>", "retrievalMode": "browse-native" },
   "personaCohort": "smb-it-buyer",
   "mission": "Which CRM should a 20-person team pick?",
   "steps": [ /* ordered step records — searches, fetches, citations */ ],
@@ -118,28 +118,28 @@ Every study delivers these five JSONL objects:
   "tripId": "trp_01H...",
   "url": "https://example.com/products/checkout",
   "accessPosture": "access-limited",
-  "blockReason": "bot-challenge",
+  "accessLimitedReason": "bot-challenge",
   "httpStatus": 403,
   "fetchedAt": "2026-06-30T13:44:50Z"
 }
 ```
 
-Full field-level definitions ship with the data package as `schema/*.schema.json` (JSON Schema, draft 2020-12).
+Full field-level definitions ship with the data package; the exact schema is confirmed with your kya labs contact before you integrate.
 
 ## Stability guarantees
 
 | Change type | Versioning |
 | --- | --- |
 | New optional field | Non-breaking. Same `schemaVersion`. |
-| New enum value (e.g., a new `blockReason`) | Non-breaking. Documented in the changelog. |
-| Removed field, type change, or semantic change | Breaking. New major `schemaVersion`. 90-day migration window. |
+| New enum value (e.g., a new `accessLimitedReason`) | Non-breaking. Documented in the changelog. |
+| Removed field, type change, or semantic change | Breaking. New major `schemaVersion`, with a migration window. |
 
 The changelog is delivered with every package as `CHANGELOG.md`.
 
 ## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="API reference" icon="code" href="/under-the-hood/api-reference">
+  <Card title="API reference" icon="book-open" href="/under-the-hood/api-reference">
     Programmatic read of a study and its data package.
   </Card>
 

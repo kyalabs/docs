@@ -5,87 +5,44 @@ sidebarTitle: "API reference"
 ---
 
 <Note>
-  **Status: in development — draft documentation.** The API surface described here represents the v1 design and is being wired, not yet GA. Endpoint shapes, auth model, and limits below are illustrative until confirmed by your kya labs contact during evaluation. The roadmap is on [Active & planned](/under-the-hood/live-today).
+  **Status: in development.** The read API described here is the v1 *design* — it is not a callable surface yet. The shapes below convey intent, not a contract: endpoints, the auth scheme, and limits are finalized before the API goes live and confirmed with your kya labs contact during evaluation. The roadmap is on [Active & planned](/under-the-hood/live-today).
 </Note>
 
-The API lets you read a delivered study and its data package programmatically — for ingestion into your warehouse, for dashboarding, or for chaining studies into your own pipelines.
+When it ships, the API will let you read a delivered study and its data package programmatically — to ingest into your warehouse, drive a dashboard, or chain studies into your own pipelines. This page describes that planned shape so you can plan an integration; it does not pin a surface you could call today.
 
 ## Design principles
 
-- **Read-only at v1.** Study submission and configuration go through the platform in v1. The API is for reading delivered work.
-- **One auth model.** Workspace-scoped API keys, rotatable, with per-key scope. SSO-tied keys come with the [access & admin](/offered/access-and-admin) layer.
-- **Same data, same schema.** What you read through the API is byte-equivalent to what the cloud-storage handoff delivers. No second source of truth.
-- **Idempotent and signed.** Every response carries the same SHA-256 signature the data package carries. You can verify integrity on receipt.
+- **Read-only at v1.** Study submission and configuration go through the platform; the API is for reading delivered work.
+- **One auth model.** Workspace-scoped keys, rotatable, issued from the workspace admin surface. SSO-tied keys arrive with the [access & admin](/offered/access-and-admin) layer.
+- **Same data, same schema.** What you read through the API is byte-equivalent to what the [cloud-storage handoff](/under-the-hood/data-outputs) delivers — no second source of truth.
+- **Integrity-verifiable.** Every response is designed to carry the same checksum the data package carries, so you can verify it on receipt.
 
-## v1 surface (committed)
+## Planned read surface
 
-| Endpoint | Returns |
-| --- | --- |
-| `GET /v1/studies` | List delivered studies in your workspace, paged. |
-| `GET /v1/studies/{studyId}` | One study record (the `study.jsonl` record). |
-| `GET /v1/studies/{studyId}/trips` | Stream the trips for a study. JSONL response. |
-| `GET /v1/studies/{studyId}/findings` | Stream the findings for a study. JSONL response. |
-| `GET /v1/studies/{studyId}/sources` | Stream the sources for a study. JSONL response. |
-| `GET /v1/studies/{studyId}/manifest` | The signed checksum manifest. |
+The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its findings, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs): read a study through the API and you get the same bytes the handoff would have written.
 
-## Authentication
+Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch — they are deliberately not pinned here while the surface is in development, so an integration you plan against the shape above doesn't harden against details that may still move.
 
-Workspace-scoped API keys, passed as a bearer token:
-
-```http
-GET /v1/studies HTTP/1.1
-Host: api.kyalabs.io
-Authorization: Bearer ksk_live_...
-Accept: application/x-ndjson
-```
-
-Keys are issued and rotated from the workspace admin surface. Per-key scope is one of `read:studies`, `read:trips`, or `read:all`.
-
-## Rate limits
-
-| Tier | Limit |
-| --- | --- |
-| Read endpoints (study, findings, manifest) | 60 requests / minute / workspace |
-| Streaming endpoints (trips, sources) | 10 concurrent streams / workspace |
-
-Limits are workspace-wide, not per-key. `429` responses include a `Retry-After` header.
-
-## Example: pull a study and its trips
-
-```bash
-# Get the study record
-curl -H "Authorization: Bearer $KYA_API_KEY" \
-     https://api.kyalabs.io/v1/studies/stu_01H...
-
-# Stream the trips
-curl -H "Authorization: Bearer $KYA_API_KEY" \
-     -H "Accept: application/x-ndjson" \
-     https://api.kyalabs.io/v1/studies/stu_01H.../trips \
-     > trips.jsonl
-```
-
-The streamed response is identical to the `trips.jsonl` object in the cloud-storage handoff. Same `schemaVersion`, same field set, same signatures.
-
-## What's not in v1 (and what's coming)
+## What's planned
 
 | Capability | Status |
 | --- | --- |
-| Read delivered studies, trips, findings, sources | **v1 — committed.** |
-| Webhook on study delivery | **v1.1 — being wired.** Push notification with the `studyId` and a signed manifest URL. |
-| Submit a study from a saved mission | **v2 — committed, design complete.** |
-| Compose a new mission via API | **v2 — committed, design complete.** |
-| Real-time stream of in-flight trips | **Not committed.** Studies remain immutable until delivered. |
+| Read delivered studies, trips, findings, and sources | **v1 — committed.** |
+| Webhook on study delivery — a notification carrying the study id and a manifest reference | **Planned.** |
+| Submit a study from a saved mission | **Planned (v2).** |
+| Compose a new mission via API | **Planned (v2).** |
+| Real-time stream of in-flight trips | **Not planned** — a study stays immutable until it is delivered. |
 
-See [the roadmap](/under-the-hood/live-today) for dates.
+See [the roadmap](/under-the-hood/live-today) for where each one sits.
 
 ## Where to go next
 
 <CardGroup cols={2}>
   <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
-    The schema the API returns.
+    The schema the API will return — the structured package delivered today.
   </Card>
 
   <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">
-    Auth, transport, key handling.
+    Personal-data posture, retention, redaction, and subprocessors.
   </Card>
 </CardGroup>
