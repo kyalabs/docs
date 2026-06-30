@@ -3,7 +3,7 @@ title: "Anatomy of a Run"
 description: "One trip, from the question it sets out on to the receipt you can open — and why every number in the report stays bound to the trips that produced it."
 ---
 
-A ShoppiPanel study is a population of *trips*. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. This page follows a single trip from the moment it sets out to the moment its evidence lands in a receipt you can open — and shows why every number in the report can be walked back to exactly the trips that produced it.
+A Voice of Agent study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. This page follows a single trip from the moment it sets out to the moment its evidence lands in a receipt you can open — and shows why every number in the report can be walked back to exactly the trips that produced it.
 
 The promise is narrow and testable: **no claim in the report floats.** Every recommendation, every count, every "this is what the agents did" carries at least one reference to a specific piece of captured evidence, and that evidence is retrievable.
 
@@ -15,11 +15,13 @@ When a trip runs, three things about it are written down as they happen — not 
   <Card title="The transcript">
     The full turn-by-turn record of what the agent was asked, what it reasoned, and what it said. The agent's own words, captured at the time, with credential and secret-token patterns scrubbed.
   </Card>
+
   <Card title="The journey">
     Which sources the trip actually touched — the pages a browsing agent fetched, or the sources a search-native agent (Perplexity Sonar) was given as citations. Each source is recorded with where it came from.
   </Card>
+
   <Card title="The access posture">
-    For a browsing agent, whether it *reached* a page and read it, or was *access-limited* on a page that turns away automated traffic. Recorded per attempt, as a graded outcome — never collapsed to a single absolute word.
+    For a browsing agent, whether it _reached_ a page and read it, or was _access-limited_ on a page that turns away automated traffic. Recorded per attempt, as a graded outcome — never collapsed to a single absolute word.
   </Card>
 </CardGroup>
 
@@ -29,7 +31,7 @@ A trip also carries the plain facts you would expect: which model family stood i
 
 Every source a trip used becomes one **evidence card** — a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency. That shared shape is what carries a single source-backed count across both lanes: browse and search-native trips fold into one denominator, end-to-end today — not the browse lane scored alone with search-native bolted on later. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
 
-This is what makes the report auditable rather than merely confident. In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records *what an agent did* is kept distinct from a card that asserts *a fact about a product*. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
+This is what makes the report auditable rather than merely confident. In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
 
 The practical effect for a reader: when the report states a number, you can find the cards behind it, and each card points at the trip and the source it came from. The evidence is the appendix, not a footnote to it.
 
@@ -45,7 +47,7 @@ Before the report states any rate or any verdict, it states the counts. A shippe
     The trips that ran to an answer.
   </Step>
   <Step title="Access-limited">
-    Trips that met a page that turns away automated traffic and so could not contribute — counted *as* access-limited, never silently dropped.
+    Trips that met a page that turns away automated traffic and so could not contribute — counted _as_ access-limited, never silently dropped.
   </Step>
   <Step title="Insufficient">
     Trips that came back without enough evidence to count.
@@ -61,13 +63,13 @@ Every line in that ledger carries its own evidence references back to the trips 
 
 ## Access posture, stated honestly
 
-A browsing trip regularly meets pages that don't serve automated traffic. The report never collapses that into a single absolute refusal label. We describe what an agent could and couldn't reach in two states — *reached*, or *access-limited* — rather than using wording that would hide who limited the access and how completely.
+A browsing trip regularly meets pages that don't serve automated traffic. The report never collapses that into a single absolute refusal label. We describe what an agent could and couldn't reach in two states — _reached_, or _access-limited_ — rather than using wording that would hide who limited the access and how completely.
 
 <Note>
-  The headline stays at *reached / access-limited*. A finer reading of **how** a page was limited — open, partially walled to automated traffic, or closed to it — rides on the per-finding receipt, where the evidence for that reading lives. It is a discipline of observation, recorded as we see it; it is not a promise that any given page can be reached.
+  The headline stays at _reached / access-limited_. A finer reading of **how** a page was limited — open, partially walled to automated traffic, or closed to it — rides on the per-finding receipt, where the evidence for that reading lives. It is a discipline of observation, recorded as we see it; it is not a promise that any given page can be reached.
 </Note>
 
-Where a trip's path to a page was constrained, the report says so plainly, and the access-limited trip is counted *as* access-limited in the ledger rather than converted into a false negative about your brand. A reach gap is the property of the run that hit it, recorded honestly, and never laundered into a fake fact about a site or a fake trend across months. [Two Lanes](/how-it-works/two-lanes) is where the reached / access-limited model and its attribution discipline live in full.
+Where a trip's path to a page was constrained, the report says so plainly, and the access-limited trip is counted _as_ access-limited in the ledger rather than converted into a false negative about your brand. A reach gap is the property of the run that hit it, recorded honestly, and never laundered into a fake fact about a site or a fake trend across months. [Two Lanes](/how-it-works/two-lanes) is where the reached / access-limited model and its attribution discipline live in full.
 
 ## Retrievable, not just claimed
 
@@ -82,10 +84,10 @@ To be precise about what is shipped versus what is being wired:
 
 ## The chain a number rests on
 
-The trust you place in a number is not a request to trust a narrative. It is a request to trust a chain — every link of which is recorded, addressable, and auditable.
+A buyer evaluating kya should read this as: the trust you place in a number is not asking you to trust a narrative. It is asking you to trust a chain — every link of which is recorded, addressable, and auditable.
 
 <div style={{ fontFamily: "var(--font-mono, monospace)" }}>
-trip → captured evidence → evidence card → cited count → retrievable receipt
+  trip → captured evidence → evidence card → cited count → retrievable receipt
 </div>
 
 ## Short answers
@@ -94,15 +96,19 @@ trip → captured evidence → evidence card → cited count → retrievable rec
   <Accordion title='If a report says "19 of 25 agents surfaced my brand," can I see the 19?'>
     Yes. The count is backed by evidence references that resolve to the trips behind it, and each trip's evidence — what it touched, what it said — is in the report's evidence ledger. The number is sourced, not asserted.
   </Accordion>
+
   <Accordion title="What exactly do you capture per agent?">
     Its transcript (turn-by-turn, with secret-token patterns scrubbed), its journey (the sources it actually used and where they came from), its access posture (reached vs. access-limited), and the plain facts — model family (GPT, Gemini, Claude, or Perplexity Sonar), lane, and whether it counted.
   </Accordion>
+
   <Accordion title="What happens when an agent couldn't reach my page?">
-    The report says *access-limited* and counts that trip honestly in the denominator. A reach gap on one run is never converted into a false fact about your site or a fake trend.
+    The report says _access-limited_ and counts that trip honestly in the denominator. A reach gap on one run is never converted into a false fact about your site or a fake trend.
   </Accordion>
+
   <Accordion title="Can a finding exist without evidence behind it?">
     No. Every recommendation, finding, and count carries at least one evidence reference; in a shipped report the evidence ledger is the cards themselves, not a summary of them.
   </Accordion>
+
   <Accordion title="Do I need engineering help to get the receipts?">
     No. The report's readable view, receipts appendix, and proof view are retrievable through a supported read path, with no server access required — that read path is live today. The walk-back from a number to its trips and sources is available on request now; the polished self-serve click-through is being wired.
   </Accordion>

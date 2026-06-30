@@ -1,0 +1,149 @@
+---
+title: "Data outputs and schema"
+description: "The structured data a study returns — file layout in your cloud-storage handoff, schema reference, and field-level definitions."
+sidebarTitle: "Data outputs & schema"
+---
+
+A delivered study returns two artifacts: a **report** (the read) and a **data package** (the structured layer behind it). This page covers the data package.
+
+The data package is the machine-readable form of everything in the report — and the form the rig itself reads from. The report renders the data package; if a number is in the report, it's in the data package.
+
+<Note>
+  **Draft — schema illustrative.** Field names, ID prefixes, and example values on this page are representative of the v1 design. Final field-level definitions ship with the data package as `schema/*.schema.json`. Verify with your kya labs contact before integrating.
+</Note>
+
+## Delivery shape
+
+| Property | Value |
+| --- | --- |
+| **Format** | Newline-delimited JSON (JSONL), gzipped |
+| **Encoding** | UTF-8 |
+| **Transport** | Cloud-storage handoff (S3, GCS, or Azure Blob) — your bucket, our pre-signed write |
+| **Naming** | `kya-study-{studyId}/{objectName}.jsonl.gz` |
+| **Checksum** | SHA-256 manifest per object, signed |
+
+A study's package is immutable once delivered. Re-runs produce a new `studyId`; never a mutation of the old one.
+
+## The five objects in a package
+
+Every study delivers these five JSONL objects:
+
+<CardGroup cols={2}>
+  <Card title="study.jsonl" icon="file">
+    One record. The study's metadata: mission, panel version, brand set, surface set, date, posture (Pro / Research), and the count ledger summary.
+  </Card>
+
+  <Card title="trips.jsonl" icon="route">
+    One record per trip — the full receipt for one agent's run. The atomic unit of evidence.
+  </Card>
+
+  <Card title="findings.jsonl" icon="file-chart-column">
+    One record per finding (per verdict, per cut, per reach finding). Each carries the trip IDs that compute it.
+  </Card>
+
+  <Card title="sources.jsonl" icon="link">
+    One record per (trip, URL) pair. The access posture, the request, the response signature.
+  </Card>
+
+  <Card title="manifest.json" icon="signature">
+    The signed checksum manifest. Required for verification on receipt.
+  </Card>
+</CardGroup>
+
+## Schema reference
+
+<Note>
+  The schemas below are stable for v1. Field additions are non-breaking; field removals or type changes ship under a new major version with a migration window. The current schema version is recorded in `study.jsonl → schemaVersion`.
+</Note>
+
+### `study.jsonl`
+
+```json
+{
+  "studyId": "stu_01H...",
+  "schemaVersion": "1.0",
+  "missionId": "mis_01H...",
+  "panelVersion": "panel.2026-Q2.r3",
+  "posture": "pro",
+  "deliveredAt": "2026-06-30T14:22:00Z",
+  "brandSet": ["acme", "competitor-a", "competitor-b"],
+  "surfaceSet": ["product-pages", "comparison-pages", "support-articles"],
+  "countLedger": {
+    "planned": 100,
+    "completed": 78,
+    "accessLimited": 18,
+    "insufficient": 4,
+    "metricEligible": 78
+  }
+}
+```
+
+### `trips.jsonl`
+
+```json
+{
+  "tripId": "trp_01H...",
+  "studyId": "stu_01H...",
+  "agent": { "vendor": "openai", "model": "gpt-class", "retrievalMode": "browse-native" },
+  "personaCohort": "smb-it-buyer",
+  "mission": "Which CRM should a 20-person team pick?",
+  "steps": [ /* ordered step records — searches, fetches, citations */ ],
+  "sourceIds": ["src_01H...", "src_01H..."],
+  "artifact": "The agent's verbatim final answer text.",
+  "classification": { "metric": "surfaced", "value": true, "confidence": 0.82 },
+  "completedAt": "2026-06-30T13:45:12Z"
+}
+```
+
+### `findings.jsonl`
+
+```json
+{
+  "findingId": "fnd_01H...",
+  "studyId": "stu_01H...",
+  "kind": "verdict",
+  "scope": { "cut": "panel" },
+  "value": "mixed",
+  "denominator": { "type": "metricEligible", "count": 78 },
+  "supportingTripIds": ["trp_01H...", "trp_01H..."],
+  "confidence": 0.74
+}
+```
+
+### `sources.jsonl`
+
+```json
+{
+  "sourceId": "src_01H...",
+  "tripId": "trp_01H...",
+  "url": "https://example.com/products/checkout",
+  "accessPosture": "access-limited",
+  "blockReason": "bot-challenge",
+  "httpStatus": 403,
+  "fetchedAt": "2026-06-30T13:44:50Z"
+}
+```
+
+Full field-level definitions ship with the data package as `schema/*.schema.json` (JSON Schema, draft 2020-12).
+
+## Stability guarantees
+
+| Change type | Versioning |
+| --- | --- |
+| New optional field | Non-breaking. Same `schemaVersion`. |
+| New enum value (e.g., a new `blockReason`) | Non-breaking. Documented in the changelog. |
+| Removed field, type change, or semantic change | Breaking. New major `schemaVersion`. 90-day migration window. |
+
+The changelog is delivered with every package as `CHANGELOG.md`.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="API reference" icon="code" href="/under-the-hood/api-reference">
+    Programmatic read of a study and its data package.
+  </Card>
+
+  <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">
+    PII posture, retention, redaction, subprocessors.
+  </Card>
+</CardGroup>

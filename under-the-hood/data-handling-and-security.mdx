@@ -1,0 +1,92 @@
+---
+title: "Data handling and security"
+description: "Personal-data posture, retention windows, redaction, subprocessors, and the security overview available during evaluation."
+sidebarTitle: "Data handling & security"
+---
+
+This page covers the posture a procurement or security review needs to clear. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
+
+## Personal data posture
+
+**A study does not require personal data from you to run.**
+
+The inputs we need are a category question, a brand set, and a surface set — none of which are personal data. Persona cohorts are _synthetic shopper profiles_, not real people; they are configured archetypes (e.g., _"SMB IT buyer evaluating CRMs"_), not identities.
+
+| Category | Posture |
+| --- | --- |
+| **Customer PII** (your customers' personal data) | Not collected. Not required. If it appears in a surface the agent fetches, it is treated under the redaction policy below. |
+| **Employee PII** (your team's data) | Workspace user records only — email, name, role. Standard SaaS-account data. |
+| **Persona cohorts** | Synthetic. Not derived from real people. |
+| **Captured agent artifacts** | Stored as part of the receipt. Subject to redaction if PII is detected. |
+
+## Redaction
+
+The capture path scans every fetched surface and every agent artifact for PII patterns (emails, phone numbers, government IDs, payment data) and redacts inline before the receipt is persisted. The redaction signature is preserved in the receipt — _you can see that a field was redacted, and why, without seeing the contents._
+
+| Pattern class | Action |
+| --- | --- |
+| Email addresses | Redacted to hash \+ length |
+| Phone numbers | Redacted to country code \+ length |
+| Government IDs (SSN, passport, etc.) | Fully redacted |
+| Payment data (card numbers, account numbers) | Fully redacted |
+| Free-text PII suspected by the classifier | Redacted, flagged for human review |
+
+Customer-controlled redaction patterns (e.g., internal IDs you want masked) are configurable during baseline.
+
+## Retention
+
+| Object | Retention window |
+| --- | --- |
+| **Delivered studies** (report \+ data package) | Indefinite while engagement is active. On end-of-engagement: data already delivered into your environment is yours; in-product access ends. |
+| **Working evidence** (in-flight trips before a study delivers) | 90 days post-delivery, then purged. |
+| **Workspace logs** (auth, API access) | 12 months. |
+| **Backups** | 30-day rolling, encrypted at rest. |
+
+Custom retention windows (shorter or longer) are available under enterprise contracting.
+
+## Transport and encryption
+
+| Surface | Standard |
+| --- | --- |
+| **In transit** | TLS 1.3, HSTS, no downgrade. |
+| **At rest** | AES-256, customer-managed keys available under enterprise contracting. |
+| **Cloud-storage handoff** | Pre-signed write into your bucket; we never hold a long-lived key to your storage. |
+| **API authentication** | Bearer tokens, per-workspace, rotatable. |
+
+## Subprocessors
+
+A current subprocessor list is maintained and shareable during evaluation. Material additions trigger a 30-day notice under enterprise contracting.
+
+Categories of subprocessor we use:
+
+- **Cloud infrastructure** (compute, storage, network).
+- **Agent providers** (the model vendors whose agents the panel runs).
+- **Observability** (logging, metrics, error tracking).
+
+We do not use subprocessors for the capture or evidence layer itself — that runs on infrastructure we operate.
+
+## Security review materials
+
+Available during evaluation, on request:
+
+- **Security overview** (one-pager \+ technical addendum).
+- **Subprocessor list** (current).
+- **Penetration test summary** (latest).
+- **Incident response policy.**
+- **DPA template** (under enterprise contracting).
+
+<Note>
+  SOC 2 Type II is in progress. Current attestations and the report-in-progress timeline are shareable during evaluation under NDA.
+</Note>
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Access & admin" icon="users" href="/offered/access-and-admin">
+    Workspace access, roles, SSO.
+  </Card>
+
+  <Card title="Roadmap — active & planned" icon="map" href="/under-the-hood/live-today">
+    What's live today, what's being wired.
+  </Card>
+</CardGroup>

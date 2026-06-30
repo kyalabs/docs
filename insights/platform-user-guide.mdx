@@ -1,0 +1,64 @@
+---
+title: "Platform user guide"
+description: "How to navigate the kya labs platform — submitting studies, viewing reports, and managing your workspace."
+sidebarTitle: "Platform user guide"
+---
+
+<Note>
+  This guide describes the self-serve experience available once your engagement reaches the **self-service** phase. During baseline and enablement, studies are submitted and delivered by your kya labs team — see [the engagement lifecycle](/offered/engagement-lifecycle).
+</Note>
+
+This page is a working reference. It will expand as more of the platform becomes self-serve — see [the roadmap](/under-the-hood/live-today) for what's live today.
+
+## What you'll do in the platform
+
+<CardGroup cols={2}>
+  <Card title="Submit a study" icon="play">
+    Pick a saved mission template, or compose a new question. Pin the panel version. Submit. The study is queued and runs against the panel.
+  </Card>
+
+  <Card title="Read a delivered report" icon="file-chart-column">
+    Open the headline, scan the count ledger, open receipts on any number, read the reach findings. See [how to read a report](/insights/reading-a-report/overview).
+  </Card>
+
+  <Card title="Export the structured data" icon="layers">
+    Pull the machine-readable layer of any delivered study to your cloud-storage handoff, or query it directly. See [data outputs & schema](/under-the-hood/data-outputs).
+  </Card>
+
+  <Card title="Manage your workspace" icon="users">
+    Invite teammates, set roles, configure SSO, and audit access. See [access & admin](/offered/access-and-admin).
+  </Card>
+</CardGroup>
+
+## Saved missions
+
+A mission is a reusable study definition — the question, the brand set, the surface set, and the panel version it's pinned to. Once a mission is calibrated during baseline, it's saved to your workspace so the same study can be re-run on a cadence with one click.
+
+A saved mission is what makes a quarterly cadence operationally cheap: you don't recompose the study each quarter, you re-dispatch the same one.
+
+## Study states
+
+A study moves through these states from submit to delivery:
+
+| State | What it means |
+| --- | --- |
+| **Queued** | Submitted, waiting for the panel to run it. |
+| **Running** | Agents are shopping the live web against the mission. |
+| **Capturing evidence** | Trips complete; the rig is binding receipts and computing the count ledger. |
+| **Delivered** | Report and structured data available in your workspace. |
+| **Partial** | Delivered with some trips marked access-limited or insufficient — the report shows the denominator honestly. |
+| **Held** | Quality check failed; a re-run is dispatched. |
+
+See [the run lifecycle](/evidence/run-lifecycle-and-reliability) for the technical detail on each state.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="How to read a report" icon="book-open" href="/insights/reading-a-report/overview">
+    Walk a report top to bottom — and walk any number back to its evidence.
+  </Card>
+
+  <Card title="Roadmap — active & planned" icon="map" href="/under-the-hood/live-today">
+    What's shipping in the platform today, and what's coming next.
+  </Card>
+</CardGroup>

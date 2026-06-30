@@ -1,0 +1,91 @@
+---
+title: "API reference"
+description: "Programmatic read of a study and its structured data. In development."
+sidebarTitle: "API reference"
+---
+
+<Note>
+  **Status: in development — draft documentation.** The API surface described here represents the v1 design and is being wired, not yet GA. Endpoint shapes, auth model, and limits below are illustrative until confirmed by your kya labs contact during evaluation. The roadmap is on [Active & planned](/under-the-hood/live-today).
+</Note>
+
+The API lets you read a delivered study and its data package programmatically — for ingestion into your warehouse, for dashboarding, or for chaining studies into your own pipelines.
+
+## Design principles
+
+- **Read-only at v1.** Study submission and configuration go through the platform in v1. The API is for reading delivered work.
+- **One auth model.** Workspace-scoped API keys, rotatable, with per-key scope. SSO-tied keys come with the [access & admin](/offered/access-and-admin) layer.
+- **Same data, same schema.** What you read through the API is byte-equivalent to what the cloud-storage handoff delivers. No second source of truth.
+- **Idempotent and signed.** Every response carries the same SHA-256 signature the data package carries. You can verify integrity on receipt.
+
+## v1 surface (committed)
+
+| Endpoint | Returns |
+| --- | --- |
+| `GET /v1/studies` | List delivered studies in your workspace, paged. |
+| `GET /v1/studies/{studyId}` | One study record (the `study.jsonl` record). |
+| `GET /v1/studies/{studyId}/trips` | Stream the trips for a study. JSONL response. |
+| `GET /v1/studies/{studyId}/findings` | Stream the findings for a study. JSONL response. |
+| `GET /v1/studies/{studyId}/sources` | Stream the sources for a study. JSONL response. |
+| `GET /v1/studies/{studyId}/manifest` | The signed checksum manifest. |
+
+## Authentication
+
+Workspace-scoped API keys, passed as a bearer token:
+
+```http
+GET /v1/studies HTTP/1.1
+Host: api.kyalabs.io
+Authorization: Bearer ksk_live_...
+Accept: application/x-ndjson
+```
+
+Keys are issued and rotated from the workspace admin surface. Per-key scope is one of `read:studies`, `read:trips`, or `read:all`.
+
+## Rate limits
+
+| Tier | Limit |
+| --- | --- |
+| Read endpoints (study, findings, manifest) | 60 requests / minute / workspace |
+| Streaming endpoints (trips, sources) | 10 concurrent streams / workspace |
+
+Limits are workspace-wide, not per-key. `429` responses include a `Retry-After` header.
+
+## Example: pull a study and its trips
+
+```bash
+# Get the study record
+curl -H "Authorization: Bearer $KYA_API_KEY" \
+     https://api.kyalabs.io/v1/studies/stu_01H...
+
+# Stream the trips
+curl -H "Authorization: Bearer $KYA_API_KEY" \
+     -H "Accept: application/x-ndjson" \
+     https://api.kyalabs.io/v1/studies/stu_01H.../trips \
+     > trips.jsonl
+```
+
+The streamed response is identical to the `trips.jsonl` object in the cloud-storage handoff. Same `schemaVersion`, same field set, same signatures.
+
+## What's not in v1 (and what's coming)
+
+| Capability | Status |
+| --- | --- |
+| Read delivered studies, trips, findings, sources | **v1 — committed.** |
+| Webhook on study delivery | **v1.1 — being wired.** Push notification with the `studyId` and a signed manifest URL. |
+| Submit a study from a saved mission | **v2 — committed, design complete.** |
+| Compose a new mission via API | **v2 — committed, design complete.** |
+| Real-time stream of in-flight trips | **Not committed.** Studies remain immutable until delivered. |
+
+See [the roadmap](/under-the-hood/live-today) for dates.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
+    The schema the API returns.
+  </Card>
+
+  <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">
+    Auth, transport, key handling.
+  </Card>
+</CardGroup>

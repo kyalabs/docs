@@ -1,0 +1,61 @@
+---
+title: "The count ledger"
+description: "How to read planned, completed, access-limited, insufficient, and metric-eligible counts — and why the denominator is a first-class fact."
+sidebarTitle: "Count ledger"
+---
+
+The count ledger is the math behind the verdict, on the page.
+
+Most research artifacts hide their denominator. The count ledger puts it up front, because a number without its denominator is a vibe.
+
+## The five counts
+
+Every delivered report carries these five counts, computed across the panel for the mission:
+
+| Count | What it is |
+| --- | --- |
+| **Planned** | How many trips the study was designed to run — panel size × personas × mission shape. The intended denominator. |
+| **Completed** | Trips that ran end to end and produced a capturable artifact. |
+| **Access-limited** | Trips where the agent reached a relevant surface but was turned away (blocked, gated, denied). A signal, not a failure. |
+| **Insufficient** | Trips where the capture didn't yield enough to compute a finding (the agent gave up, timed out, or returned an unparseable artifact). |
+| **Metric-eligible** | The count that actually feeds the verdict — completed trips that meet the metric's criteria. The honest denominator. |
+
+These add up. `planned = completed + access-limited + insufficient`, and `metric-eligible ≤ completed`. The arithmetic is on the page so you can check it.
+
+## Why the denominator is a first-class fact
+
+The same finding can be a strong result or a weak one depending on which count you compare it to. _"You appeared in 40% of trips"_ means something very different against 100 completed trips than against 100 planned trips where 60 were access-limited.
+
+The count ledger makes that distinction structural rather than rhetorical. The report **must** state which denominator the verdict rests on — typically metric-eligible — and the verdict's confidence is bound to it.
+
+<Note>
+  This is part of [the Honesty Layer](/evidence/honesty-layer): the report cannot compute a percentage without naming the denominator it computed it from. The denominator is a rendered field, not a footnote.
+</Note>
+
+## A worked example
+
+A study runs a category question against a 100-trip plan:
+
+| Count | Value |
+| --- | --- |
+| Planned | 100 |
+| Completed | 78 |
+| Access-limited | 18 |
+| Insufficient | 4 |
+| Metric-eligible | 78 |
+
+The verdict says _"Surfaced in 31 of 78 metric-eligible trips (40%)."_ Not _"40% of the time."_ The denominator travels with the number.
+
+A separate reach finding will surface the 18 access-limited trips by surface — that's a fixable signal.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Receipts & proof view" icon="receipt" href="/insights/reading-a-report/receipts-and-proof">
+    Open any count and see the trips behind it.
+  </Card>
+
+  <Card title="Reach" icon="circle-half-stroke" href="/insights/reading-a-report/reach">
+    The access-limited count, expanded by surface.
+  </Card>
+</CardGroup>

@@ -1,0 +1,70 @@
+---
+title: "Receipts and the proof view"
+description: "How to open a receipt, walk a number back to the trips that produced it, and use the proof view."
+sidebarTitle: "Receipts & proof view"
+---
+
+Every number in a delivered report is a link.
+
+Click any count, percentage, or finding, and the **proof view** opens — the receipts behind that specific number. The appendix _is_ the receipts; there is no separate "evidence section" you have to cross-reference.
+
+## What a receipt contains
+
+A receipt is one trip's complete record. It contains:
+
+- **The agent** — which model, which version, which retrieval mode.
+- **The persona cohort** — the shopper profile the trip ran as.
+- **The mission** — the exact question the agent was asked.
+- **The steps** — what the agent did, in order: searches, page fetches, source citations, intermediate reasoning where the agent exposes it.
+- **The sources** — every URL the agent touched, with access posture: **reached**, **access-limited**, or **insufficient**.
+- **The artifact** — the agent's final answer, captured verbatim.
+- **The classification** — how this trip was scored against the metric (e.g., _surfaced / not surfaced_).
+
+A receipt is a queryable record, not a screenshot. You can open it in the platform, export it, and link to it.
+
+## The proof view
+
+The proof view is the platform UI for receipts. It opens to one number, then expands to all the trips that compute that number.
+
+<Steps>
+  <Step title="Click a number in the report.">
+    Any count, percentage, or finding. The proof view opens to it.
+  </Step>
+  <Step title="Read the trip list.">
+    Every trip that contributes to the number, with its classification and access posture.
+  </Step>
+  <Step title="Open a single trip.">
+    The full receipt — agent, persona, mission, steps, sources, artifact, classification.
+  </Step>
+  <Step title="Filter, if you need to.">
+    By agent, by persona cohort, by access posture. The denominator updates as you filter.
+  </Step>
+</Steps>
+
+## Why this matters
+
+The proof view is what makes the verdict defensible. If someone challenges the headline in a meeting, you don't argue methodology — you open a receipt.
+
+It's also what separates the rig from a scraper dashboard: a scraper gives you a mention count; the proof view gives you the trip behind every count. You don't have to trust the number; you can check it.
+
+## What's exportable
+
+| Object | Exportable |
+| --- | --- |
+| The full receipt for one trip | Yes — JSON, includes the agent's verbatim artifact |
+| The receipt set behind one finding | Yes — bulk export, cloud-storage handoff |
+| The proof view itself (as a shared URL) | Yes — link to a specific number, scoped to your workspace |
+
+See [data outputs & schema](/under-the-hood/data-outputs) for the field-level reference.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Anatomy of a Run" icon="microscope" href="/evidence/anatomy-of-a-run">
+    The detailed structure of a single trip, end to end.
+  </Card>
+
+  <Card title="The Honesty Layer" icon="shield-check" href="/evidence/honesty-layer">
+    The mechanism that keeps every number bound to a receipt.
+  </Card>
+</CardGroup>

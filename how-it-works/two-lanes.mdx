@@ -19,6 +19,7 @@ A panel is a weighted sample of the agents real shoppers use, and each cell (one
   <Card title="Browse lane" icon="window">
     The agent fetches pages and reads them. It can hit a working product page, a 404, a slow page it can't fully read, or a site that does not serve automated traffic at all. What it could and couldn't read is itself a finding.
   </Card>
+
   <Card title="Search-native lane" icon="magnifying-glass">
     The cell sends the question to a search-grounded model — search-native (Perplexity Sonar) — and gets an answer with citations attached. It never "visits" your site; it sees whatever the search index surfaced and cited. This lane is often where brands are cited well even when the browse lane can't reach them.
   </Card>
@@ -43,7 +44,7 @@ Every recommendation and finding in the report carries at least one evidence ref
 
 ## How we say "we couldn't reach it"
 
-The browse lane regularly meets sites that do not serve automated traffic. The lazy way to report that is a flat refusal label, and it is also wrong, because it hides *who* turned the agent away and *how completely*.
+The browse lane regularly meets sites that do not serve automated traffic. The lazy way to report that is a flat refusal label, and it is also wrong, because it hides _who_ turned the agent away and _how completely_.
 
 On any single finding, reach resolves to a simple, honest split:
 
@@ -51,6 +52,7 @@ On any single finding, reach resolves to a simple, honest split:
   <Card title="Reached" icon="circle-check">
     The agent reached the page and read it.
   </Card>
+
   <Card title="Access-limited" icon="circle-half-stroke">
     The page turned the agent's traffic away. The finding is about the site's posture to agents — established before any verdict copy describes it.
   </Card>
@@ -80,12 +82,15 @@ The two lanes track the real consumer-agent mix, so as that mix shifts, the lane
   <Accordion title="If a browse agent can't reach my page, doesn't that just mean your tool is broken?">
     Not without attribution. We establish whether the page is reached or access-limited — and, on the receipt, how completely — before we call it anything. The finding is about your site's posture to agents, not about our reach on one run.
   </Accordion>
+
   <Accordion title="Why count search-native agents at all if they never visit my site?">
     Because real shoppers use them, and they are often where your brand is cited well. Dropping them would flatter or distort the number. Both lanes resolve to the same evidence currency, so the headline count is honest across them.
   </Accordion>
+
   <Accordion title="Can you just pick the lane that makes me look best?">
     No. Lane assignment is a property of the agent a cell stands in for, fixed at study setup, never a runtime knob. A different lane mix is a different, visibly described instrument.
   </Accordion>
+
   <Accordion title="How do I audit a 'couldn't reach' finding?">
     Every finding carries its source cards and its access posture with it. Ask for the evidence behind any reach claim; the posture and its basis travel with the report.
   </Accordion>

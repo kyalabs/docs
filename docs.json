@@ -30,7 +30,7 @@
     }
   },
   "navigation": {
-    "groups": [
+    "pages": [
       {
         "group": "Start here",
         "icon": "sparkles",
@@ -41,30 +41,59 @@
         ]
       },
       {
-        "group": "How it works",
+        "group": "Evaluating the insights",
+        "icon": "file-chart-column",
+        "pages": [
+          "insights/overview.mdx",
+          {
+            "group": "How to read a report",
+            "icon": "book-open",
+            "pages": [
+              "insights/reading-a-report/overview.mdx",
+              "insights/reading-a-report/headline-and-verdict.mdx",
+              "insights/reading-a-report/count-ledger.mdx",
+              "insights/reading-a-report/receipts-and-proof.mdx",
+              "insights/reading-a-report/reach.mdx"
+            ]
+          },
+          "insights/cadences-and-use-cases.mdx",
+          "insights/platform-user-guide.mdx"
+        ]
+      },
+      {
+        "group": "Under the hood",
+        "icon": "wrench",
+        "pages": [
+          "under-the-hood/overview.mdx",
+          {
+            "group": "Method",
+            "icon": "microscope",
+            "pages": [
+              "how-it-works/panel-as-an-instrument.mdx",
+              "how-it-works/two-lanes.mdx",
+              "evidence/anatomy-of-a-run.mdx",
+              "evidence/honesty-layer.mdx",
+              "evidence/run-lifecycle-and-reliability.mdx"
+            ]
+          },
+          "under-the-hood/data-outputs.mdx",
+          "under-the-hood/api-reference.mdx",
+          "under-the-hood/data-handling-and-security.mdx",
+          "under-the-hood/live-today.mdx"
+        ]
+      },
+      {
+        "group": "How it's offered",
         "icon": "route",
         "pages": [
-          "how-it-works/overview",
-          "how-it-works/panel-as-an-instrument",
-          "how-it-works/two-lanes"
+          "offered/overview.mdx",
+          "offered/pro-tier.mdx",
+          "offered/research-tier.mdx",
+          "offered/engagement-lifecycle.mdx",
+          "offered/access-and-admin.mdx"
         ]
       },
-      {
-        "group": "Evidence & reliability",
-        "icon": "shield-check",
-        "pages": [
-          "evidence/anatomy-of-a-run",
-          "evidence/honesty-layer",
-          "evidence/run-lifecycle-and-reliability"
-        ]
-      },
-      {
-        "group": "Reference",
-        "icon": "gauge",
-        "pages": [
-          "specs"
-        ]
-      }
+      "how-it-works/overview.mdx"
     ]
   },
   "redirects": [
@@ -87,6 +116,26 @@
     {
       "source": "/run-lifecycle-and-reliability",
       "destination": "/evidence/run-lifecycle-and-reliability"
+    },
+    {
+      "source": "/what-you-get",
+      "destination": "/insights/overview",
+      "permanent": true
+    },
+    {
+      "source": "/how-its-offered",
+      "destination": "/offered/overview",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works/overview",
+      "destination": "/under-the-hood/overview",
+      "permanent": true
+    },
+    {
+      "source": "/specs.mdx",
+      "destination": "/under-the-hood/overview",
+      "permanent": true
     }
   ]
 }

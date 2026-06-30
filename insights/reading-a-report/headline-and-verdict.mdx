@@ -1,0 +1,60 @@
+---
+title: "The headline and the verdict"
+description: "How the one-line verdict is computed, what the verdict classes mean, and how to read confidence."
+sidebarTitle: "Headline & verdict"
+---
+
+A delivered report opens with a single line. That line is the **verdict**.
+
+The verdict is computed from the count ledger, not authored. The narrative under it explains the "so what." If the counts don't support the headline, the headline doesn't ship.
+
+## The verdict classes
+
+A verdict is one of a fixed set of classes. The class is determined by the metric the study is built to measure and the count ledger behind it.
+
+| Class | What it says | When you see it |
+| --- | --- | --- |
+| **Surfaced** | You appear in the agent's answer for the category question, with a frequency above the panel's signal threshold. | A study where the brand reads with consistent agent visibility. |
+| **Mixed** | You surface in some agents and personas, not others — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
+| **Not surfaced** | You don't appear, or appear below threshold, across the panel. | Categories where the brand isn't yet part of the agent's recommendation set. |
+| **Access-limited** | The panel couldn't reach enough of your surfaces to call the question. | A reach issue, not an absence — see the reach findings. |
+| **Insufficient** | The denominator is too thin to support any verdict — usually a panel-size or persona-coverage issue. | Rare. Triggers a re-run, not a delivered finding. |
+
+A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it.
+
+## How confidence is read
+
+Confidence is reported alongside the verdict. It's a function of three things:
+
+- **The denominator** — how many trips actually completed (see [the count ledger](/insights/reading-a-report/count-ledger)).
+- **The agreement across the panel** — do the agents agree, or do they split?
+- **The access posture** — how much of the relevant surface set was reachable in the runs.
+
+A high-confidence verdict has a full denominator, agreement across the panel, and reached surfaces. A low-confidence verdict will show **why** confidence dropped, on the same page as the verdict itself — not in a footnote.
+
+<Tip>
+  Confidence is not a model score. It's a structural property of the run: more reached trips, more agreement, more reachable surface = higher confidence. The math is on the page.
+</Tip>
+
+## How to read it in a meeting
+
+A pattern that holds up:
+
+1. **Read the verdict out loud.** One sentence.
+2. **State the denominator.** _"X of Y planned trips completed; Z were access-limited."_
+3. **Name the cut, if relevant.** _"This holds across browse-native agents; on search-native, the pattern shifts to..."_
+4. **Open the receipt if anyone asks why.**
+
+The headline alone is for the executive. The headline plus the denominator is what the analyst defends.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Count ledger" icon="list-ol" href="/insights/reading-a-report/count-ledger">
+    The denominators that determine whether a verdict holds.
+  </Card>
+
+  <Card title="Receipts & proof view" icon="receipt" href="/insights/reading-a-report/receipts-and-proof">
+    How to walk a verdict back to the trips that produced it.
+  </Card>
+</CardGroup>

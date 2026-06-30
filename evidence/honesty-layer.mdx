@@ -3,11 +3,11 @@ title: "The Honesty Layer"
 description: "How a ShoppiPanel report stays bound to what actually happened — the structural mechanisms that make an overstated report unreachable rather than merely discouraged."
 ---
 
-A ShoppiPanel report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
+A Voice of Agent report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
 
 The Honesty Layer is the part of the pipeline whose entire job is to keep the words in your report from drifting away from what the evidence supports. No human performs a review pass at the end to catch overstatement. Instead, the report is **built** so that the dishonest version is unreachable — not merely discouraged.
 
-Four mechanisms make that true, and one argument ties them together: why this is structural, not editorial.
+This page explains the four mechanisms a technical buyer should understand before trusting the output, and then makes the underlying argument explicit: why this is structural, not editorial. Other pages in this documentation defer here for that argument.
 
 <Note>
   The shortest version: the dishonest output is made unreachable in code, rather than caught after the fact by a reviewer. The trust you place in a report is not a request to trust a model's prose — it is a request to trust arithmetic, a schema contract, and a hold gate, all of which are auditable.
@@ -19,14 +19,14 @@ Four mechanisms make that true, and one argument ties them together: why this is
 
 This is the mechanism to understand first, because it is the one most directly load-bearing for an executive who repeats a single sentence in a meeting.
 
-A subtle failure mode in any automated study: the headline and the body of the *same* report quietly disagree. The headline asserts one distribution; the detailed trip-by-trip evidence supports another. Each looks fine in isolation; together they are a fabrication.
+A subtle failure mode in any automated study: the headline and the body of the _same_ report quietly disagree. The headline asserts one distribution; the detailed trip-by-trip evidence supports another. Each looks fine in isolation; together they are a fabrication.
 
 Before a report can ship, every counted claim in the headline is reconciled against the audited trip evidence. The auditor and the producer of the headline read from the **same** computed distribution — there is one definition of which trips count, shared by both sides, so the check can never be blind to a contradictory headline. If the numbers the headline asserts do not match the numbers the evidence supports, the report is **held**: it cannot be delivered as clean collateral until the divergence is resolved.
 
 This is a deliberate hard hold, and it is one of only two places in the entire delivery path where a report is stopped rather than shipped-with-disclosure. We reserve hard holds for exactly this: a headline whose distribution contradicts the audited counts. Everything else that could be wrong with a study is disclosed, not held.
 
 <Note>
-  The design history is the point. This guard was not added speculatively. It was the response to a live case where a study reached a successful state and presented a clean-looking headline whose distribution the evidence did not support. The detection had already flagged the run — what was missing was *prevention*. The hold is that prevention.
+  The design history is the point. This guard was not added speculatively. It was the response to a live case where a study reached a successful state and presented a clean-looking headline whose distribution the evidence did not support. The detection had already flagged the run — what was missing was _prevention_. The hold is that prevention.
 </Note>
 
 We separate two situations on purpose:
@@ -35,6 +35,7 @@ We separate two situations on purpose:
   <Card title="A claim mismatch — stops the report">
     The headline asserts something the audited counts do not support. This hard-holds. It cannot be exported as clean collateral until resolved.
   </Card>
+
   <Card title="A limited-evidence study — ships, marked">
     A study that simply came back with thin evidence is a different situation. It ships, clearly marked as not research-grade — never silently upgraded into something it isn't.
   </Card>
@@ -96,7 +97,7 @@ A separate situation is a run that **could not form a study at all**. This is th
 
 ### A note on access, because a technical reader will ask
 
-Studies run against surfaces an agent can reach to varying degrees. We describe what an agent could and could not reach in two plain states — **reached** and **access-limited** — rather than asserting an absolute. Where an agent's path to a surface was constrained, the report says so plainly instead of converting a missing observation into a false negative about your brand. A finer characterization of *how* a surface was access-limited rides on the per-finding receipt, underneath that headline state.
+Studies run against surfaces an agent can reach to varying degrees. We describe what an agent could and could not reach in two plain states — **reached** and **access-limited** — rather than asserting an absolute. Where an agent's path to a surface was constrained, the report says so plainly instead of converting a missing observation into a false negative about your brand. A finer characterization of _how_ a surface was access-limited rides on the per-finding receipt, underneath that headline state.
 
 This access register is a **methodology discipline**, applied observe-only and graduating toward a stricter check over time. It is **not** a machine-guaranteed property of every sentence. We are deliberate about that distinction: the honest claim is that this is how we discipline the language, not that a validator certifies it on every line today.
 
@@ -121,19 +122,33 @@ The honest version of all four mechanisms is the same sentence repeated: **the d
   </Step>
 </Steps>
 
-Read this as a buyer: the trust you place in a ShoppiPanel report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
+Read this as a buyer: the trust you place in a Voice of Agent report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
 
 ---
 
 ## Common questions
 
 <AccordionGroup>
+  <Accordion title="Does an AI write the headline?">
+    A model narrates a headline, but it cannot choose the conclusion. The conclusion — winner, distribution, verdict class, confidence — is computed from the audited evidence first, and the narration is bound to it. A headline that contradicts the computed verdict is replaced before the report ships.
+  </Accordion>
+
+  <Accordion title="What stops the headline and the body from disagreeing?">
+    A reconciliation hold. Every counted claim in the headline is checked against the audited trip tally — off the same distribution that produced the headline — and a mismatch holds the report rather than shipping it. This is one of only two situations where a report is stopped rather than shipped-with-disclosure; everything else that could be wrong with a study is disclosed, not held.
+  </Accordion>
+
+  <Accordion title="What if the study didn't gather enough evidence?">
+    If the study formed but the evidence is thin, it ships marked as not research-grade — a visibly thin read, never silently upgraded into a confident report. A separate case is a run that could not form a study at all: either the rig failed to operate, or too few of the panel's cells returned results to form a credible read. That is the terminal failed state — the run collapses rather than shipping a hollow report. The two are distinct: thin-but-formed ships flagged; could-not-form fails. The full lifecycle is in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
+  </Accordion>
+
   <Accordion title="Is the 'what we don't claim' language something you might forget to include?">
     No. The claim boundary is a required structural field, set when the report is built and rendered on every surface. A report missing it fails its own contract.
   </Accordion>
+
   <Accordion title="Can a flagged or limited study be exported as polished collateral?">
     No. A claim mismatch hard-holds. A limited-evidence study ships visibly marked as not research-grade and cannot be silently upgraded to clean collateral.
   </Accordion>
+
   <Accordion title="Do you rank models or claim market share?">
     No — both are outside the claim boundary. A controlled-mission study reports observed agent behavior under stated conditions, with counts and evidence references. It is not a provider ranking, a market-share figure, or a demand forecast.
   </Accordion>

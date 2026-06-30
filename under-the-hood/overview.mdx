@@ -1,0 +1,65 @@
+---
+title: "Under the hood"
+description: "The rig in one page — the five stages of a study, what's captured per trip, and where to go for the method, the outputs, and the data-handling posture."
+sidebarTitle: "Overview"
+---
+
+This section is for the technical evaluator — data, product, engineering, the CTO office — auditing kya labs before procurement, integration, or sign-off.
+
+The promise on the front of the docs ("a versioned instrument, every number bound to a receipt") is a claim. This section is the mechanism that makes it true. Everything below is observable in a delivered study.
+
+## The rig in one frame
+
+A study runs in five stages, in this order, every time:
+
+<Steps>
+  <Step title="Question — the mission a real shopper would ask">
+    A category question, scoped to a brand set and a surface set. Pinned to a panel version so reads stay comparable.
+  </Step>
+  <Step title="Panel — the versioned instrument">
+    A configured set of agents, model versions, and persona cohorts (the shopper profiles a mission runs as). Pinned, signed, and reproducible.
+  </Step>
+  <Step title="Runs — agents shop the live web">
+    Each agent in the panel runs the mission against the live web, in its native retrieval mode. Browse-native and search-native agents are captured as separate lanes, resolved to one denominator.
+  </Step>
+  <Step title="Evidence — the receipt for every trip">
+    Every trip is captured end to end: the question, the steps the agent took, the sources it touched, what it could and couldn't reach, the artifact it produced. Stored as queryable records.
+  </Step>
+  <Step title="Report — bound to the evidence">
+    The read is computed from the data; the data is computed from the evidence. The headline cannot assert a result the counts don't support, by construction — see [the Honesty Layer](/evidence/honesty-layer).
+  </Step>
+</Steps>
+
+## What "every number opens to a receipt" means, concretely
+
+Every count, every finding, every claim in a delivered report carries a pointer to the trips behind it. Open the pointer and you see the agent, the persona cohort, the steps it took, the URLs it touched, the access posture of each one (reached, access-limited, insufficient), and the artifact the agent produced.
+
+The appendix _is_ the receipts, not a summary of them. A number you can't walk back to a trip doesn't ship.
+
+## Where to go from here
+
+<CardGroup cols={2}>
+  <Card title="Method" icon="microscope" href="/how-it-works/panel-as-an-instrument">
+    How the panel is versioned, how the two retrieval lanes are reconciled, how a run is captured, and the mechanism that keeps the report honest.
+  </Card>
+
+  <Card title="Technical specs" icon="gauge" href="/specs">
+    Panel composition, what's captured per trip, output formats, the read path, data handling, and what's live today versus being wired.
+  </Card>
+
+  <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
+    The structured data a study returns — file layout in your cloud-storage handoff, schema reference, and field-level definitions.
+  </Card>
+
+  <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">
+    Personal-data posture, retention windows, redaction, subprocessors, and the security overview available during evaluation.
+  </Card>
+
+  <Card title="API reference" icon="code" href="/under-the-hood/api-reference">
+    Programmatic read of a study and its structured data. In development.
+  </Card>
+
+  <Card title="Roadmap — active & planned" icon="map" href="/under-the-hood/live-today">
+    What's shipping today versus what's committed and being wired.
+  </Card>
+</CardGroup>
