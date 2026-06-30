@@ -1,0 +1,241 @@
+---
+title: "Inside One Study"
+description: "One real category read, walked end to end — the question going out as a panel of trips, the reach ladder we climb to actually read a page, what each trip captures, how the verdict is computed before it is narrated, and what honest looks like when a site turns the agents away."
+---
+
+The other pages in this section open one mechanism at a time. This page does the opposite: it takes a **single real study** and walks the whole engine end to end. We chose this one because it exercised nearly every part of the instrument at once — agents fanning out across a whole category, a site that met automated traffic with a hard challenge, the full reach ladder climbed and logged at each rung, and an honesty problem with a tempting wrong answer. It is blinded for this page — the subject is a **large online automotive marketplace**, the category is **used SUVs** — but every number and behavior below is from the run, and **nothing floats**: each one walks back to the trips that produced it.
+
+<Note>
+  This was a small, deliberate probe — **6 trips**, not a full 25-trip panel — so read every count below as **directional**: a signal, not a rate. The point of the page is to show the *machinery* on one honest run; the denominator travels with each number so you can see exactly how much it carries.
+</Note>
+
+---
+
+## ① Dispatch — the question becomes a panel of trips
+
+The study began with one declared category question, written down with its denominators and claim classes fixed **before** the run ([the pre-registered protocol](/how-it-works/panel-as-an-instrument#pre-registered-protocol)). In plain terms, each agent was handed the shopper's job:
+
+> **The shopper's job, handed to each agent:** "A reliable used SUV with room for three kids, $35–55k, near a major metro — what should I get, and where should I buy it?"
+
+That question was composed into a **panel** — a stamped, versioned sample of the agents real shoppers use (GPT, Gemini, Claude, and the search-native lane), every trip pinned to the exact instrument that produced it ([The Panel as an Instrument](/how-it-works/panel-as-an-instrument)). Then the trips went out and shopped the live web the way an agent does when a person delegates the task: no fixed itinerary, free to search the category and follow what they found.
+
+What they found, on this job, was a **whole category**. The browsing trips fanned out across national used-car retailers and listing aggregators — and the marketplace itself. That breadth is the first thing the capture records: not "did the agent visit the subject site," but the full set of places an agent goes when it actually shops the category, the subject site among many.
+
+<Note>
+  A study measures the agent's **real choice set**, not a site in isolation. Where you land in the answer is always relative to everywhere else the agent looked — which is why the capture records the whole journey, not just the visits to you.
+</Note>
+
+---
+
+## ② The reach ladder — the configuration that decides whether a page can be read at all
+
+"Browse" is one of the two **lanes** ([Two Lanes](/how-it-works/two-lanes)). Inside the browse lane is a second, quieter decision that shapes a study more than almost anything else: **how hard the agent tries to actually read a page.** That is a configurable ladder, and this study climbed all of it.
+
+First, the map. Three words on this page share the root *reach*, and they name three **different** things — keep them straight and the rest of the section is easy:
+
+| Term | The axis it names | Its values |
+|---|---|---|
+| **Lane** | how an agent reaches the web | browse · search-native |
+| **Reach ladder** | *(inside the browse lane)* how hard it tries to read a page | plain fetch → rendered → + residential → + advanced |
+| **Two walls** | what a page can raise against it | **reachable** (clear the challenge) · **readable** (render the grid) |
+| **Access posture** | the outcome the run records | reached · access-limited |
+
+The **ladder** is the lever *you* set; the **two walls** are what it climbs against; the **posture** is what the run writes down. The rest of this section is one study meeting both walls.
+
+A real page is not always readable on the first, cheapest attempt. The browse lane can escalate through tiers, each heavier than the last:
+
+<Steps>
+  <Step title="Plain fetch">
+    A normal request for the page's source. Fast and cheap. Reads static HTML — and sees nothing a browser has to render.
+  </Step>
+  <Step title="Rendered browser">
+    A full automated browser that runs the page's scripts, so a product grid that only assembles after load actually appears.
+  </Step>
+  <Step title="Residential egress">
+    That same browser reaching the site from home-ISP addresses instead of datacenter ones, so the request looks like a consumer's rather than a server's.
+  </Step>
+  <Step title="Advanced evasion">
+    A heavier tier that more aggressively imitates a human browser. Gated behind a higher plan — beyond the standard kit a study runs on.
+  </Step>
+</Steps>
+
+A study declares how far up that ladder it climbed — and in a custom engagement, **you set it.** That single choice is the difference between "the agent saw your title" and "the agent read your inventory." This run climbed the whole ladder, and the capture logged each rung. It produced two findings, both honest.
+
+### Where the ladder hit a wall
+
+The marketplace met automated traffic with an aggressive **interactive challenge**. We climbed the whole ladder against it and recorded each tier:
+
+| Tier | Result on the marketplace |
+|---|---|
+| Plain fetch | Challenged — denied |
+| Rendered browser | Same challenge — denied |
+| + Residential egress | Same challenge — home-ISP IPs changed nothing |
+| + Advanced evasion | Beyond the tier this study holds |
+
+A **control site rendered cleanly through every tier** — so the ladder works; the wall is the marketplace's, not our pipeline's. The control is a major public reference site that openly serves automated readers, and its job is narrow on purpose: prove the pipeline renders end-to-end when nothing is blocking it. It is **not** a stand-in for the subject — a clean control says *"we aren't broken,"* it does not say *"the subject would render if the challenge lifted."* That stays the open question a sanctioned re-run answers.
+
+And one detail rules out the lazy explanation that *we* got flagged: switching to residential, home-ISP egress drew the **same challenge**, so our egress IPs don't account for the block. That is one controlled swap in one window — enough to retire "they just flagged our datacenter IPs," not enough to fully characterize *what* the challenge keys on. (Why even that narrow result is load-bearing is the honesty section below.)
+
+### Where the ladder changed the read
+
+The other wall only matters once an agent is *on* a page. Many modern storefronts assemble their product grid in the browser, after load — so the plain-fetch tier reads the page title and almost no products. Measured on a **comparable client-rendered storefront** — not the subject site, which was walled before we could render it, so read this as the instrument's general capability — the rung decides the read:
+
+| Retrieval rung | Grid read | Items seen |
+|---|---|---|
+| Plain fetch | ~1 attempt in 4 | ~7 |
+| Rendered + render-aware timing | every attempt | ~28 |
+
+Same page, same agent — a different rung on the ladder, a different study.
+
+**The two walls are independent, and a page raises them in series.** To read your inventory an agent has to be *reachable* — clear the challenge — **and** *readable* — render the grid; fail either and it comes back with less than the page holds. The marketplace stopped agents at the **first** wall this run, so the second never got a chance to matter. Most pages an agent meets in the wild clear neither cleanly, which is why an honest study records *which* wall it hit, not just that the agent came up short.
+
+---
+
+## ③ What each trip wrote down — the data the report is built from
+
+Every trip recorded the same three things as it ran — its transcript, its journey, and its access posture ([Anatomy of a Run](/evidence/anatomy-of-a-run) covers the shape in full). On this study, that capture looked like:
+
+<CardGroup cols={3}>
+  <Card title="The journey" icon="route">
+    For each trip, the sites it actually touched: the retailers and aggregators it reached and read, and the marketplace — recorded as access-limited where the challenge turned it away. Each source became one uniform **source card**, fetch or citation, the same currency across both lanes.
+  </Card>
+  <Card title="The declared winner" icon="trophy">
+    Each trip's recommendation was taken as the **structured entity the agent itself named** — the retailer it steered the buyer toward — not a word guessed back out of its prose afterward. That is what a count is built from.
+  </Card>
+  <Card title="The access posture" icon="circle-half-stroke">
+    **Reached** for the pages an agent read; **access-limited** for the marketplace pages the challenge closed. Counted as access-limited in the ledger — never silently dropped, never converted into a false fact about the site.
+  </Card>
+</CardGroup>
+
+And **counts before rates**: before any "most agents" sentence exists, the ledger states how many trips were planned, completed, and metric-eligible — and, on this study, how many had the subject's pages access-limited — the denominator on the face of the study, not buried under a percentage ([the count ledger](/evidence/anatomy-of-a-run#counts-before-rates)). The winner each trip declared is carried through to that count as a structured entity, so the tally is *sourced*, not asserted.
+
+For the study walked here, that ledger reads:
+
+| Ledger line | This study |
+|---|---|
+| Trips planned | 6 |
+| Completed | 6 |
+| Metric-eligible | 6 |
+| Subject's own pages access-limited in | 6 of 6 |
+
+The subject was access-limited *within* otherwise-complete trips — every trip still reached other sources, answered, and counts — which is why access-limited reads 6 of 6 while all 6 stay metric-eligible. **Six is the denominator for everything below, and it is small on purpose.** Read the distribution as directional; a 25-trip panel is what tightens it from a signal into a rate.
+
+---
+
+## ④ From evidence to report — computed first, narrated second
+
+What the trips produced was a distribution, and the report is built from it in a fixed order: **the verdict is computed before a sentence is written** ([The Honesty Layer](/evidence/honesty-layer)).
+
+Code first read the audited evidence and computed the thesis — which retailer each trip steered the buyer to, the tally across all trips, the verdict class, and a confidence band tied to how much evidence actually carried. On this study the computed object was unambiguous in shape:
+
+> Across the **6 metric-eligible trips**: the marketplace appeared in **all 6** answers but **led 0 of 6**; a national retailer the agents could read live **led 4 of 6**. With six trips, *led 0 of 6* is a **directional null** — it means *led none in this probe*, not a 0% rate. The honest read is "the marketplace didn't surface as the destination here," with the small denominator stated, not a population claim.
+
+Only then did the language model **narrate** that computed object — and it could not author a different one. A headline claiming the marketplace won, when the evidence made it a footnote, is not a sentence the pipeline can emit ([computed, then narrated](/evidence/honesty-layer)). The **claim boundary** travelled onto the artifact as a required field: this is observed agent behavior under stated conditions — not market share, not demand, not a ranking of the sites.
+
+One thing the computed verdict is careful **not** to claim: it can't separate *led 0 because blocked* from *led 0 on the merits*. A site an agent can't open can't win on its live inventory — so on this run the access wall and the result are entangled, and a marketplace of third-party dealer listings might also simply fit this prompt worse than a buy-online retailer does, block or no block. Whether the marketplace would lead **if an agent could read it** is the open question; the clean way to answer it is a sanctioned re-run that opens the pages (see the access note below). The report states that entanglement rather than narrating past it. *(And where a panel includes the search-native lane, that lane can't clear an interactive challenge by construction — so on a challenged site it structurally can't contribute a browse-based lead, a floor worth holding in mind when reading any blocked-site tally.)*
+
+So the honest headline that survived is narrow and true: *given what the agents could read this run, they recommended **around** the marketplace, not **through** it.* That is a finding about what the agents read — not a verdict on the marketplace's inventory, and the report says exactly that on its face.
+
+---
+
+## ⑤ When a site turns the agents away — reported honestly
+
+This study is in the docs because its most important finding is the one easiest to get wrong.
+
+The tempting headline writes itself: *"AI agents can't reach this marketplace."* It is also **indefensible** — and the engine is built so it can't ship.
+
+Start with what the agents experienced. A browsing trip that tried to run a real search on the marketplace hit the challenge and said so itself:
+
+> "I tried to run filtered searches directly on [the marketplace], but ran into a security block (403). This forced me to rely on the other sources."
+>
+> *— an agent, mid-task, verbatim*
+
+That is the access posture in the agent's own words: it couldn't read the page, so it recommended from what it could. The engine records the trip as **access-limited** and counts it as access-limited — the trip is not dropped, and the gap is not converted into "the marketplace has no good inventory." A reach gap is a property of the trip that hit it, never laundered into a fact about the site or a fake trend across months ([Two Lanes](/how-it-works/two-lanes#attribution-before-the-verdict-not-spin-after) owns this discipline).
+
+Now the part that takes discipline. **"We couldn't reach it" is a statement about the testing tool and this run — not automatically about every agent.** The chain below is *because → therefore*, and it stops exactly where the evidence does:
+
+<Steps>
+  <Step title="Our IPs don't explain the block">
+    Switching to residential, home-ISP egress drew the **same challenge** — so the block isn't our IP reputation. It turns away **automated** browsers; *what* it keys on, one window can't fully say, but where we connect from isn't it.
+  </Step>
+  <Step title="A real shopper's own browser may clear it">
+    A human-driven agent inside a person's logged-in browser carries the signals an interactive challenge is built to pass — real history, cookies, human interaction. What gets filtered is **automated and server-side** access, including agent-readiness tooling like ours and the crawlers that feed the search-native lane.
+  </Step>
+  <Step title="The control proves the pipeline isn't broken">
+    The same pipeline read a control site cleanly through every tier of the ladder — so the block is the **marketplace's posture to automation**, not a failure of our instrument.
+  </Step>
+  <Step title="So the engine ships only the narrow truth">
+    *Automated agent-readiness testing is challenged here without sanctioned access* — **not** "no agent can ever see this site." A study that collapsed those two is the kind a numerate buyer should reject, and the kind the honesty layer makes unshippable.
+  </Step>
+</Steps>
+
+<Note>
+  There is even a **time signal** in the capture worth stating plainly: our rendered tier read this same marketplace cleanly about a month earlier in the engagement, and meets the challenge now. Whether that is the site hardening its posture or our automated fingerprint aging, it is recorded as what it is — an observation about reach on a date, never a trend dressed up as a fact.
+</Note>
+
+---
+
+## What a read like this is for
+
+A read like this isn't a scorecard to file — it's the start of three moves, and each resolves to a **re-run on the same pinned instrument**, so the before/after *is* the deliverable, not a promise.
+
+<Steps>
+  <Step title="Decide the access on your terms">
+    If automated agent-readiness traffic is challenged at your door, the lever is yours: open a **sanctioned test lane** — an allowlisted IP range, a signed agent header, a bounded rate on public listing pages only — so you can be *measured* without weakening the defense that turns away everyone else. It's a controlled lane, not a security exception. Then re-run, and see whether being readable changes where you land.
+  </Step>
+  <Step title="Make the page readable once an agent is in">
+    The readability wall is independent of access: an agent that clears the challenge still reads a client-rendered grid as a near-empty page. Server-render the listing, or expose a structured product feed, and an agent that reaches you actually reads your inventory. The re-run measures the lift.
+  </Step>
+  <Step title="Watch it as a standing metric, not a snapshot">
+    Pin the panel and re-run on a cadence. Reached / access-limited and your lead-share become a trendline you can act on — pre/post a site change, quarter over quarter — instead of a one-time read.
+  </Step>
+</Steps>
+
+**Sizing whether it matters this quarter** is the one thing this study can't do alone — and it's more honest to say so than to hand you a number. The study tells you *where you stand*: where agents steer the buyer, and which sites they could read to get there. What that's *worth* takes two inputs only you hold — what share of your category's discovery is already agent-mediated, and what a buyer who arrives on an agent's recommendation converts at versus an organic one. Pair those with the lead-share read and you have the business case; the instrument supplies the half you can't see from your own logs.
+
+---
+
+## In sum
+
+<Note>
+  **Recap.** One study, walked end to end: a question composed into a stamped panel; the reach ladder climbed rung by rung and logged at each one; every source captured as an auditable card; a verdict computed from the evidence — **0 of 6**, stated with its denominator — before a sentence was written; and a hard block reported as exactly what it was, no more and no less. The uncomfortable finding and the honest limit are both on the face of the result, because the engine is built so the comfortable lie can't reach the page.
+</Note>
+
+That is the whole instrument on one run. The two postures differ only in how much of it you drive: in **Pro** you bring the question and take the report; in **Research** you set the rungs of the ladder, the model mix, and the missions, and take the captured evidence directly ([the two postures](/offered/overview)). Either way the contract is the same — the hood stays open, and every number walks back to a trip.
+
+<CardGroup cols={2}>
+  <Card title="The Panel as an Instrument" href="/how-it-works/panel-as-an-instrument">
+    How the agents doing the shopping stay a comparable instrument over time.
+  </Card>
+  <Card title="Two Lanes" href="/how-it-works/two-lanes">
+    Browse versus search-native, and how reach is reported honestly.
+  </Card>
+  <Card title="Anatomy of a Run" href="/evidence/anatomy-of-a-run">
+    A single trip, from journey to a receipt you can open.
+  </Card>
+  <Card title="The Honesty Layer" href="/evidence/honesty-layer">
+    Why the report cannot drift from what the evidence supports.
+  </Card>
+</CardGroup>
+
+---
+
+## Short answers
+
+<AccordionGroup>
+  <Accordion title="You couldn't read the subject site — so what's the study even worth?">
+    It measured the agent's **real choice set**: where leading agents steer a buyer in this category, which sites they read live, and where the subject site landed in the answer. The access limit is itself a recorded finding — reported as a property of the run and the tool, not as "no agent can see you." Knowing an aggressive challenge keeps automated agents from reading your live inventory, while your rivals' pages read clean, *is* the actionable result.
+  </Accordion>
+  <Accordion title="Did you really climb the whole ladder, or stop at the cheap tier and call it blocked?">
+    Logged at every tier: plain fetch, rendered browser, and residential egress — the same challenge each time, including at the residential tier (which is how we know it isn't our egress IPs). The one tier above that is beyond this study's plan, and the page says so. A control site rendered clean through all of them, which is how we know the ladder works and the wall is the site's.
+  </Accordion>
+  <Accordion title="Why not just name the winner as the market's best SUV?">
+    Because that is outside the **claim boundary**. The agents converged on what they could read this run; that is a statement about agent behavior under stated conditions, not about which vehicle or which retailer is best. The report renders that boundary on its face so the number can't be over-read.
+  </Accordion>
+  <Accordion title="Can a custom study turn the ladder all the way up?">
+    You configure how far up the browse lane climbs, along with the model mix and the missions. The advanced-evasion tier depends on plan; the rest of the ladder is yours to set, and whatever you set is stamped onto the run so the read is reproducible against the exact instrument that produced it.
+  </Accordion>
+  <Accordion title="If a real person's browser clears the challenge, isn't the 'access-limited' finding overstated?">
+    No — it is scoped precisely. The finding is that **automated** agent-readiness traffic is challenged without sanctioned access, established before any verdict copy describes it. We never widen that into "no agent can reach you," and we never narrow it into "our tool is just broken" — the residential result and the clean control rule out both. The honest claim is the one in between, and it travels with the receipt.
+  </Accordion>
+</AccordionGroup>

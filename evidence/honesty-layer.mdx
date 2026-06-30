@@ -3,11 +3,11 @@ title: "The Honesty Layer"
 description: "How a ShoppiPanel report stays bound to what actually happened — the structural mechanisms that make an overstated report unreachable rather than merely discouraged."
 ---
 
-A Voice of Agent report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
+A ShoppiPanel report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
 
 The Honesty Layer is the part of the pipeline whose entire job is to keep the words in your report from drifting away from what the evidence supports. No human performs a review pass at the end to catch overstatement. Instead, the report is **built** so that the dishonest version is unreachable — not merely discouraged.
 
-This page explains the four mechanisms a technical buyer should understand before trusting the output, and then makes the underlying argument explicit: why this is structural, not editorial. Other pages in this documentation defer here for that argument.
+Four mechanisms do this work. Below, each one is laid out, followed by why the result is structural rather than editorial — a property of how the report is built, not of who reviews it.
 
 <Note>
   The shortest version: the dishonest output is made unreachable in code, rather than caught after the fact by a reviewer. The trust you place in a report is not a request to trust a model's prose — it is a request to trust arithmetic, a schema contract, and a hold gate, all of which are auditable.
@@ -122,7 +122,7 @@ The honest version of all four mechanisms is the same sentence repeated: **the d
   </Step>
 </Steps>
 
-Read this as a buyer: the trust you place in a Voice of Agent report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
+Read this as a buyer: the trust you place in a ShoppiPanel report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
 
 ---
 

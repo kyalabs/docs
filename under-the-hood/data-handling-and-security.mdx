@@ -1,10 +1,10 @@
 ---
 title: "Data handling and security"
-description: "Personal-data posture, retention windows, redaction, subprocessors, and the security overview available during evaluation."
+description: "Personal-data posture, retention windows, token scrubbing, subprocessors, and the security overview available during evaluation."
 sidebarTitle: "Data handling & security"
 ---
 
-This page covers the posture a procurement or security review needs to clear. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
+A study studies AI shopping agents against public web surfaces — it does not ingest your consumer or customer data. That single fact defines the posture below. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
 
 ## Personal data posture
 
@@ -14,48 +14,46 @@ The inputs we need are a category question, a brand set, and a surface set — n
 
 | Category | Posture |
 | --- | --- |
-| **Customer PII** (your customers' personal data) | Not collected. Not required. If it appears in a surface the agent fetches, it is treated under the redaction policy below. |
+| **Customer PII** (your customers' personal data) | Not ingested. Not required. The study runs against public web surfaces, not your customer dataset. |
+| **Incidental personal data** | A public listing may carry a salesperson name or dealer contact. We treat captured evidence as research material — we do not enrich, re-identify, or build profiles from it. |
 | **Employee PII** (your team's data) | Workspace user records only — email, name, role. Standard SaaS-account data. |
 | **Persona cohorts** | Synthetic. Not derived from real people. |
-| **Captured agent artifacts** | Stored as part of the receipt. Subject to redaction if PII is detected. |
 
-## Redaction
+## Token scrubbing
 
-The capture path scans every fetched surface and every agent artifact for PII patterns (emails, phone numbers, government IDs, payment data) and redacts inline before the receipt is persisted. The redaction signature is preserved in the receipt — _you can see that a field was redacted, and why, without seeing the contents._
+Automated scrubbing today is scoped to **secret and credential tokens** — the capture path strips token-shaped strings (token prefixes and `token=`-style query values) from captured text before evidence is persisted.
 
-| Pattern class | Action |
-| --- | --- |
-| Email addresses | Redacted to hash \+ length |
-| Phone numbers | Redacted to country code \+ length |
-| Government IDs (SSN, passport, etc.) | Fully redacted |
-| Payment data (card numbers, account numbers) | Fully redacted |
-| Free-text PII suspected by the classifier | Redacted, flagged for human review |
+A content-level, automated _personal-data_ redaction pass over transcripts — detecting and masking emails, phone numbers, names, or government IDs — is **not yet in place**. The real protection is the design itself: the study does not ingest your customer dataset (see above), and a founder reviews the deliverable before handoff.
 
-Customer-controlled redaction patterns (e.g., internal IDs you want masked) are configurable during baseline.
+<Note>
+  We do not claim content-verified personal-data redaction today. Automated secret-token scrubbing plus the no-consumer-PII-ingest design is the posture; the content-level personal-data pass is on the roadmap, not live.
+</Note>
 
 ## Retention
 
+Our stated retention policy:
+
 | Object | Retention window |
 | --- | --- |
-| **Delivered studies** (report \+ data package) | Indefinite while engagement is active. On end-of-engagement: data already delivered into your environment is yours; in-product access ends. |
-| **Working evidence** (in-flight trips before a study delivers) | 90 days post-delivery, then purged. |
-| **Workspace logs** (auth, API access) | 12 months. |
-| **Backups** | 30-day rolling, encrypted at rest. |
+| **Raw study data** (detailed transcripts, raw captures) | Up to 90 days, then aged out. Deleted on request. |
+| **Summarized / derived data** (report package + structured extract) | Up to 365 days for your access and re-reads. Deleted on request. |
+| **Logs and queries** | Operational. Deleted on request. |
 
-Custom retention windows (shorter or longer) are available under enterprise contracting.
+<Note>
+  These are a stated policy, not yet a code-enforced time-to-live. Deletion-on-request is a manual operational commitment by the team today, not an automated lifecycle job. Specific windows are agreed in enterprise contracting and can be shortened for your engagement.
+</Note>
 
 ## Transport and encryption
 
 | Surface | Standard |
 | --- | --- |
-| **In transit** | TLS 1.3, HSTS, no downgrade. |
-| **At rest** | AES-256, customer-managed keys available under enterprise contracting. |
-| **Cloud-storage handoff** | Pre-signed write into your bucket; we never hold a long-lived key to your storage. |
-| **API authentication** | Bearer tokens, per-workspace, rotatable. |
+| **In transit** | TLS, no downgrade. |
+| **At rest** | AES-256. |
+| **Cloud-storage handoff** | Delivered into a cloud-storage bucket you designate (S3- or R2-compatible); the exact handoff mechanism is set with you during scoping. |
 
 ## Subprocessors
 
-A current subprocessor list is maintained and shareable during evaluation. Material additions trigger a 30-day notice under enterprise contracting.
+A current subprocessor list is maintained and shareable during evaluation. Material additions are disclosed; the notice terms are set in enterprise contracting.
 
 Categories of subprocessor we use:
 
@@ -63,7 +61,16 @@ Categories of subprocessor we use:
 - **Agent providers** (the model vendors whose agents the panel runs).
 - **Observability** (logging, metrics, error tracking).
 
-We do not use subprocessors for the capture or evidence layer itself — that runs on infrastructure we operate.
+The evidence-**scoring** layer runs on infrastructure we operate. The capture/fetch path — pulling public web content — may use a managed headless-browser provider; where it does, that provider is named in the subprocessor list. Transport (TLS) and at-rest encryption (AES-256) remain provider-backed as described above.
+
+## Incident posture
+
+There is no formally documented incident-response or breach-notification program with contractual timelines today. What exists is operational:
+
+- The team monitors run health and security alerts directly.
+- A documented **24-hour kill switch**: on a request to stop touching a named surface, a deploy-config flag halts all traffic to that surface — in-flight and new sessions — within 24 hours, with the refusal recorded in the run's attempt ledger.
+
+A formal incident-response runbook with a defined notification window is a gap we will close as an engagement formalizes; we would commit a notification window in the engagement paper rather than point to a program we do not yet run.
 
 ## Security review materials
 
@@ -71,12 +78,10 @@ Available during evaluation, on request:
 
 - **Security overview** (one-pager \+ technical addendum).
 - **Subprocessor list** (current).
-- **Penetration test summary** (latest).
-- **Incident response policy.**
-- **DPA template** (under enterprise contracting).
+- **DPA / data addendum** (executed as part of the engagement paper).
 
 <Note>
-  SOC 2 Type II is in progress. Current attestations and the report-in-progress timeline are shareable during evaluation under NDA.
+  We are **not SOC 2 certified** and do not represent otherwise. Our strongest, genuine security position is that the product studies AI shopping agents against public web surfaces and does not ingest your consumer or customer data. We would rather you see the honest posture than discover a gap mid-engagement.
 </Note>
 
 ## Where to go next
@@ -86,7 +91,7 @@ Available during evaluation, on request:
     Workspace access, roles, SSO.
   </Card>
 
-  <Card title="Roadmap — active & planned" icon="map" href="/under-the-hood/live-today">
+  <Card title="Roadmap" icon="route" href="/roadmap">
     What's live today, what's being wired.
   </Card>
 </CardGroup>

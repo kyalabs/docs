@@ -14,13 +14,29 @@ A verdict is one of a fixed set of classes. The class is determined by the metri
 
 | Class | What it says | When you see it |
 | --- | --- | --- |
-| **Surfaced** | You appear in the agent's answer for the category question, with a frequency above the panel's signal threshold. | A study where the brand reads with consistent agent visibility. |
-| **Mixed** | You surface in some agents and personas, not others — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
-| **Not surfaced** | You don't appear, or appear below threshold, across the panel. | Categories where the brand isn't yet part of the agent's recommendation set. |
-| **Access-limited** | The panel couldn't reach enough of your surfaces to call the question. | A reach issue, not an absence — see the reach findings. |
-| **Insufficient** | The denominator is too thin to support any verdict — usually a panel-size or persona-coverage issue. | Rare. Triggers a re-run, not a delivered finding. |
+| **A clear lead** | One brand led the majority of trips across the panel — a dominant winner, stated with its distribution ("leading, not unanimous"). | A study where one product consistently carries the agent's answer. |
+| **A contested lead** | A brand leads, but the margin is narrow and rivals trade places across agents and personas — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
+| **A genuine split** | No single brand leads; the panel divides across several products with no dominant winner. | Categories where the agent's recommendation set is genuinely fragmented. |
+| **No signal** | The evidence doesn't support naming a leader — too few informative trips, or no discernible pattern. | When the denominator is thin or the reads don't converge. |
 
-A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it.
+A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it. The verdict class is computed deterministically from the count ledger before any narrative is written — see [The Honesty Layer](/evidence/honesty-layer).
+
+## How the class is decided
+
+The rule is fixed, not a judgment call. The winner is the brand that led the most informative trips, and the class follows from its share of them:
+
+- **A clear lead** — the leader took a **strict majority** (more than half) of the informative trips.
+- **A contested lead** — a unique leader, but under half.
+- **A genuine split** — the top two are tied; no single leader.
+- **No signal** — too few informative trips to name a leader.
+
+## How confident to be
+
+ShoppiPanel is a **directional instrument, not a statistical-significance test** — and it says so on the face of every read. Each verdict carries a **confidence band** — *high*, *moderate*, or *directional* — set by how many trips actually carried evidence. A thin read is labelled *directional* and its wording softens from "won" to "led"; it is never dressed up as a confident one.
+
+The standard panel is 25 trips, so a single study reads the **direction**; durable confidence comes from the **trend** on a fixed instrument — the same panel version, study over study — which is why comparability is the contract. When a question needs a hard statistical read, a research-grade engagement runs a **higher N**. ([The Panel as an Instrument](/how-it-works/panel-as-an-instrument) covers the instrument.)
+
+A **no-signal** verdict can still be **delivered**. When the evidence is thin, the report ships marked **not research-grade** at **low confidence** — never silently upgraded into something it isn't. A modest study is not held back; it's labeled. A low-confidence delivery may prompt a re-run, but the system does not auto-rerun in place of delivering the finding.
 
 ## How confidence is read
 
@@ -41,7 +57,7 @@ A high-confidence verdict has a full denominator, agreement across the panel, an
 A pattern that holds up:
 
 1. **Read the verdict out loud.** One sentence.
-2. **State the denominator.** _"X of Y planned trips completed; Z were access-limited."_
+2. **State the denominator.** _"X of Y planned trips completed; Z did not run."_
 3. **Name the cut, if relevant.** _"This holds across browse-native agents; on search-native, the pattern shifts to..."_
 4. **Open the receipt if anyone asks why.**
 
@@ -50,7 +66,7 @@ The headline alone is for the executive. The headline plus the denominator is wh
 ## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="Count ledger" icon="list-ol" href="/insights/reading-a-report/count-ledger">
+  <Card title="Count ledger" icon="file-chart-column" href="/insights/reading-a-report/count-ledger">
     The denominators that determine whether a verdict holds.
   </Card>
 

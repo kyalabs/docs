@@ -3,7 +3,7 @@ title: "Anatomy of a Run"
 description: "One trip, from the question it sets out on to the receipt you can open — and why every number in the report stays bound to the trips that produced it."
 ---
 
-A Voice of Agent study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. This page follows a single trip from the moment it sets out to the moment its evidence lands in a receipt you can open — and shows why every number in the report can be walked back to exactly the trips that produced it.
+A ShoppiPanel study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. This page follows a single trip from the moment it sets out to the moment its evidence lands in a receipt you can open — and shows why every number in the report can be walked back to exactly the trips that produced it.
 
 The promise is narrow and testable: **no claim in the report floats.** Every recommendation, every count, every "this is what the agents did" carries at least one reference to a specific piece of captured evidence, and that evidence is retrievable.
 
@@ -46,18 +46,18 @@ Before the report states any rate or any verdict, it states the counts. A shippe
   <Step title="Completed">
     The trips that ran to an answer.
   </Step>
-  <Step title="Access-limited">
-    Trips that met a page that turns away automated traffic and so could not contribute — counted _as_ access-limited, never silently dropped.
+  <Step title="Did not run">
+    Trips that never executed or fell out of the pipeline before producing a result — counted, never silently dropped.
   </Step>
   <Step title="Insufficient">
-    Trips that came back without enough evidence to count.
+    Trips that ran but came back without enough evidence to count.
   </Step>
   <Step title="Metric-eligible">
     The trips that actually carry the report's numbers.
   </Step>
 </Steps>
 
-A rate with no denominator is a place to hide. "Most agents recommended you" means nothing until you can see that it was, say, a clear majority of the metric-eligible trips — with the planned, access-limited, and insufficient trips all counted and visible. The ledger makes the denominator a first-class fact of the report, so the rate can be checked against it rather than taken on faith.
+A rate with no denominator is a place to hide. "Most agents recommended you" means nothing until you can see that it was, say, a clear majority of the metric-eligible trips — with the planned, did-not-run, and insufficient trips all counted and visible. The ledger makes the denominator a first-class fact of the report, so the rate can be checked against it rather than taken on faith.
 
 Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity — not a word guessed back out of its prose afterward. The count is not asserted; it is sourced. That sourced count is what the report's headline is computed from before any sentence is written — the mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
 
@@ -73,18 +73,18 @@ Where a trip's path to a page was constrained, the report says so plainly, and t
 
 ## Retrievable, not just claimed
 
-A receipt that exists only on an engineer's machine is not a receipt. The report's evidence — its readable report, its receipts appendix, and its proof view — is produced as part of the report package and is retrievable today through a supported read path, with no one needing server access to dig it out. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence opened. The evidence is there to be pulled.
+A receipt that exists only on an engineer's machine is not a receipt. The report's evidence — its readable report, its receipts appendix, and its proof view — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it for you on request. No one needs server access to dig the evidence out. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence opened. The evidence is there to be pulled.
 
 Every served surface of the report passes through the same sanitization that keeps internal vocabulary off the buyer face — so the receipt you open is in the buyer's register, not the engine's.
 
 To be precise about what is shipped versus what is being wired:
 
-- **Live today** — the read path that makes the evidence retrievable. Any number in a report can be audited back to its trips and sources, on request.
+- **Rolling out** — the owner-scoped read path that makes the evidence retrievable. It only just landed, so during the pilot we open it for you on request: any number in a report can be audited back to its trips and sources.
 - **Being wired now** — the polished self-serve walk-back: clicking straight from a headline number, to the trip, to that trip's transcript and the sources it touched, without leaving the product. By design, in progress.
 
 ## The chain a number rests on
 
-A buyer evaluating kya should read this as: the trust you place in a number is not asking you to trust a narrative. It is asking you to trust a chain — every link of which is recorded, addressable, and auditable.
+The trust you place in a number is not asking you to trust a narrative. It is asking you to trust a chain — every link of which is recorded, addressable, and auditable.
 
 <div style={{ fontFamily: "var(--font-mono, monospace)" }}>
   trip → captured evidence → evidence card → cited count → retrievable receipt
@@ -110,6 +110,6 @@ A buyer evaluating kya should read this as: the trust you place in a number is n
   </Accordion>
 
   <Accordion title="Do I need engineering help to get the receipts?">
-    No. The report's readable view, receipts appendix, and proof view are retrievable through a supported read path, with no server access required — that read path is live today. The walk-back from a number to its trips and sources is available on request now; the polished self-serve click-through is being wired.
+    No. The report's readable view, receipts appendix, and proof view are retrievable through an owner-scoped read path, with no server access required. That read path is rolling out — it only just landed, so during the pilot we open it for you on request, and any number can be walked back to its trips and sources. The polished self-serve click-through is being wired.
   </Accordion>
 </AccordionGroup>

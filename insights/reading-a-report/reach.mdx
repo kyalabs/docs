@@ -6,14 +6,14 @@ sidebarTitle: "Reach"
 
 A surface that turns automated traffic away is invisible to the agent shopping your category. The reach findings tell you which surfaces agents reached, and which they couldn't.
 
-Reach is reported **per finding**, never as a flat refusal — because the same surface can be reachable for one agent and blocked for another, and that asymmetry is the finding.
+Reach is reported **per finding**, never as a flat refusal — because the same surface can be reached by one agent and access-limited for another, and that asymmetry is the finding.
 
 ## The two postures
 
 | Posture | What it means |
 | --- | --- |
 | **Reached** | The agent successfully retrieved the surface — your page loaded, your content was readable, the agent could quote or cite from it. |
-| **Access-limited** | The agent attempted the surface and was turned away — a block, a paywall, a bot challenge, a redirect to a login wall, a robots-policy denial, or a soft block (the surface returned but with no usable content). |
+| **Access-limited** | The agent attempted the surface and was turned away — a paywall, a bot challenge, a redirect to a login wall, a robots-policy denial, or a soft block (the surface returned but with no usable content). |
 
 Access-limited is not a failure of the rig; it's a finding _of_ the rig. It tells you a surface the agent tried to reach but couldn't — a fixable signal, not a guess.
 
@@ -25,7 +25,7 @@ A reach finding always opens to a receipt with three things:
 2. **What it tried** — the exact URL, the request, the response.
 3. **Why it was access-limited** — the specific block reason (status code, robots clause, soft-block signature, etc.).
 
-This is what separates a reach finding from a guess. You don't get _"agents may have trouble with your site"_ — you get _"GPT-class browse-native agents were blocked from `/products/checkout` by a bot challenge on 12 of 14 attempts; here are the requests."_
+This is what separates a reach finding from a guess. You don't get _"agents may have trouble with your site"_ — you get _"GPT-class browse-native agents were access-limited on `/products/checkout` by a bot challenge on 12 of 14 attempts; here are the requests."_
 
 ## How to act on reach findings
 
@@ -33,13 +33,13 @@ A reach finding is the most operationally actionable output of a study, because 
 
 - **Allowlist** the agent's user-agent or IP range in your bot-management layer.
 - **Update robots policy** to permit the specific paths you want agents to read.
-- **Move content out of a gate** if it sits behind a login that's blocking agent retrieval.
+- **Move content out of a gate** if it sits behind a login that's access-limiting agent retrieval.
 - **Re-run the study** after the fix and confirm the access posture changed.
 
 The point is to convert an access-limited surface into a reached one, then verify the change on the next read.
 
 <Note>
-  Reach reads honestly, both ways. A surface you _want_ blocked from agents (proprietary documentation, customer data) showing up as access-limited is a confirmation, not a problem. The study reports the posture; you decide which surfaces should be which.
+  Reach reads honestly, both ways. A surface you _want_ kept from agents (proprietary documentation, customer data) showing up as access-limited is a confirmation, not a problem. The study reports the posture; you decide which surfaces should be which.
 </Note>
 
 ## Where to go next
