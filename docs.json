@@ -69,9 +69,11 @@
             "pages": [
               "how-it-works/panel-as-an-instrument",
               "how-it-works/two-lanes",
+              "how-it-works/capabilities",
               "evidence/anatomy-of-a-run",
               "evidence/honesty-layer",
-              "evidence/run-lifecycle-and-reliability"
+              "evidence/run-lifecycle-and-reliability",
+              "how-it-works/inside-one-study"
             ]
           },
           "under-the-hood/data-outputs",
