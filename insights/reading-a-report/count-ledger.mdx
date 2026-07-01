@@ -1,6 +1,6 @@
 ---
 title: "The count ledger"
-description: "How to read planned, completed, did-not-run, insufficient, and metric-eligible counts — and why the denominator is a first-class fact."
+description: "How to read planned, completed, did-not-run, insufficient, and metric-eligible counts, and why the denominator is a first-class fact."
 sidebarTitle: "Count ledger"
 ---
 
@@ -14,11 +14,11 @@ Every delivered report carries these five counts, computed across the panel for 
 
 | Count | What it is |
 | --- | --- |
-| **Planned** | How many trips the study was designed to run — panel size × personas × mission shape. The intended denominator. |
+| **Planned** | How many trips the study was designed to run: panel size × personas × mission shape. The intended denominator. |
 | **Completed** | Trips that ran end to end and produced a capturable artifact. |
-| **Did not run** | Trips that never completed a run — the cell couldn't get through the pipeline, so no artifact was produced. Incomplete, not a result. |
-| **Insufficient** | Trips that ran but produced no usable output — the capture didn't yield enough to compute a finding. |
-| **Metric-eligible** | The count that actually feeds the verdict — completed trips that meet the metric's criteria. The honest denominator. |
+| **Did not run** | Trips that never completed a run. The cell couldn't get through the pipeline, so no artifact was produced. Incomplete, not a result. |
+| **Insufficient** | Trips that ran but produced no usable output: the capture didn't yield enough to compute a finding. |
+| **Metric-eligible** | The count that actually feeds the verdict: completed trips that meet the metric's criteria. The honest denominator. |
 
 These add up. `planned = completed + did-not-run + insufficient`, and `metric-eligible ≤ completed`. The arithmetic is on the page.
 
@@ -26,7 +26,7 @@ These add up. `planned = completed + did-not-run + insufficient`, and `metric-el
 
 The same finding can be a strong result or a weak one depending on which count you compare it to. _"You appeared in 40% of trips"_ means something very different against 19 completed trips than against 25 planned trips where several did not run.
 
-The count ledger makes that distinction structural rather than rhetorical. The report **must** state which denominator the verdict rests on — typically metric-eligible — and the verdict's confidence is bound to it.
+The count ledger makes that distinction structural rather than rhetorical. The report **must** state which denominator the verdict rests on (typically metric-eligible), and the verdict's confidence is bound to it.
 
 <Note>
   This is part of [the Honesty Layer](/evidence/honesty-layer): the report cannot compute a percentage without naming the denominator it computed it from. The denominator is a rendered field, not a footnote.
@@ -46,13 +46,13 @@ A study runs a category question against a 25-trip plan:
 
 The verdict says _"Surfaced in 8 of 19 metric-eligible trips (42%)."_ Not _"42% of the time."_
 
-The 4 trips that did not run are incomplete cells, not a result — they're held out of the denominator. Reach, where an agent got to a surface but was access-limited, is a separate per-finding signal covered on its own page.
+The 4 trips that did not run are incomplete cells, not a result; they're held out of the denominator. Reach, where an agent got to a surface but was access-limited, is a separate per-finding signal covered on its own page.
 
 ## Where to go next
 
 <CardGroup cols={2}>
   <Card title="Receipts & evidence" icon="receipt" href="/insights/reading-a-report/receipts-and-proof">
-    Every count carries the trips behind it — read them in the receipts appendix.
+    Every count carries the trips behind it. Read them in the receipts appendix.
   </Card>
 
   <Card title="Reach" icon="circle-half-stroke" href="/insights/reading-a-report/reach">

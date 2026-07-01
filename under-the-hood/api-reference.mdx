@@ -5,10 +5,10 @@ sidebarTitle: "API reference"
 ---
 
 <Note>
-  **Status: in development.** The read API described here is the v1 *design* — it is not a callable surface yet. The shapes below convey intent, not a contract: endpoints, the auth scheme, and limits are finalized before the API goes live and confirmed with your kya labs contact during evaluation. The roadmap is on [Active & planned](/roadmap).
+  **Status: in development.** The read API described here is the v1 *design*, not a callable surface yet. The shapes below convey intent, not a contract: endpoints, the auth scheme, and limits are finalized before the API goes live and confirmed with your kya labs contact during evaluation. The roadmap is on [Active & planned](/roadmap).
 </Note>
 
-When it ships, the API will read a delivered study and its data package programmatically — to ingest into a warehouse, drive a dashboard, or chain studies into downstream pipelines. This page describes the planned shape; it does not pin a callable surface.
+When it ships, the API will read a delivered study and its data package programmatically: to ingest into a warehouse, drive a dashboard, or chain studies into downstream pipelines. This page describes the planned shape.
 
 ## Design principles
 
@@ -19,19 +19,19 @@ When it ships, the API will read a delivered study and its data package programm
 
 ## Planned read surface
 
-The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its recommendations and non-recommendations, its verdict, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs).
+The v1 design is a small set of read endpoints over a delivered study: its record, its trips, its recommendations and non-recommendations, its verdict, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs).
 
-Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch. They are not pinned here while the surface is in development, so an integration planned against the shape above doesn't harden against details that may still move.
+Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch, so an integration planned against the shape above doesn't harden against details that may still move.
 
 ## What's planned
 
 | Capability | Status |
 | --- | --- |
-| Read delivered studies, trips, recommendations and non-recommendations, the verdict, and sources | **v1 — committed.** |
-| Webhook on study delivery — a notification carrying the study id and a manifest reference | **Planned.** |
+| Read delivered studies, trips, recommendations and non-recommendations, the verdict, and sources | **v1, committed.** |
+| Webhook on study delivery (a notification carrying the study id and a manifest reference) | **Planned.** |
 | Submit a study from a saved mission | **Planned (v2).** |
 | Compose a new mission via API | **Planned (v2).** |
-| Real-time stream of in-flight trips | **Not planned** — a study stays immutable until it is delivered. |
+| Real-time stream of in-flight trips | **Not planned.** A study stays immutable until it is delivered. |
 
 See [the roadmap](/roadmap) for where each one sits.
 
@@ -39,7 +39,7 @@ See [the roadmap](/roadmap) for where each one sits.
 
 <CardGroup cols={2}>
   <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
-    The schema the API will return — the structured package delivered today.
+    The schema the API will return: the structured package delivered today.
   </Card>
 
   <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">

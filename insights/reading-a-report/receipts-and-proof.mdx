@@ -1,30 +1,30 @@
 ---
 title: "Receipts and evidence"
-description: "How every number in a report is bound to the trips behind it — the receipts appendix that ships with the report, and the run-level evidence in your data layer."
+description: "How every number in a report is bound to the trips behind it: the receipts appendix that ships with the report, and the run-level evidence in your data layer."
 sidebarTitle: "Receipts & evidence"
 ---
 
-A delivered study is a **report package** — a rendered report plus the receipts the numbers rest on. Any count can be walked back to the trips that produced it.
+A delivered study is a **report package**: a rendered report plus the receipts the numbers rest on. Any count can be walked back to the trips that produced it.
 
-## The report package — what you open
+## The report package: what you open
 
-A study is delivered as a rendered **report**: an HTML (and Markdown) document you open and read. It ships with a **receipts appendix** — the per-trip records behind the numbers — in the same package. Every count in the report carries a reference to the trips behind it, and the appendix _is_ the receipts: there is no separate evidence system to cross-reference, and no server access required to read it.
+A study is delivered as a rendered **report**: an HTML (and Markdown) document you open and read. In the same package it ships with a **receipts appendix**, the per-trip records behind the numbers. Every count in the report carries a reference to the trips behind it, and the appendix _is_ the receipts: there is no separate evidence system to cross-reference, and no server access required to read it.
 
 <Note>
-  The report is a **rendered document, not a live dashboard** — numbers are not individually clickable today. You check a number by reading its reference into the receipts appendix that travels with the report. An in-product **click-through** — click a headline number, land on the trip — is on the [roadmap](/roadmap); until it lands, the report package is the audit surface.
+  The report is a **rendered document, not a live dashboard**: numbers are not individually clickable today. You check a number by reading its reference into the receipts appendix that travels with the report. An in-product **click-through** (click a headline number, land on the trip) is on the [roadmap](/roadmap); until it lands, the report package is the audit surface.
 </Note>
 
 ## What a receipt contains
 
 A receipt is one trip's complete record:
 
-- **The agent** — which model, which version, which retrieval mode.
-- **The persona cohort** — the shopper profile the trip ran as.
-- **The mission** — the exact question the agent was asked.
-- **The steps** — what the agent did, in order: searches, page fetches, source citations, intermediate reasoning where the agent exposes it.
-- **The sources** — every URL the agent touched, with access posture: **reached**, **access-limited**, or **insufficient**.
-- **The artifact** — the agent's final answer, captured verbatim.
-- **The classification** — how this trip was scored against the metric (e.g., _surfaced / not surfaced_).
+- **The agent**: which model, which version, which retrieval mode.
+- **The persona cohort**: the shopper profile the trip ran as.
+- **The mission**: the exact question the agent was asked.
+- **The steps**: what the agent did, in order: searches, page fetches, source citations, intermediate reasoning where the agent exposes it.
+- **The sources**: every URL the agent touched, with access posture: **reached**, **access-limited**, or **insufficient**.
+- **The artifact**: the agent's final answer, captured verbatim.
+- **The classification**: how this trip was scored against the metric (e.g., _surfaced / not surfaced_).
 
 ## Checking a number
 
@@ -36,28 +36,28 @@ A receipt is one trip's complete record:
     Every number carries a pointer to the trips behind it, printed with the number rather than buried in a footnote.
   </Step>
   <Step title="Find the trip in the receipts appendix.">
-    The appendix ships in the same package — agent, persona, mission, steps, sources, artifact, classification. If the receipt holds, the number holds.
+    The appendix ships in the same package: agent, persona, mission, steps, sources, artifact, classification. If the receipt holds, the number holds.
   </Step>
   <Step title="Pull the raw record if you need it.">
-    For the full run-level evidence — complete transcript, raw page captures, structured records — go to your data layer (below).
+    For the full run-level evidence (complete transcript, raw page captures, structured records), go to your data layer (below).
   </Step>
 </Steps>
 
 ## The run-level data layer
 
-The report and its receipts appendix are the **readable audit surface**, delivered with every study. The **full run-level evidence** — complete transcripts, raw page captures, and the structured records behind each trip — lives in **cloud object storage (R2 / S3)** and is delivered through a **data layer set up during onboarding** on Research engagements. That is the path for taking the evidence directly into your own environment and building analysis on top of it.
+The report and its receipts appendix are the **readable audit surface**, delivered with every study. The **full run-level evidence** (complete transcripts, raw page captures, and the structured records behind each trip) lives in **cloud object storage (R2 / S3)** and is delivered through a **data layer set up during onboarding** on Research engagements. That is the path for taking the evidence directly into your own environment and building analysis on top of it.
 
 <Note>
-  **Pro** takes the report package (report plus receipts appendix). **Research** adds the direct data-layer handoff into your own cloud storage — see [the two postures](/offered/overview). The [data outputs & schema](/under-the-hood/data-outputs) page is the field-level reference for what lands there.
+  **Pro** takes the report package (report plus receipts appendix). **Research** adds the direct data-layer handoff into your own cloud storage; see [the two postures](/offered/overview). The [data outputs & schema](/under-the-hood/data-outputs) page is the field-level reference for what lands there.
 </Note>
 
 ## What's delivered, and what's rolling out
 
 | Object | Today |
 | --- | --- |
-| Rendered report + receipts appendix | **Delivered** with every study — the readable audit surface. |
+| Rendered report + receipts appendix | **Delivered** with every study: the readable audit surface. |
 | Full run-level evidence (transcripts, raw captures, structured records) | In your **R2 / S3 data layer**, set up at onboarding (Research). |
-| Per-trip / bulk **structured export** (stable, API-shaped) | **Rolling out** — see [Roadmap](/roadmap). Today, operator-assisted on request. |
+| Per-trip / bulk **structured export** (stable, API-shaped) | **Rolling out.** See [Roadmap](/roadmap). Today, operator-assisted on request. |
 | **In-product click-through** (number → trip, in the UI) | **On the roadmap.** Today the report package is the audit surface. |
 
 ## Where to go next

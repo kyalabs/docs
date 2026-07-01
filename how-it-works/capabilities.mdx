@@ -1,30 +1,30 @@
 ---
-title: "What AI shopping agents can read — the capability frontier"
+title: "What AI shopping agents can read: the capability frontier"
 icon: "star"
 sidebarTitle: "Capability frontier"
-description: "Two walls stand between an AI shopping agent and a retailer's products: access and extraction. Here's where a generic agent falls off each, and what advanced capabilities buy."
+description: "Two walls stand between an AI shopping agent and a retailer's products: access and extraction. Here is where a generic agent falls off each, and what advanced capabilities buy."
 ---
 
 <Note>
-  **The most concrete look at what the instrument sees.** The two walls between an AI shopping agent and a retailer's products — access and extraction — measured on live storefronts.
+  **The most concrete look at what the instrument sees.** The two walls between an AI shopping agent and a retailer's products (access and extraction), measured on live storefronts.
 </Note>
 
 When a shopper points an AI agent at a retailer's site today, the agent rarely sees what the
-shopper sees. It hits **two independent walls** — and a generic agent, the kind driven from a
+shopper sees. It hits **two independent walls**, and a generic agent, the kind driven from a
 consumer chat assistant, clears neither.
 
-1. **Access** — can the agent reach a product page at all?
-2. **Extraction** — once on the page, can it read the products?
+1. **Access:** can the agent reach a product page at all?
+2. **Extraction:** once on the page, can it read the products?
 
 Each wall needs a specific capability to clear. We measure exactly where a generic run falls off
 each one, and what each capability buys. The numbers below are measured under controlled tests on
-live storefronts — counts, not rates, with the denominators stated.
+live storefronts: counts, not rates, with the denominators stated.
 
-## Wall 1 — Access
+## Wall 1: Access
 
 Many sites defend against automated traffic. To an AI agent, that defense often looks like a flat
 refusal: the page never loads, so the agent builds its recommendation from third-party editorial
-sites instead — and the retailer is invisible on its own surface.
+sites instead, and the retailer is invisible on its own surface.
 
 We measured this directly on a large automotive marketplace: **76 agent fetch attempts, every one
 access-denied**, including the attempts that escalated to a real browser running through a
@@ -32,13 +32,13 @@ residential proxy.
 
 | Capability tier | What it is | Result |
 |---|---|---|
-| Plain fetch | A normal HTTP request — what most agent tools do | Access-denied |
+| Plain fetch | A normal HTTP request, what most agent tools do | Access-denied |
 | Headless browser | A real browser session | Access-denied |
 | + Residential proxy | Browser egressing through residential IPs | Access-denied |
 | + Advanced stealth / allowlist | Higher-tier evasion, or the site allowlisting agent traffic | The path that clears it |
 
 Through a residential proxy, this site stayed closed to agents. Clearing it
-isn't an extraction problem — it's an access decision. A site has two options: **allowlist
+isn't an extraction problem. It's an access decision. A site has two options: **allowlist
 agent traffic**, or accept that only shoppers arriving with advanced-stealth tooling (most don't)
 will reach it.
 
@@ -49,11 +49,11 @@ will reach it.
   page" number as a floor, not a ceiling, until soft-blocks are filtered out.
 </Note>
 
-## Wall 2 — Extraction
+## Wall 2: Extraction
 
 Reaching the page is only half the problem. Modern storefronts render their product grid in the
 browser, *after* the initial page loads, by calling back to an API. An agent that snapshots the
-page too early gets the SEO blurb in the page header — a single marketing sentence — and reads
+page too early gets the SEO blurb in the page header (a single marketing sentence) and reads
 **zero products**.
 
 We measured this on a client-rendered grocery storefront. Before the extraction layer: across 10
@@ -77,21 +77,21 @@ On a slow-rendering storefront, the effect is sharp:
 | **With hydration timing** | **4 in 4 attempts** | **~28** |
 
 A generic agent reads the grid one time in four and sees about seven products. With the extraction
-layer it reads the grid every time and sees about twenty-eight — products, with live prices, that
+layer it reads the grid every time and sees about twenty-eight: products, with live prices, that
 the agent simply could not see before.
 
 <Note>
   Capture is genuinely non-deterministic: the same page can yield a different result run to run. So
-  this is a **rate** improvement, not a guarantee — but the timing layer never makes it worse.
+  this is a **rate** improvement, not a guarantee, but the timing layer never makes it worse.
 </Note>
 
-### What reaches the agent — and what doesn't
+### What reaches the agent, and what doesn't
 
 When the extraction layer is on, the storefront's **promo and sale pricing becomes visible to the
-agent** — the live deal layer a human sees on the page. In the grocery study, the agent read real
+agent**, the live deal layer a human sees on the page. In the grocery study, the agent read real
 products with prices and the promotional flags attached to them.
 
-In that same study, **zero paid "Sponsored" placements surfaced** — those sit on ad-dense pages the
+In that same study, **zero paid "Sponsored" placements surfaced**. Those sit on ad-dense pages the
 agents didn't reach in this run. We report the promo layer that reached the agent; we do not invent
 Sponsored placements that didn't.
 
@@ -103,7 +103,7 @@ A report from this engine ships a headline that matches its own counts. See [the
 
 <Warning>
 - **The hardest access walls stay closed.** A residential proxy did not clear the automotive
-  marketplace above. That tier needs advanced stealth or an allowlist — a decision, not a feature.
+  marketplace above. That tier needs advanced stealth or an allowlist: a decision, not a feature.
 - **Single-product pages are a separate problem.** The grid extractor reads multi-item grids; a
   single product detail page rendered the same way needs its own path, which isn't built yet.
 - **The deep catalog isn't fully readable.** The storefront's promo surface reaches the agent, but
@@ -113,13 +113,13 @@ A report from this engine ships a headline that matches its own counts. See [the
 
 ## How to read these numbers
 
-Every figure here is from a controlled test on a live storefront with the denominator stated — [counts, not rates](/insights/reading-a-report/count-ledger), and [directional, not representative](/insights/reading-a-report/headline-and-verdict).
+Every figure here is from a controlled test on a live storefront with the denominator stated: [counts, not rates](/insights/reading-a-report/count-ledger), and [directional, not representative](/insights/reading-a-report/headline-and-verdict).
 
 ## Where to go next
 
 <CardGroup cols={2}>
   <Card title="Inside One Study" icon="microscope" href="/how-it-works/inside-one-study">
-    These walls, met on one real run — the automotive marketplace above, walked end to end from question to receipt.
+    These walls, met on one real run: the automotive marketplace above, walked end to end from question to receipt.
   </Card>
   <Card title="Two Lanes" icon="globe" href="/how-it-works/two-lanes">
     Browse versus search-native, and why a challenged site structurally limits what either lane can read.

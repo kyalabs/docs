@@ -5,7 +5,7 @@ description: "Panel composition, version pinning, and how a measurement stays co
 ---
 
 <Note>
-  **For technical evaluators.** How a measurement stays comparable as the models change — the answer to *"is this a real metric, or a snapshot?"*
+  **For technical evaluators.** How a measurement stays comparable as the models change. This is the answer to *"is this a real metric, or a snapshot?"*
 </Note>
 
 AI models update constantly. If the thing doing the shopping changes, how can a measurement taken in June be compared to one taken in September?
@@ -16,14 +16,14 @@ The panel is a **versioned instrument**, not a dial. Its composition is locked p
 
 A **panel version** is a locked tuple of three things:
 
-- **Composition** — which model families, how many trips each, and across which lanes (browse and search-native; [Two Lanes](/how-it-works/two-lanes) covers what those modes are and how each is captured). The families are **GPT, Gemini, Claude, and Perplexity Sonar** (the search-native lane). The panel-of-record is a 25-trip mixed panel, composed to track the live consumer-agent mix: the largest share of trips on the most-used family (a plurality, not a majority), the rest split across the others, with Perplexity Sonar reading the way people ask rather than browse. Smaller studies run a lighter default composition; the study always declares which one it ran on. A 25-trip panel is a **directional instrument**, not a statistical-significance test (see [Headline and verdict](/insights/reading-a-report/headline-and-verdict)); where a question needs a hard statistical read, a research-grade engagement runs a higher N.
-- **Methodology version** — the documented procedure the runs follow.
-- **Mission shape** — the declared question, the denominators, and the claim classes (see [Pre-registered protocol](#pre-registered-protocol)).
+- **Composition:** which model families, how many trips each, and across which lanes (browse and search-native; [Two Lanes](/how-it-works/two-lanes) covers what those modes are and how each is captured). The families are **GPT, Gemini, Claude, and Perplexity Sonar** (the search-native lane). The panel-of-record is a 25-trip mixed panel, composed to track the live consumer-agent mix: the largest share of trips on the most-used family (a plurality, not a majority), the rest split across the others, with Perplexity Sonar reading the way people ask rather than browse. Smaller studies run a lighter default composition; the study always declares which one it ran on. A 25-trip panel is a **directional instrument**, not a statistical-significance test (see [Headline and verdict](/insights/reading-a-report/headline-and-verdict)); where a question needs a hard statistical read, a research-grade engagement runs a higher N.
+- **Methodology version:** the documented procedure the runs follow.
+- **Mission shape:** the declared question, the denominators, and the claim classes (see [Pre-registered protocol](#pre-registered-protocol)).
 
 A study always declares which panel version it ran on. **Same panel version \+ same mission = comparable runs.** That is the contract.
 
 <Note>
-  The panel is composed against the mix of assistants real shoppers use, not a single model. When that mix shifts, the panel moves with it — covered in the next two sections.
+  The panel is composed against the mix of assistants real shoppers use, not a single model. When that mix shifts, the panel moves with it. The next two sections cover how.
 </Note>
 
 ## Version pinning
@@ -70,7 +70,7 @@ By design, a panel version remains the panel-of-record for a stated window unles
 
 <AccordionGroup>
   <Accordion title="Can't you just tweak the panel until it says what someone wants?">
-    No. Composition is locked per version, the stamp records the instrument's identity, and the protocol is pre-registered. A tweaked panel is a _different, numbered instrument_ — not a quiet adjustment.
+    No. Composition is locked per version, the stamp records the instrument's identity, and the protocol is pre-registered. A tweaked panel is a _different, numbered instrument_, not a quiet adjustment.
   </Accordion>
 
   <Accordion title="What happens when the next major model ships?">
@@ -90,6 +90,6 @@ By design, a panel version remains the panel-of-record for a stated window unles
   </Card>
 
   <Card title="Anatomy of a Run" icon="receipt" href="/evidence/anatomy-of-a-run">
-    What a single run produces, end to end — from brief to stamped receipt.
+    What a single run produces, end to end, from brief to stamped receipt.
   </Card>
 </CardGroup>
