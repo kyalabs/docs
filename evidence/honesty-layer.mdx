@@ -3,33 +3,31 @@ title: "The Honesty Layer"
 description: "How a ShoppiPanel report stays bound to what actually happened — the structural mechanisms that make an overstated report unreachable rather than merely discouraged."
 ---
 
-A ShoppiPanel report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is exactly the trust you can place in them. A report that overstates is worse than no report: it puts a confident, wrong sentence into a room where someone makes a decision on it.
+A ShoppiPanel report makes claims about how AI shopping agents treated your brand — what they noticed, compared, recommended, and passed over. The value of those claims is the trust that can be placed in them. A report that overstates is worse than no report: it puts a confident, wrong sentence in front of a decision.
 
-The Honesty Layer is the part of the pipeline whose entire job is to keep the words in your report from drifting away from what the evidence supports. No human performs a review pass at the end to catch overstatement. Instead, the report is **built** so that the dishonest version is unreachable — not merely discouraged.
+The Honesty Layer is the part of the pipeline that keeps the words in a report from drifting away from what the evidence supports. No human performs a review pass at the end to catch overstatement. The report is **built** so that the dishonest version is unreachable.
 
-Four mechanisms do this work. Below, each one is laid out, followed by why the result is structural rather than editorial — a property of how the report is built, not of who reviews it.
+Four mechanisms do this work. Each one is laid out below, followed by why the result is structural rather than editorial.
 
 <Note>
-  The shortest version: the dishonest output is made unreachable in code, rather than caught after the fact by a reviewer. The trust you place in a report is not a request to trust a model's prose — it is a request to trust arithmetic, a schema contract, and a hold gate, all of which are auditable.
+  The dishonest output is made unreachable in code, rather than caught after the fact by a reviewer. A report rests on arithmetic, a schema contract, and a hold gate, all of which are auditable.
 </Note>
 
 ---
 
 ## 1 · The headline cannot disagree with the body's numbers
 
-This is the mechanism to understand first, because it is the one most directly load-bearing for an executive who repeats a single sentence in a meeting.
-
 A subtle failure mode in any automated study: the headline and the body of the _same_ report quietly disagree. The headline asserts one distribution; the detailed trip-by-trip evidence supports another. Each looks fine in isolation; together they are a fabrication.
 
 Before a report can ship, every counted claim in the headline is reconciled against the audited trip evidence. The auditor and the producer of the headline read from the **same** computed distribution — there is one definition of which trips count, shared by both sides, so the check can never be blind to a contradictory headline. If the numbers the headline asserts do not match the numbers the evidence supports, the report is **held**: it cannot be delivered as clean collateral until the divergence is resolved.
 
-This is a deliberate hard hold, and it is one of only two places in the entire delivery path where a report is stopped rather than shipped-with-disclosure. We reserve hard holds for exactly this: a headline whose distribution contradicts the audited counts. Everything else that could be wrong with a study is disclosed, not held.
+This hard hold is one of only two places in the entire delivery path where a report is stopped rather than shipped-with-disclosure. Hard holds are reserved for this case: a headline whose distribution contradicts the audited counts. Everything else that could be wrong with a study is disclosed, not held.
 
 <Note>
-  The design history is the point. This guard was not added speculatively. It was the response to a live case where a study reached a successful state and presented a clean-looking headline whose distribution the evidence did not support. The detection had already flagged the run — what was missing was _prevention_. The hold is that prevention.
+  This guard was the response to a live case where a study reached a successful state and presented a clean-looking headline whose distribution the evidence did not support. The detection had already flagged the run — what was missing was _prevention_. The hold is that prevention.
 </Note>
 
-We separate two situations on purpose:
+The layer separates two situations:
 
 <CardGroup cols={2}>
   <Card title="A claim mismatch — stops the report">
@@ -58,7 +56,7 @@ We removed that risk by changing the order of operations. Before any narrative i
 
 **The verdict is a computed object. The language model's job is to narrate that object — it cannot author a different one.** A draft headline that contradicts the computed verdict is replaced with the deterministic one before the report ships.
 
-This inverts the usual failure mode. When a model proposes a conclusion and a checker tries to catch the bad ones, the checker is always one embarrassment behind. Computing the conclusion first turns that around: the thesis exists as a fact before a single sentence is drafted, and the narration is bound to it.
+This inverts the usual failure mode. When a model proposes a conclusion and a checker tries to catch the bad ones, the checker is always one step behind. Computing the conclusion first turns that around: the thesis exists as a fact before a single sentence is drafted, and the narration is bound to it.
 
 <Note>
   One concrete consequence: if a study has a dominant winner — say one brand led the majority of trips while four rivals each led one or two — the only headline the system can produce names that winner and states the distribution honestly ("leading, not unanimous"). A headline claiming "no single product won," when one clearly did, is not a sentence the pipeline can emit.
@@ -77,9 +75,9 @@ Every report carries an explicit statement of what it does and does not claim. A
 - **not** a public benchmark;
 - **not** a ranking of model providers.
 
-We call this the claim boundary, and it is not optional copy a writer might forget. It is a required field on the report's structure, set deterministically when the report is assembled, and rendered onto every delivered surface of the artifact. A report missing its claim boundary fails its own structural contract and does not ship.
+The claim boundary is a required field on the report's structure, set deterministically when the report is assembled, and rendered onto every delivered surface of the artifact. A report missing its claim boundary fails its own structural contract and does not ship.
 
-This is the discipline made enforceable: counts before rates, evidence references visible, the limits of the read stated on the face of the deliverable — enforced by the schema, not by the diligence of whoever pressed send.
+The schema enforces the discipline: counts before rates, evidence references visible, the limits of the read stated on the face of the deliverable.
 
 ---
 
@@ -89,25 +87,25 @@ Agentic studies run against live, changing surfaces. Sometimes a study does not 
 
 A study that formed but did not clear the evidence bar **ships as a partial success, marked not research-grade**, not silently upgraded into something it isn't. That marking is a first-class, named state on the result — carried in the data, surfaced on the artifact — so a thin-but-usable read is visibly a thin read, never a confident one. The system does not hold a study merely for being modest, and it does not launder a modest study into a polished one. It ships it flagged.
 
-A separate situation is a run that **could not form a study at all**. This is the terminal **failed** state, and it has two causes: the rig failed to operate, or too few of the panel's cells returned results to form a credible read. In either case the run collapses rather than shipping a hollow report; a study that cannot be assembled is not dressed up as one. This is distinct from the thin-but-usable study above, which formed and ships flagged. (Most of the panel's cells must return results for a study to form; the exact floor is qualitative on purpose.) The full buyer-facing state set — **Partial success**, **Failed**, and the held **Delayed** state that stays distinct from both — lives in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
+A separate situation is a run that **could not form a study at all**. This is the terminal **failed** state, and it has two causes: the rig failed to operate, or too few of the panel's cells returned results to form a credible read. In either case the run collapses rather than shipping a hollow report; a study that cannot be assembled is not dressed up as one. This is distinct from the thin-but-usable study above, which formed and ships flagged. (Most of the panel's cells must return results for a study to form; the exact floor is qualitative.) The full buyer-facing state set — **Partial success**, **Failed**, and the held **Delayed** state that stays distinct from both — lives in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
 
 <Note>
   **A description of engine behavior.** The not-research-grade marking and the failed state describe how the pipeline behaves today — what the engine does with a thin study and with a run that cannot form one. Read this section as observed pipeline behavior, not as a promise about the outcome of any individual run.
 </Note>
 
-### A note on access, because a technical reader will ask
+### A note on access
 
-We describe what an agent could and could not reach in two plain states — **reached** and **access-limited** — defined on [Reach](/insights/reading-a-report/reach); a finer characterization of _how_ a surface was access-limited rides on the per-finding receipt, underneath that headline state.
+What an agent could and could not reach is described in two plain states — **reached** and **access-limited** — defined on [Reach](/insights/reading-a-report/reach); a finer characterization of _how_ a surface was access-limited rides on the per-finding receipt, underneath that headline state.
 
-This access register is a **methodology discipline**, applied observe-only and graduating toward a stricter check over time. It is **not** a machine-guaranteed property of every sentence. We are deliberate about that distinction: the honest claim is that this is how we discipline the language, not that a validator certifies it on every line today.
+This access register is a **methodology discipline**, applied observe-only and graduating toward a stricter check over time. It is **not** a machine-guaranteed property of every sentence: it is how the language is disciplined, not a validator certifying every line today.
 
 ---
 
 ## Why this is structural, not editorial
 
-The honest version of all four mechanisms is the same sentence repeated: **the dishonest output is made unreachable in code, rather than caught after the fact by review.**
+All four mechanisms reduce to one sentence: **the dishonest output is made unreachable in code, rather than caught after the fact by review.**
 
-Read this as a buyer: the trust you place in a ShoppiPanel report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
+A ShoppiPanel report rests on arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
 
 ---
 

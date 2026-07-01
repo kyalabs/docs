@@ -3,7 +3,7 @@ title: "Anatomy of a Run"
 description: "One trip, from the question it sets out on to the receipt you can open — and why every number in the report stays bound to the trips that produced it."
 ---
 
-A ShoppiPanel study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. This page follows a single trip from the moment it sets out to the moment its evidence lands in a receipt you can open — and shows why every number in the report can be walked back to exactly the trips that produced it.
+A ShoppiPanel study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. Every number in the report can be walked back to exactly the trips that produced it.
 
 The promise is narrow and testable: **no claim in the report floats.** Every recommendation, every count, every "this is what the agents did" carries at least one reference to a specific piece of captured evidence, and that evidence is retrievable.
 
@@ -25,15 +25,15 @@ When a trip runs, three things about it are written down as they happen — not 
   </Card>
 </CardGroup>
 
-A trip also carries the plain facts you would expect: which model family stood in for it (GPT, Gemini, Claude, or Perplexity Sonar), which lane it ran (browse or search-native), and whether it completed with enough evidence to count. Those travel with the trip as a stamped record, so a trip is never an unanchored anecdote — it is an addressable unit with a provenance.
+A trip also carries the plain facts you would expect: which model family stood in for it (GPT, Gemini, Claude, or Perplexity Sonar), which lane it ran (browse or search-native), and whether it completed with enough evidence to count. Those travel with the trip as a stamped record: a trip is an addressable unit with a provenance.
 
 ## From a source the agent touched to a receipt you can open
 
 Every source a trip used becomes one **evidence card** — a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency and fold into one denominator. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
 
-This is what makes the report auditable rather than merely confident. In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
+In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
 
-The practical effect for a reader: when the report states a number, you can find the cards behind it, and each card points at the trip and the source it came from. The evidence is the appendix, not a footnote to it.
+When the report states a number, the cards behind it are retrievable, and each card points at the trip and the source it came from.
 
 ## Counts before rates
 
@@ -47,18 +47,18 @@ A browsing trip regularly meets pages that don't serve automated traffic. Per at
 
 ## Retrievable, not just claimed
 
-A receipt that exists only on an engineer's machine is not a receipt. The report's evidence — its readable report and its receipts appendix — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it for you on request. No one needs server access to dig the evidence out. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence read. The evidence is there to be pulled.
+The report's evidence — its readable report and its receipts appendix — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it on request. Retrieval requires no server access. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence read.
 
-Every served surface of the report passes through the same sanitization that keeps internal vocabulary off the buyer face — so the receipt you open is in the buyer's register, not the engine's.
+Every served surface of the report passes through the same sanitization that keeps internal vocabulary off the buyer face: the served receipt is in the buyer's register, not the engine's.
 
 To be precise about what is shipped versus what is being wired:
 
 - **Rolling out** — the owner-scoped read path that makes the evidence retrievable. It only just landed, so during the pilot we open it for you on request: any number in a report can be audited back to its trips and sources.
-- **Being wired now** — the polished self-serve walk-back: clicking straight from a headline number, to the trip, to that trip's transcript and the sources it touched, without leaving the product. By design, in progress.
+- **Being wired now** — the polished self-serve walk-back: clicking straight from a headline number, to the trip, to that trip's transcript and the sources it touched, without leaving the product.
 
 ## The chain a number rests on
 
-The trust you place in a number is not asking you to trust a narrative. It is asking you to trust a chain — every link of which is recorded, addressable, and auditable.
+A number rests on a chain — every link of which is recorded, addressable, and auditable.
 
 <div style={{ fontFamily: "var(--font-mono, monospace)" }}>
   trip → captured evidence → evidence card → cited count → retrievable receipt

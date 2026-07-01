@@ -21,7 +21,7 @@ The extract is **one pretty-printed JSON file** per run — not gzipped, not new
 | **Format** | A single pretty-printed JSON document (UTF-8). Keys are snake_case. |
 | **Schema handle** | `standard_extract.v0` — carried on every extract as the top-level `schema_version` |
 | **Files per run** | `standard_extract.v0.json` (the extract) · `fidelity_receipt.v0.json` (the receipt, also embedded) |
-| **Content hash** | A single **run-level content hash** over the package — `sha256:<hex>`, content-addressed — so you can verify the package you received is the package we produced. **This is a per-run hash, not a per-object signed manifest.** |
+| **Content hash** | A single **run-level content hash** over the package — `sha256:<hex>`, content-addressed. **This is a per-run hash, not a per-object signed manifest.** |
 
 A run's extract is immutable once produced. Re-runs produce a new `run_id`; never a mutation of the old one.
 
