@@ -3,10 +3,14 @@ title: "Inside One Study"
 description: "One real category read, walked end to end — the panel of trips, the reach ladder, what each trip captures, how the verdict is computed before it's narrated, and what honest looks like when a site turns the agents away."
 ---
 
-This is a **single real study**, walked through the whole engine end to end. It exercised nearly every part of the instrument at once — agents fanning out across a category, a site that met automated traffic with a hard challenge, the full reach ladder climbed and logged at each rung, and a tempting wrong answer to guard against. It is blinded here — the subject is a **large online automotive marketplace**, the category **used SUVs** — but every number below is from the run, and each walks back to the trips that produced it.
+<Note>
+  **What this page is.** One real ShoppiPanel study — a blinded **large online automotive marketplace**, category **used SUVs** — presented in detail so you can see how the engine works on a real example. Every number below is from the run.
+</Note>
+
+It exercised nearly every part of the instrument at once — agents fanning out across a category, a site that met automated traffic with a hard challenge, the full reach ladder climbed and logged at each rung, and a tempting wrong answer to guard against. Each number below walks back to the trips that produced it.
 
 <Note>
-  This was a small, deliberate probe — **6 trips**, not a full 25-trip panel — so every count below is **directional**: a signal, not a rate. The denominator travels with each number.
+  A small, deliberate probe — **6 trips**, not a full 25-trip panel — so every count below is **directional**: a signal, not a rate. The denominator travels with each number.
 </Note>
 
 ---
@@ -74,14 +78,7 @@ One detail rules out the lazy explanation that *we* got flagged: switching to re
 
 ### Where the ladder changed the read
 
-The other wall only matters once an agent is *on* a page. Many modern storefronts assemble their product grid in the browser, after load — so the plain-fetch tier reads the page title and almost no products. Measured on a **comparable client-rendered storefront** (not the subject, which was walled before we could render it — so read this as the instrument's general capability), the rung decides the read:
-
-| Retrieval rung | Grid read | Items seen |
-|---|---|---|
-| Plain fetch | ~1 attempt in 4 | ~7 |
-| Rendered + render-aware timing | every attempt | ~28 |
-
-Same page, same agent — a different rung, a different study.
+The other wall only matters once an agent is *on* a page. Many modern storefronts assemble their product grid in the browser, after load — so a plain fetch reads the page title and almost no products, while render-aware timing reads the whole grid. On a comparable client-rendered storefront, that is the difference between **~7 products seen and ~28** ([the capability frontier](/how-it-works/capabilities) has the full demonstration). The subject was walled before we could render it, so this is the instrument's general capability, not a subject finding.
 
 **The two walls are independent, and a page raises them in series.** To read a site's inventory an agent must be *reachable* (clear the challenge) **and** *readable* (render the grid); fail either and it comes back with less than the page holds. The marketplace stopped agents at the **first** wall this run, so the second never mattered. Most pages in the wild clear neither cleanly — which is why a study records *which* wall it hit, not just that the agent came up short.
 
