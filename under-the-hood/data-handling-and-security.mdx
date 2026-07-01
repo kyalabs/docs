@@ -4,7 +4,7 @@ description: "Personal-data posture, retention windows, token scrubbing, subproc
 sidebarTitle: "Data handling & security"
 ---
 
-A study studies AI shopping agents against public web surfaces — it does not ingest your consumer or customer data. That single fact defines the posture below. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
+A study studies AI shopping agents against public web surfaces — it does not ingest your consumer or customer data. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
 
 ## Personal data posture
 
@@ -23,7 +23,7 @@ The inputs we need are a category question, a brand set, and a surface set — n
 
 Automated scrubbing today is scoped to **secret and credential tokens** — the capture path strips token-shaped strings (token prefixes and `token=`-style query values) from captured text before evidence is persisted.
 
-A content-level, automated _personal-data_ redaction pass over transcripts — detecting and masking emails, phone numbers, names, or government IDs — is **not yet in place**. The real protection is the design itself: the study does not ingest your customer dataset (see above), and a founder reviews the deliverable before handoff.
+A content-level, automated _personal-data_ redaction pass over transcripts — detecting and masking emails, phone numbers, names, or government IDs — is **not yet in place**. The study does not ingest your customer dataset (see above), and a founder reviews the deliverable before handoff.
 
 <Note>
   We do not claim content-verified personal-data redaction today. Automated secret-token scrubbing plus the no-consumer-PII-ingest design is the posture; the content-level personal-data pass is on the roadmap, not live.
@@ -70,7 +70,7 @@ There is no formally documented incident-response or breach-notification program
 - The team monitors run health and security alerts directly.
 - A documented **24-hour kill switch**: on a request to stop touching a named surface, a deploy-config flag halts all traffic to that surface — in-flight and new sessions — within 24 hours, with the refusal recorded in the run's attempt ledger.
 
-A formal incident-response runbook with a defined notification window is a gap we will close as an engagement formalizes; we would commit a notification window in the engagement paper rather than point to a program we do not yet run.
+A formal incident-response runbook with a defined notification window is a gap we will close as an engagement formalizes; the notification window is committed in the engagement paper.
 
 ## Security review materials
 
@@ -81,13 +81,13 @@ Available during evaluation, on request:
 - **DPA / data addendum** (executed as part of the engagement paper).
 
 <Note>
-  We are **not SOC 2 certified** and do not represent otherwise. Our strongest, genuine security position is that the product studies AI shopping agents against public web surfaces and does not ingest your consumer or customer data. We would rather you see the honest posture than discover a gap mid-engagement.
+  We are **not SOC 2 certified** and do not represent otherwise. The product studies AI shopping agents against public web surfaces and does not ingest your consumer or customer data.
 </Note>
 
 ## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="Access & admin" icon="users" href="/offered/access-and-admin">
+  <Card title="Access & admin" icon="users" href="/offered/engagement-lifecycle#access-admin-and-continuity">
     Workspace access, roles, SSO.
   </Card>
 
