@@ -32,10 +32,6 @@ A run's extract is immutable once produced. Re-runs produce a new `run_id`; neve
 | **Operator-mediated (white-glove) handoff** | **Live today.** Your kya labs contact delivers the extract for a delivered run. |
 | **Self-serve cloud-storage handoff** (into a bucket you designate) and **in-product structured-data export** | **Planned for integration — rolling out.** Until it lands, export runs with us in the loop. See [the roadmap](/roadmap). |
 
-<Note>
-  Never present the self-serve export or in-product structured-data export as a live, self-service feature today — it is rolling out. The **extract itself** (the JSON shape documented here) is what's live; the **interface that hands it to you without an operator** is what's being turned on.
-</Note>
-
 ## Top-level shape
 
 The extract is a single object. These are its top-level keys, as the engine emits them:
@@ -143,7 +139,7 @@ The extract is a single object. These are its top-level keys, as the engine emit
 
 ### `population`
 
-The count ledger. **`blocked` is an internal COUNT field — cells that never ran or failed the pipeline. Read it as "did not run."** It is not a reach posture, and it does not mean a page told the agent it was blocked. (Reach posture lives on each source card, as *reached / access-limited*.)
+The count ledger. **`blocked` is an internal COUNT field — cells that never ran or failed the pipeline. Read it as "did not run."** It is not a [reach posture](/insights/reading-a-report/reach) — that lives on each source card as *reached / access-limited*.
 
 ```json
 {
@@ -191,7 +187,7 @@ The count ledger. **`blocked` is an internal COUNT field — cells that never ra
 
 ### `source_cards[]`
 
-Per-card reach posture is **reached / access-limited** — never the absolute word "blocked" on the buyer face.
+Per-card [reach posture](/insights/reading-a-report/reach) is **reached / access-limited**.
 
 ```json
 {
@@ -224,7 +220,7 @@ Per-card reach posture is **reached / access-limited** — never the absolute wo
 
 ### `fidelity_receipt`
 
-The fidelity metrics and any research-grade flags. Quality signals here **flag — they do not hold** the report. A run with a breached floor still ships, stamped with the flag.
+The fidelity metrics and any research-grade flags. Quality signals here [flag — they do not hold](/evidence/honesty-layer): a run with a breached floor still ships, stamped with the flag.
 
 ```json
 {

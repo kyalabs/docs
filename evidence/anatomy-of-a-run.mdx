@@ -29,7 +29,7 @@ A trip also carries the plain facts you would expect: which model family stood i
 
 ## From a source the agent touched to a receipt you can open
 
-Every source a trip used becomes one **evidence card** — a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency. That shared shape is what carries a single source-backed count across both lanes: browse and search-native trips fold into one denominator, end-to-end today — not the browse lane scored alone with search-native bolted on later. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
+Every source a trip used becomes one **evidence card** — a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency and fold into one denominator. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
 
 This is what makes the report auditable rather than merely confident. In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
 
@@ -37,39 +37,13 @@ The practical effect for a reader: when the report states a number, you can find
 
 ## Counts before rates
 
-Before the report states any rate or any verdict, it states the counts. A shipped report carries a count ledger that declares, for the study, how many trips were:
+Before the report states any rate or any verdict, it states the counts. A shipped report carries a count ledger that declares, for the study, how many trips were planned, completed, did-not-run, insufficient, and metric-eligible — so the denominator is a first-class fact you can check the rate against. [Reading the Count Ledger](/insights/reading-a-report/count-ledger) teaches how each line is defined and read.
 
-<Steps>
-  <Step title="Planned">
-    The trips the study set out to run.
-  </Step>
-  <Step title="Completed">
-    The trips that ran to an answer.
-  </Step>
-  <Step title="Did not run">
-    Trips that never executed or fell out of the pipeline before producing a result — counted, never silently dropped.
-  </Step>
-  <Step title="Insufficient">
-    Trips that ran but came back without enough evidence to count.
-  </Step>
-  <Step title="Metric-eligible">
-    The trips that actually carry the report's numbers.
-  </Step>
-</Steps>
-
-A rate with no denominator is a place to hide. "Most agents recommended you" means nothing until you can see that it was, say, a clear majority of the metric-eligible trips — with the planned, did-not-run, and insufficient trips all counted and visible. The ledger makes the denominator a first-class fact of the report, so the rate can be checked against it rather than taken on faith.
-
-Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity — not a word guessed back out of its prose afterward. The count is not asserted; it is sourced. That sourced count is what the report's headline is computed from before any sentence is written — the mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
+Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity — not a word guessed back out of its prose afterward. That sourced count is what the report's headline is computed from before any sentence is written — the mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
 
 ## Access posture, stated honestly
 
-A browsing trip regularly meets pages that don't serve automated traffic. The report never collapses that into a single absolute refusal label. We describe what an agent could and couldn't reach in two states — _reached_, or _access-limited_ — rather than using wording that would hide who limited the access and how completely.
-
-<Note>
-  The headline stays at _reached / access-limited_. A finer reading of **how** a page was limited — open, partially walled to automated traffic, or closed to it — rides on the per-finding receipt, where the evidence for that reading lives. It is a discipline of observation, recorded as we see it; it is not a promise that any given page can be reached.
-</Note>
-
-Where a trip's path to a page was constrained, the report says so plainly, and the access-limited trip is counted _as_ access-limited in the ledger rather than converted into a false negative about your brand. A reach gap is the property of the run that hit it, recorded honestly, and never laundered into a fake fact about a site or a fake trend across months. [Two Lanes](/how-it-works/two-lanes) is where the reached / access-limited model and its attribution discipline live in full.
+A browsing trip regularly meets pages that don't serve automated traffic. Per attempt, the report records whether the trip _reached_ a page or was _access-limited_, and an access-limited trip is counted _as_ access-limited in the ledger rather than converted into a false negative about your brand. [Reach](/insights/reading-a-report/reach) defines the reached / access-limited posture and its attribution discipline in full.
 
 ## Retrievable, not just claimed
 
