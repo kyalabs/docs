@@ -13,7 +13,7 @@ When it ships, the API will let you read a delivered study and its data package 
 ## Design principles
 
 - **Read-only at v1.** Study submission and configuration go through the platform; the API is for reading delivered work.
-- **One auth model.** Workspace-scoped keys, rotatable, issued from the workspace admin surface. SSO-tied keys arrive with the [access & admin](/offered/access-and-admin) layer.
+- **One auth model.** Workspace-scoped keys, rotatable, issued from the workspace admin surface. SSO-tied keys arrive with the [access & admin](/offered/engagement-lifecycle#access-admin-and-continuity) layer.
 - **Same data, same schema.** What you read through the API is byte-equivalent to what the [cloud-storage handoff](/under-the-hood/data-outputs) delivers — no second source of truth.
 - **Integrity-verifiable.** Every response is designed to carry the same checksum the data package carries, so you can verify it on receipt.
 

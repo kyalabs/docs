@@ -89,13 +89,13 @@
           "offered/pro-tier",
           "offered/research-tier",
           "offered/engagement-lifecycle",
-          "offered/access-and-admin",
           "roadmap"
         ]
       }
     ]
   },
   "redirects": [
+    { "source": "/offered/access-and-admin", "destination": "/offered/engagement-lifecycle" },
     { "source": "/under-the-hood/live-today", "destination": "/roadmap" },
     {
       "source": "/panel-as-an-instrument",
