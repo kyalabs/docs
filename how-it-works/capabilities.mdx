@@ -32,8 +32,8 @@ residential proxy.
 | + Residential proxy | Browser egressing through residential IPs | Access-denied |
 | + Advanced stealth / allowlist | Higher-tier evasion, or the site allowlisting agent traffic | The path that clears it |
 
-The finding is clean: through a residential proxy, this site stayed closed to agents. Clearing it
-isn't an extraction problem — it's an access decision. A site has two honest options: **allowlist
+Through a residential proxy, this site stayed closed to agents. Clearing it
+isn't an extraction problem — it's an access decision. A site has two options: **allowlist
 agent traffic**, or accept that only shoppers arriving with advanced-stealth tooling (most don't)
 will reach it.
 
@@ -86,20 +86,17 @@ When the extraction layer is on, the storefront's **promo and sale pricing becom
 agent** — the live deal layer a human sees on the page. In the grocery study, the agent read real
 products with prices and the promotional flags attached to them.
 
-We are deliberate about what we *don't* claim. In that same study, **zero paid "Sponsored"
-placements surfaced** — those sit on ad-dense pages the agents didn't reach in this run. We report
-the promo layer that demonstrably reached the agent; we do not invent Sponsored placements that
-didn't. That honesty is the point: a measurement is only useful if it's also conservative.
+In that same study, **zero paid "Sponsored" placements surfaced** — those sit on ad-dense pages the
+agents didn't reach in this run. We report the promo layer that reached the agent; we do not invent
+Sponsored placements that didn't.
 
-## Reports that can't overclaim
+## Reports and their counts
 
-The capability that ties the others together is restraint: a report from this engine can't ship a headline that contradicts its own counts. See [the honesty layer](/evidence/honesty-layer).
+A report from this engine ships a headline that matches its own counts. See [the honesty layer](/evidence/honesty-layer).
 
 ## What we don't do yet
 
 <Warning>
-Stated plainly, because an honest boundary is worth more than a long capability list:
-
 - **The hardest access walls stay closed.** A residential proxy did not clear the automotive
   marketplace above. That tier needs advanced stealth or an allowlist — a decision, not a feature.
 - **Single-product pages are a separate problem.** The grid extractor reads multi-item grids; a

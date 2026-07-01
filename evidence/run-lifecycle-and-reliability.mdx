@@ -5,25 +5,25 @@ description: "How a study is queued, what each outcome state means — partial v
 
 A ShoppiPanel study is not a synchronous API call that returns in a second. It is a batch of agent trips run against live, changing shopping surfaces, and any one of them can be slow, access-limited, or inconclusive on a given day. For repeated measurement — a quarterly baseline, a competitive watch, a pre/post-launch read — what matters is what happens across that batch: how runs are queued, what a _partial_ result means versus a _failed_ one versus a _held_ one, and what a re-run actually is.
 
-This is the lifecycle contract. The reliability story is the same one that runs through the rest of these docs: **the state of your run is a typed, computed object — not a status someone eyeballs** — and the honest outcome is the one the system is built to produce.
+This is the lifecycle contract. The state of a run is a typed, computed object, not a status someone eyeballs.
 
 ## A run has one state, and that state is computed
 
 When you submit a study, it does not flip between ad-hoc labels a dashboard invents. The engine carries a small set of typed internal states, and those roll up through a **single deterministic projection** into one buyer-facing run state — a small fixed vocabulary, the whole of what you ever see.
 
-The projection is a **total function**: every internal condition resolves to exactly one of those surface states, with a defined precedence — a hard failure is reported as a failure before anything else, a completed study is framed by its publishability, and an unknown or in-between condition falls back to a safe waiting state rather than a confident-sounding wrong one. There is no surprise state, no `error` catch-all, and no internal provider, model, or infrastructure word that can reach your surface — that boundary is enforced in code, not a style guideline.
+The projection is a **total function**: every internal condition resolves to exactly one of those surface states, with a defined precedence — a hard failure is reported as a failure before anything else, a completed study is framed by its publishability, and an unknown or in-between condition falls back to a safe waiting state. There is no surprise state, no `error` catch-all, and no internal provider, model, or infrastructure word that reaches the surface — that boundary is enforced in code.
 
-What this buys you: your integration reads **one field**. You never reverse-engineer run health from logs or guess what a raw status means. The state is the contract.
+Your integration reads **one field**. The state is the contract.
 
-## Studies are queued and batched — not fired blind
+## Studies are queued and batched
 
 A study is a batch of agent trips, and a multi-report engagement is a batch of studies. kya runs these through a **supervised queue**: each submission carries a stable idempotency key and is accepted as a durable, replayable record before any work starts. A worker claims accepted records and runs them; submitting the same one twice does not double-count or spawn a second run — the idempotency key collapses it to a single run identity.
 
 <Note>
-  **Throughput is bounded on purpose.** Studies run against live surfaces and metered upstream providers, so the queue runs a deliberate, bounded number at once rather than stampeding. A queued study waits for capacity instead of failing for lack of it — it is durable and replayable, never silently dropped.
+  **Throughput is bounded.** Studies run against live surfaces and metered upstream providers, so the queue runs a bounded number at once. A queued study waits for capacity instead of failing for lack of it — it is durable and replayable, never silently dropped.
 </Note>
 
-Two consequences a buyer should hold onto:
+Two consequences:
 
 - **Submission is idempotent.** A retried or duplicated submission resolves to the same run, the same status handle, and the same single result. Replays and conflicts are resolved at accept time, not after a double run.
 - **Capacity is a queue, not a cliff.** When the system is busy, your study waits in line and runs when a slot opens. It does not fail because the system was under load.
@@ -32,26 +32,26 @@ Two consequences a buyer should hold onto:
 
 The size and composition of a single study's panel — how many agent trips compose one report, and across which agent families — is the **panel-of-record**, covered in [The Panel as an Instrument](/how-it-works/panel-as-an-instrument). The panel-of-record is a fixed, mixed composition of agent trips; a lighter default panel runs quick reads. Reliability is defined the same way at either width: each trip runs through the same queue, the same typed lifecycle, and the same evidence floor — a smaller panel is fewer trips, not a different contract.
 
-## Partial vs failed — the distinction the whole contract turns on
+## Partial vs failed
 
-The most important reliability question is not "does it ever fail?" Every honest system that touches live surfaces sometimes can't get a clean read. The question is **what the system does with a thin result**. kya draws a hard line — the same line described in [The Honesty Layer](/evidence/honesty-layer).
+The reliability question is not "does it ever fail?" A system that touches live surfaces sometimes can't get a clean read. The question is **what the system does with a thin result**. kya draws a hard line — the same line described in [The Honesty Layer](/evidence/honesty-layer).
 
 - A study that came back with thin or incomplete evidence still **delivers** — as **Partial success**: a usable report that ships with its limits printed on its face, marked **not research-grade** where that applies. Thin is **not** failed. A caveated run is never silently upgraded into a clean one, nor dressed down into a failure. It is delivered with the caveat the evidence earned.
 - **Failed** is reserved for a run that _could not form a study at all_. Two things land here. The rig failed to operate: the run went orphaned, got stuck, ran past its execution budget, or could not produce a report and could not be recovered. Or too few of the panel's cells returned a result to support a credible read, so the study collapses rather than shipping hollow. Either way it is a structural outcome — a first-class, named state in the data, not a verdict on how much evidence a _finished_ study gathered.
 
-"Most of the panel's cells must return a result" is one count, not two: the browse and search-native lanes share a [single source-backed denominator](/how-it-works/two-lanes), so the floor a study clears is the same number whether a cell browsed or searched. The exact floor is qualitative here on purpose; the [Panel as an Instrument](/how-it-works/panel-as-an-instrument) owns the roster and how the cells compose.
+"Most of the panel's cells must return a result" is one count, not two: the browse and search-native lanes share a [single source-backed denominator](/how-it-works/two-lanes), so the floor a study clears is the same number whether a cell browsed or searched. The exact floor is qualitative here; the [Panel as an Instrument](/how-it-works/panel-as-an-instrument) owns the roster and how the cells compose.
 
-This is not a manual triage call. The caveat a partial report carries and its terminal state are both **computed from the counts** ([the honesty layer](/evidence/honesty-layer)), not eyeballed: a run that cannot form a study projects to _Failed_ directly from its terminal status, a thin study cannot be narrated into a clean one, and a finished study is never narrated into a failure. The state that drives the surface is settled before any report is dressed up.
+The caveat a partial report carries and its terminal state are both **computed from the counts** ([the honesty layer](/evidence/honesty-layer)): a run that cannot form a study projects to _Failed_ directly from its terminal status, a thin study is not narrated into a clean one, and a finished study is not narrated into a failure. The state that drives the surface is settled before any report is written.
 
 One state stays distinct from both. Before a run reaches a terminal point, an orphaned, stuck, or over-budget run, or one held for an integrity reason, is **held rather than published**: live today on the **integrity path**, where it is held, a human is notified, and it is never silently dropped or shipped. From your side that surfaces as **Delayed**: held and being looked at, not a quietly published report and not yet a failure. It resolves to _Failed_ only if it genuinely cannot be recovered.
 
 <Note>
-  A companion **policy path** — denying and holding a run before it can publish when it strays outside the sanctioned envelope — is ratified and being wired now. Today the integrity and budget holds above are the live "held, not shipped" guarantees; the broader policy hold is by design.
+  A companion **policy path** — denying and holding a run before it can publish when it strays outside the sanctioned envelope — is ratified and being wired now. Today the integrity and budget holds above are the live "held, not shipped" guarantees.
 </Note>
 
 ## What each outcome means
 
-Every state in the lifecycle resolves to a clear claim about your study — what you have, and how far you can lean on it.
+Every state in the lifecycle resolves to a clear claim about the study.
 
 | State | What you have |
 | --- | --- |
@@ -62,11 +62,11 @@ Every state in the lifecycle resolves to a clear claim about your study — what
 | **Provider degraded** | In flight — an upstream data provider faltered and the run is routing around it. Not terminal. |
 | **Queued / Running** | In flight. Not terminal; the study has not yet resolved to an outcome. |
 
-The line that matters: a **finished** study is graded on its evidence — research-grade, or shipped-and-marked — while a study that **never formed** is a _Failed_ run, a structurally different thing from a thin one.
+A **finished** study is graded on its evidence — research-grade, or shipped-and-marked — while a study that **never formed** is a _Failed_ run, a structurally different thing from a thin one.
 
 ## Re-runs — what they actually are
 
-"Re-run it" means different things to different vendors. For kya, a re-run is a **re-measurement on the same instrument**, not a fresh guess.
+"Re-run it" means different things to different vendors. For kya, a re-run is a **re-measurement on the same instrument**.
 
 <Steps>
   <Step title="Same instrument, same mission">

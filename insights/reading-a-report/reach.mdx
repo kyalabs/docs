@@ -15,7 +15,7 @@ Reach is reported **per finding**, never as a flat refusal — because the same 
 | **Reached** | The agent successfully retrieved the surface — your page loaded, your content was readable, the agent could quote or cite from it. |
 | **Access-limited** | The agent attempted the surface and was turned away — a paywall, a bot challenge, a redirect to a login wall, a robots-policy denial, or a soft block (the surface returned but with no usable content). |
 
-Access-limited is not a failure of the rig; it's a finding _of_ the rig. It tells you a surface the agent tried to reach but couldn't — a fixable signal, not a guess.
+Access-limited is a finding _of_ the rig: a surface the agent tried to reach but couldn't.
 
 ## What the per-finding receipt adds
 
@@ -25,18 +25,16 @@ A reach finding always opens to a receipt with three things:
 2. **What it tried** — the exact URL, the request, the response.
 3. **Why it was access-limited** — the specific block reason (status code, robots clause, soft-block signature, etc.).
 
-This is what separates a reach finding from a guess. You don't get _"agents may have trouble with your site"_ — you get _"GPT-class browse-native agents were access-limited on `/products/checkout` by a bot challenge on 12 of 14 attempts; here are the requests."_
+The receipt reads _"GPT-class browse-native agents were access-limited on `/products/checkout` by a bot challenge on 12 of 14 attempts; here are the requests"_ — not _"agents may have trouble with your site."_
 
 ## How to act on reach findings
 
-A reach finding is the most operationally actionable output of a study, because it points at a specific surface and a specific block. Common actions:
+A reach finding points at a specific surface and a specific block. Common actions:
 
 - **Allowlist** the agent's user-agent or IP range in your bot-management layer.
 - **Update robots policy** to permit the specific paths you want agents to read.
 - **Move content out of a gate** if it sits behind a login that's access-limiting agent retrieval.
 - **Re-run the study** after the fix and confirm the access posture changed.
-
-The point is to convert an access-limited surface into a reached one, then verify the change on the next read.
 
 <Note>
   Reach reads honestly, both ways. A surface you _want_ kept from agents (proprietary documentation, customer data) showing up as access-limited is a confirmation, not a problem. The study reports the posture; you decide which surfaces should be which.

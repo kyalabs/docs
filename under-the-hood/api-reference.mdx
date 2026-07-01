@@ -8,20 +8,20 @@ sidebarTitle: "API reference"
   **Status: in development.** The read API described here is the v1 *design* — it is not a callable surface yet. The shapes below convey intent, not a contract: endpoints, the auth scheme, and limits are finalized before the API goes live and confirmed with your kya labs contact during evaluation. The roadmap is on [Active & planned](/roadmap).
 </Note>
 
-When it ships, the API will let you read a delivered study and its data package programmatically — to ingest into your warehouse, drive a dashboard, or chain studies into your own pipelines. This page describes that planned shape so you can plan an integration; it does not pin a surface you could call today.
+When it ships, the API will read a delivered study and its data package programmatically — to ingest into a warehouse, drive a dashboard, or chain studies into downstream pipelines. This page describes the planned shape; it does not pin a callable surface.
 
 ## Design principles
 
 - **Read-only at v1.** Study submission and configuration go through the platform; the API is for reading delivered work.
 - **One auth model.** Workspace-scoped keys, rotatable, issued from the workspace admin surface. SSO-tied keys arrive with the [access & admin](/offered/engagement-lifecycle#access-admin-and-continuity) layer.
-- **Same data, same schema.** What you read through the API is byte-equivalent to what the [cloud-storage handoff](/under-the-hood/data-outputs) delivers — no second source of truth.
-- **Integrity-verifiable.** Every response is designed to carry the same checksum the data package carries, so you can verify it on receipt.
+- **Same data, same schema.** What the API returns is byte-equivalent to what the [cloud-storage handoff](/under-the-hood/data-outputs) delivers.
+- **Integrity-verifiable.** Every response is designed to carry the same checksum the data package carries, verifiable on receipt.
 
 ## Planned read surface
 
-The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its recommendations and non-recommendations, its verdict, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs): read a study through the API and you get the same bytes the handoff would have written.
+The v1 design is a small set of read endpoints over a delivered study — its record, its trips, its recommendations and non-recommendations, its verdict, and its sources, plus a checksum manifest. Responses stream as newline-delimited JSON, identical to the objects in the [data package](/under-the-hood/data-outputs).
 
-Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch — they are deliberately not pinned here while the surface is in development, so an integration you plan against the shape above doesn't harden against details that may still move.
+Exact paths, the auth scheme, per-key scopes, and rate limits are part of the v1 contract finalized before launch. They are not pinned here while the surface is in development, so an integration planned against the shape above doesn't harden against details that may still move.
 
 ## What's planned
 
