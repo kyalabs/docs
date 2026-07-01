@@ -73,7 +73,7 @@ Where a trip's path to a page was constrained, the report says so plainly, and t
 
 ## Retrievable, not just claimed
 
-A receipt that exists only on an engineer's machine is not a receipt. The report's evidence — its readable report, its receipts appendix, and its proof view — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it for you on request. No one needs server access to dig the evidence out. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence opened. The evidence is there to be pulled.
+A receipt that exists only on an engineer's machine is not a receipt. The report's evidence — its readable report and its receipts appendix — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it for you on request. No one needs server access to dig the evidence out. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence read. The evidence is there to be pulled.
 
 Every served surface of the report passes through the same sanitization that keeps internal vocabulary off the buyer face — so the receipt you open is in the buyer's register, not the engine's.
 
@@ -110,6 +110,6 @@ The trust you place in a number is not asking you to trust a narrative. It is as
   </Accordion>
 
   <Accordion title="Do I need engineering help to get the receipts?">
-    No. The report's readable view, receipts appendix, and proof view are retrievable through an owner-scoped read path, with no server access required. That read path is rolling out — it only just landed, so during the pilot we open it for you on request, and any number can be walked back to its trips and sources. The polished self-serve click-through is being wired.
+    No. The report's readable view and receipts appendix are retrievable through an owner-scoped read path, with no server access required. That read path is rolling out — it only just landed, so during the pilot we open it for you on request, and any number can be walked back to its trips and sources. The polished self-serve click-through is being wired.
   </Accordion>
 </AccordionGroup>

@@ -1,16 +1,22 @@
 ---
-title: "Receipts and the proof view"
-description: "How to open a receipt, walk a number back to the trips that produced it, and use the proof view."
-sidebarTitle: "Receipts & proof view"
+title: "Receipts and evidence"
+description: "How every number in a report is bound to the trips behind it — the receipts appendix that ships with the report, and the run-level evidence in your data layer."
+sidebarTitle: "Receipts & evidence"
 ---
 
-Every number in a delivered report is a link.
+A delivered study is not a dashboard of numbers you take on faith. It is a **report package** — a rendered report plus the receipts the numbers rest on — built so any count can be walked back to the trips that produced it.
 
-Click any count, percentage, or finding, and the **proof view** opens — the receipts behind that specific number. The appendix _is_ the receipts; there is no separate "evidence section" you have to cross-reference.
+## The report package — what you open
+
+A study is delivered as a rendered **report**: an HTML (and Markdown) document you open and read. It ships with a **receipts appendix** — the per-trip records behind the numbers — in the same package. Every count in the report carries a reference to the trips behind it, and the appendix _is_ the receipts: there is no separate evidence system to cross-reference, and no server access required to read it.
+
+<Note>
+  The report is a **rendered document, not a live dashboard** — numbers are not individually clickable today. You check a number by reading its reference into the receipts appendix that travels with the report. An in-product **click-through** — click a headline number, land on the trip — is on the [roadmap](/roadmap); until it lands, the report package is the audit surface.
+</Note>
 
 ## What a receipt contains
 
-A receipt is one trip's complete record. It contains:
+A receipt is one trip's complete record:
 
 - **The agent** — which model, which version, which retrieval mode.
 - **The persona cohort** — the shopper profile the trip ran as.
@@ -20,46 +26,43 @@ A receipt is one trip's complete record. It contains:
 - **The artifact** — the agent's final answer, captured verbatim.
 - **The classification** — how this trip was scored against the metric (e.g., _surfaced / not surfaced_).
 
-A receipt is a queryable record, not a screenshot. You can open it in the platform and link to it today; structured export is rolling out (see [What's exportable](#whats-exportable)).
-
-## The proof view
-
-The proof view is the platform UI for receipts. It opens to one number, then expands to all the trips that compute that number.
+## Checking a number
 
 <Steps>
-  <Step title="Click a number in the report.">
-    Any count, percentage, or finding. The proof view opens to it.
+  <Step title="Pick a number you'd quote.">
+    Any count, percentage, or finding in the report — the kind you'd put in front of a stakeholder.
   </Step>
-  <Step title="Read the trip list.">
-    Every trip that contributes to the number, with its classification and access posture.
+  <Step title="Read its reference in the report.">
+    Every number carries a pointer to the trips behind it, printed with the number rather than buried in a footnote.
   </Step>
-  <Step title="Open a single trip.">
-    The full receipt — agent, persona, mission, steps, sources, artifact, classification.
+  <Step title="Find the trip in the receipts appendix.">
+    The appendix ships in the same package — agent, persona, mission, steps, sources, artifact, classification. If the receipt holds, the number holds.
   </Step>
-  <Step title="Open the static proof artifact.">
-    The proof view is a static `proof_report.html` artifact alongside the receipts list — the captured record behind that number, not a live-filtering UI.
+  <Step title="Pull the raw record if you need it.">
+    For the full run-level evidence — complete transcript, raw page captures, structured records — go to your data layer (below).
   </Step>
 </Steps>
 
-## Why this matters
+## The run-level data layer
 
-The proof view is what makes the verdict defensible. If someone challenges the headline in a meeting, you don't argue methodology — you open a receipt.
-
-It's also what separates the rig from a scraper dashboard: a scraper gives you a mention count; the proof view gives you the trip behind every count. You don't have to trust the number; you can check it.
-
-## What's exportable
-
-| Object | Status |
-| --- | --- |
-| The full receipt for one trip | Rolling out — JSON export, includes the agent's verbatim artifact. Today the read path is an operator-admin retrieval, not self-serve. |
-| The receipt set behind one finding | Rolling out — bulk export with cloud-storage handoff, on the same self-serve track. |
-| The proof view itself (as a shared link) | Yes — shareable via an unguessable link to a specific number. |
+The report and its receipts appendix are the **readable audit surface**, delivered with every study. The **full run-level evidence** — complete transcripts, raw page captures, and the structured records behind each trip — lives in **cloud object storage (R2 / S3)** and is delivered through a **data layer set up during onboarding** on Research engagements. That is the path for taking the evidence directly into your own environment and building analysis on top of it.
 
 <Note>
-  Per-trip JSON and bulk receipt export are **rolling out**: built, but served today through an operator-admin read path rather than an in-product self-serve action. Until that lands, ask us and we'll pull the export for you.
+  **Pro** takes the report package (report plus receipts appendix). **Research** adds the direct data-layer handoff into your own cloud storage — see [the two postures](/offered/overview). The [data outputs & schema](/under-the-hood/data-outputs) page is the field-level reference for what lands there.
 </Note>
 
-See [data outputs & schema](/under-the-hood/data-outputs) for the field-level reference.
+## Why this matters
+
+The verdict is defensible because the evidence travels with it. If someone challenges the headline in a meeting, you don't argue methodology — you read the receipt. It is also what separates the rig from a scraper dashboard: a scraper gives you a mention count; here every count carries the trip behind it. You don't have to trust the number — you can check it.
+
+## What's delivered, and what's rolling out
+
+| Object | Today |
+| --- | --- |
+| Rendered report + receipts appendix | **Delivered** with every study — the readable audit surface. |
+| Full run-level evidence (transcripts, raw captures, structured records) | In your **R2 / S3 data layer**, set up at onboarding (Research). |
+| Per-trip / bulk **structured export** (stable, API-shaped) | **Rolling out** — see [Roadmap](/roadmap). Today, operator-assisted on request. |
+| **In-product click-through** (number → trip, in the UI) | **On the roadmap.** Today the report package is the audit surface. |
 
 ## Where to go next
 
