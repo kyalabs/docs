@@ -34,8 +34,6 @@ To see which parts of the platform are live now versus rolling out, check [the r
 
 A mission is a reusable study definition — the question, the brand set, the surface set, and the panel version it's pinned to. Once a mission is calibrated during baseline, it's saved to your workspace so the same study can be re-run on a cadence without recomposing it.
 
-A saved mission is what makes a quarterly cadence operationally cheap: you don't recompose the study each quarter, you re-dispatch the same one.
-
 ## Study states
 
 A study moves through these states from submit to delivery:
@@ -46,7 +44,7 @@ A study moves through these states from submit to delivery:
 | **Running** | Agents are shopping the live web against the mission. |
 | **Capturing evidence** | Trips complete; the rig is binding receipts and computing the count ledger. |
 | **Delivered** | Report and structured data available in your workspace. |
-| **Partial** | Delivered with some trips that did not run or came back insufficient — the report shows the denominator honestly. |
+| **Partial** | Delivered with some trips that did not run or came back insufficient — reflected in the [count ledger](/insights/reading-a-report/count-ledger). |
 | **Held** | Quality check failed; a re-run is dispatched. |
 
 See [the run lifecycle](/evidence/run-lifecycle-and-reliability) for the technical detail on each state.

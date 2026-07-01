@@ -97,7 +97,7 @@ A separate situation is a run that **could not form a study at all**. This is th
 
 ### A note on access, because a technical reader will ask
 
-Studies run against surfaces an agent can reach to varying degrees. We describe what an agent could and could not reach in two plain states — **reached** and **access-limited** — rather than asserting an absolute. Where an agent's path to a surface was constrained, the report says so plainly instead of converting a missing observation into a false negative about your brand. A finer characterization of _how_ a surface was access-limited rides on the per-finding receipt, underneath that headline state.
+We describe what an agent could and could not reach in two plain states — **reached** and **access-limited** — defined on [Reach](/insights/reading-a-report/reach); a finer characterization of _how_ a surface was access-limited rides on the per-finding receipt, underneath that headline state.
 
 This access register is a **methodology discipline**, applied observe-only and graduating toward a stricter check over time. It is **not** a machine-guaranteed property of every sentence. We are deliberate about that distinction: the honest claim is that this is how we discipline the language, not that a validator certifies it on every line today.
 
@@ -107,21 +107,6 @@ This access register is a **methodology discipline**, applied observe-only and g
 
 The honest version of all four mechanisms is the same sentence repeated: **the dishonest output is made unreachable in code, rather than caught after the fact by review.**
 
-<Steps>
-  <Step title="The headline cannot contradict the body">
-    Every counted claim in the headline is reconciled against the audited tally, off one shared distribution. A mismatch holds the report — it cannot ship as clean collateral.
-  </Step>
-  <Step title="The headline is bound to a computed verdict">
-    Winner, distribution, verdict class, and confidence are computed from the evidence before any sentence is drafted. A wrong headline is not a sentence the system can produce.
-  </Step>
-  <Step title="The claim boundary is a required field">
-    What the study does and does not claim is a structural field on every artifact, rendered on every surface — not a disclaimer someone remembers to add.
-  </Step>
-  <Step title="A thin study ships marked, not dressed up">
-    A study that formed but cannot clear the evidence bar ships flagged as not research-grade — visibly a thin read, never silently upgraded. A run that could not form a study at all collapses into the terminal failed state, rather than shipping a hollow report.
-  </Step>
-</Steps>
-
 Read this as a buyer: the trust you place in a ShoppiPanel report is not asking you to trust a model's prose. It is asking you to trust arithmetic, a schema contract, and a hold gate — all of which are auditable, and none of which depend on a human catching a mistake on the way out the door.
 
 ---
@@ -129,26 +114,6 @@ Read this as a buyer: the trust you place in a ShoppiPanel report is not asking 
 ## Common questions
 
 <AccordionGroup>
-  <Accordion title="Does an AI write the headline?">
-    A model narrates a headline, but it cannot choose the conclusion. The conclusion — winner, distribution, verdict class, confidence — is computed from the audited evidence first, and the narration is bound to it. A headline that contradicts the computed verdict is replaced before the report ships.
-  </Accordion>
-
-  <Accordion title="What stops the headline and the body from disagreeing?">
-    A reconciliation hold. Every counted claim in the headline is checked against the audited trip tally — off the same distribution that produced the headline — and a mismatch holds the report rather than shipping it. This is one of only two situations where a report is stopped rather than shipped-with-disclosure; everything else that could be wrong with a study is disclosed, not held.
-  </Accordion>
-
-  <Accordion title="What if the study didn't gather enough evidence?">
-    If the study formed but the evidence is thin, it ships marked as not research-grade — a visibly thin read, never silently upgraded into a confident report. A separate case is a run that could not form a study at all: either the rig failed to operate, or too few of the panel's cells returned results to form a credible read. That is the terminal failed state — the run collapses rather than shipping a hollow report. The two are distinct: thin-but-formed ships flagged; could-not-form fails. The full lifecycle is in [Run Lifecycle & Reliability](/evidence/run-lifecycle-and-reliability).
-  </Accordion>
-
-  <Accordion title="Is the 'what we don't claim' language something you might forget to include?">
-    No. The claim boundary is a required structural field, set when the report is built and rendered on every surface. A report missing it fails its own contract.
-  </Accordion>
-
-  <Accordion title="Can a flagged or limited study be exported as polished collateral?">
-    No. A claim mismatch hard-holds. A limited-evidence study ships visibly marked as not research-grade and cannot be silently upgraded to clean collateral.
-  </Accordion>
-
   <Accordion title="Do you rank models or claim market share?">
     No — both are outside the claim boundary. A controlled-mission study reports observed agent behavior under stated conditions, with counts and evidence references. It is not a provider ranking, a market-share figure, or a demand forecast.
   </Accordion>
