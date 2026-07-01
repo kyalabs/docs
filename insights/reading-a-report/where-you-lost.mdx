@@ -1,0 +1,52 @@
+---
+title: "Where you lost, and why"
+description: "The diagnostics beneath the verdict: where a brand lost, to whom, and on which proof-point. Examples the executive read may surface from the audited evidence."
+sidebarTitle: "Where you lost"
+---
+
+The verdict tells you whether an agent recommended your brand or a competitor. This page is the layer beneath it: when your brand was in the running but lost, the read can show *where* it lost, *to whom*, and *on which proof-point*.
+
+<Note>
+  These are **examples of what the [Voice of Agent report](/insights/overview) (the executive read) may surface, not a fixed set of fields.** The read is written by a presenter over the audited evidence, so which diagnostics appear depends on what a given study's evidence supports. Whether you won or lost overall (recommendation and loss itself) is covered on [The headline and the verdict](/insights/reading-a-report/headline-and-verdict); this page is the diagnostic layer beneath it.
+</Note>
+
+## The diagnostics the read may surface
+
+<CardGroup cols={2}>
+  <Card title="Considered, not chosen" icon="scale-unbalanced">
+    Your brand made the agent's consideration set but lost to another option. This one also travels as **structured data** (`non_recommendations`) in the [extract](/under-the-hood/data-outputs), not only in the read. The proof-point gradient beneath it points to what to test next.
+  </Card>
+
+  <Card title="Defection" icon="arrow-right-arrow-left">
+    Within a trip, the agent moved from your brand to a competitor or alternate as it gathered evidence. The read names where the hand-off happened.
+  </Card>
+
+  <Card title="Channel leakage" icon="shuffle">
+    The agent routed away from your preferred channel (your DTC site) toward a competing one (a marketplace or retailer): where the buyer's intended path and the agent's chosen path diverged.
+  </Card>
+
+  <Card title="Proof-point matrix" icon="table-cells">
+    Where you competed and where you lost across the proof-points that decide a category: price, durability, reviews, availability, and the like. The read may lay out the comparison the evidence supports; the full cross-category matrix is fuller-form, roadmap work.
+  </Card>
+
+  <Card title="Voice-of-agent quotes" icon="quote-left">
+    A real quoted reasoning span from the agent, in its own words, showing why a decision was made: the receipt behind a diagnostic, not a paraphrase.
+  </Card>
+</CardGroup>
+
+## What this layer is, and is not
+
+- **Examples, not guarantees.** The presenter surfaces a diagnostic when the evidence supports it. A study that produced a clean win, or thin evidence, may surface few of these or none.
+- **Counts before rates.** Every diagnostic carries its evidence reference and its denominator. None is a rate dressed as a fact (see [the count ledger](/insights/reading-a-report/count-ledger)).
+- **We measure; you interpret.** The read shows where and why the agents landed as they did. What to do about it, the brand decides. No conversion-lift claim, no prescriptive strategy.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Headline & verdict" icon="file-chart-column" href="/insights/reading-a-report/headline-and-verdict">
+    Won or lost: how the one-line verdict is computed.
+  </Card>
+  <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
+    The structured extract, including `non_recommendations`.
+  </Card>
+</CardGroup>
