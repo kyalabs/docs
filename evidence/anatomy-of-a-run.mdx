@@ -1,15 +1,15 @@
 ---
 title: "Anatomy of a Run"
-description: "One trip, from the question it sets out on to the receipt you can open — and why every number in the report stays bound to the trips that produced it."
+description: "One trip, from the question it sets out on to the receipt you can open, and why every number in the report stays bound to the trips that produced it."
 ---
 
-A ShoppiPanel study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips. Every number in the report can be walked back to exactly the trips that produced it.
+A ShoppiPanel study is a population of _trips_. Each trip is one AI shopping agent, asked your category's question once, doing what it actually does: reaching the web, reading or being cited, deciding, and answering. The report you read is a projection of those trips.
 
-The promise is narrow and testable: **no claim in the report floats.** Every recommendation, every count, every "this is what the agents did" carries at least one reference to a specific piece of captured evidence, and that evidence is retrievable.
+The promise is narrow and testable: **no claim in the report floats.** Every recommendation, every count, every "this is what the agents did" carries at least one reference to a specific piece of captured evidence, and that evidence is retrievable. Every number walks back to exactly the trips that produced it.
 
 ## What one trip records
 
-When a trip runs, three things about it are written down as they happen — not reconstructed afterward:
+When a trip runs, three things about it are written down as they happen, not reconstructed afterward:
 
 <CardGroup cols={3}>
   <Card title="The transcript">
@@ -17,11 +17,11 @@ When a trip runs, three things about it are written down as they happen — not 
   </Card>
 
   <Card title="The journey">
-    Which sources the trip actually touched — the pages a browsing agent fetched, or the sources a search-native agent (Perplexity Sonar) was given as citations. Each source is recorded with where it came from.
+    Which sources the trip actually touched: the pages a browsing agent fetched, or the sources a search-native agent (Perplexity Sonar) was given as citations. Each source is recorded with where it came from.
   </Card>
 
   <Card title="The access posture">
-    For a browsing agent, whether it _reached_ a page and read it, or was _access-limited_ on a page that turns away automated traffic. Recorded per attempt, as a graded outcome — never collapsed to a single absolute word.
+    For a browsing agent, whether it _reached_ a page and read it, or was _access-limited_ on a page that turns away automated traffic. Recorded per attempt, as a graded outcome, never collapsed to a single absolute word.
   </Card>
 </CardGroup>
 
@@ -29,17 +29,17 @@ A trip also carries the plain facts you would expect: which model family stood i
 
 ## From a source the agent touched to a receipt you can open
 
-Every source a trip used becomes one **evidence card** — a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency and fold into one denominator. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
+Every source a trip used becomes one **source card**: a small, uniform record that says where the source came from (a page the agent fetched, or a source the search-native model cited), what was on it, and which trip used it. The two lanes produce the same kind of card, so a browse trip and a search-native trip both resolve to the same evidence currency and fold into one denominator. ([Two Lanes](/how-it-works/two-lanes) covers how the two retrieval modes are captured and why they reconcile to one currency.)
 
-In a shipped report package, the evidence ledger is not a summary — it is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
+In a shipped report package, the evidence ledger is not a summary. It is the cards themselves. Each card names the trip it came from, the source it represents, and its locator (for a browse source, the URL the agent actually opened). It also marks honestly what kind of claim it can support: a card that records _what an agent did_ is kept distinct from a card that asserts _a fact about a product_. A count claim and a product-fact claim are never backed by the same undifferentiated blob.
 
 When the report states a number, the cards behind it are retrievable, and each card points at the trip and the source it came from.
 
 ## Counts before rates
 
-Before the report states any rate or any verdict, it states the counts. A shipped report carries a count ledger that declares, for the study, how many trips were planned, completed, did-not-run, insufficient, and metric-eligible — so the denominator is a first-class fact you can check the rate against. [Reading the Count Ledger](/insights/reading-a-report/count-ledger) teaches how each line is defined and read.
+Before the report states any rate or any verdict, it states the counts. A shipped report carries a count ledger that declares, for the study, how many trips were planned, completed, did-not-run, insufficient, and metric-eligible, so the denominator is a first-class fact you can check the rate against. [Reading the Count Ledger](/insights/reading-a-report/count-ledger) teaches how each line is defined and read.
 
-Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity — not a word guessed back out of its prose afterward. That sourced count is what the report's headline is computed from before any sentence is written — the mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
+Every line in that ledger carries its own evidence references back to the trips it summarizes. And the winner a trip reports is the winner the agent itself declared, carried through to the count as a structured entity, not a word guessed back out of its prose afterward. That sourced count is what the report's headline is computed from before any sentence is written, a mechanism [The Honesty Layer](/evidence/honesty-layer) lays out in full.
 
 ## Access posture, stated honestly
 
@@ -47,32 +47,32 @@ A browsing trip regularly meets pages that don't serve automated traffic. Per at
 
 ## Retrievable, not just claimed
 
-The report's evidence — its readable report and its receipts appendix — is produced as part of the report package and is retrievable through an owner-scoped read path that is rolling out: it only just landed, and during the pilot we open it on request. Retrieval requires no server access. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence read.
+The report's evidence (its readable report and its receipts appendix) is produced as part of the report package and is retrievable through an **owner-scoped read path**. That path only just landed, so during the pilot we open it for you on request, and any number in a report can be audited back to its trips and sources. Retrieval requires no server access. The package itself carries a content hash and pointers to its core receipts, so a delivered report can be located and its evidence read.
 
 Every served surface of the report passes through the same sanitization that keeps internal vocabulary off the buyer face: the served receipt is in the buyer's register, not the engine's.
 
 To be precise about what is shipped versus what is being wired:
 
-- **Rolling out** — the owner-scoped read path that makes the evidence retrievable. It only just landed, so during the pilot we open it for you on request: any number in a report can be audited back to its trips and sources.
-- **Being wired now** — the polished self-serve walk-back: clicking straight from a headline number, to the trip, to that trip's transcript and the sources it touched, without leaving the product.
+- **Rolling out:** the owner-scoped read path described above, which makes the evidence retrievable.
+- **Being wired now:** the polished self-serve walk-back, clicking straight from a headline number, to the trip, to that trip's transcript and the sources it touched, without leaving the product.
 
 ## The chain a number rests on
 
-A number rests on a chain — every link of which is recorded, addressable, and auditable.
+A number rests on a chain, every link of which is recorded, addressable, and auditable.
 
 <div style={{ fontFamily: "var(--font-mono, monospace)" }}>
-  trip → captured evidence → evidence card → cited count → retrievable receipt
+  trip → captured evidence → source card → cited count → retrievable receipt
 </div>
 
 ## Short answers
 
 <AccordionGroup>
   <Accordion title='If a report says "19 of 25 agents surfaced my brand," can I see the 19?'>
-    Yes. The count is backed by evidence references that resolve to the trips behind it, and each trip's evidence — what it touched, what it said — is in the report's evidence ledger. The number is sourced, not asserted.
+    Yes. The count is backed by evidence references that resolve to the trips behind it, and each trip's evidence (what it touched, what it said) is in the report's evidence ledger. The number is sourced, not asserted.
   </Accordion>
 
   <Accordion title="What exactly do you capture per agent?">
-    Its transcript (turn-by-turn, with secret-token patterns scrubbed), its journey (the sources it actually used and where they came from), its access posture (reached vs. access-limited), and the plain facts — model family (GPT, Gemini, Claude, or Perplexity Sonar), lane, and whether it counted.
+    Its transcript (turn-by-turn, with secret-token patterns scrubbed), its journey (the sources it actually used and where they came from), its access posture (reached vs. access-limited), and the plain facts: model family (GPT, Gemini, Claude, or Perplexity Sonar), lane, and whether it counted.
   </Accordion>
 
   <Accordion title="What happens when an agent couldn't reach my page?">
@@ -84,6 +84,6 @@ A number rests on a chain — every link of which is recorded, addressable, and 
   </Accordion>
 
   <Accordion title="Do I need engineering help to get the receipts?">
-    No. The report's readable view and receipts appendix are retrievable through an owner-scoped read path, with no server access required. That read path is rolling out — it only just landed, so during the pilot we open it for you on request, and any number can be walked back to its trips and sources. The polished self-serve click-through is being wired.
+    No. The report's readable view and receipts appendix are retrievable through the owner-scoped read path, with no server access required. As described under [Retrievable, not just claimed](#retrievable-not-just-claimed), that path only just landed, so during the pilot we open it for you on request. The polished self-serve click-through is being wired.
   </Accordion>
 </AccordionGroup>

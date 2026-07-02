@@ -4,26 +4,26 @@ description: "Personal-data posture, retention windows, token scrubbing, subproc
 sidebarTitle: "Data handling & security"
 ---
 
-A study studies AI shopping agents against public web surfaces — it does not ingest your consumer or customer data. Where a specific control is part of a longer security overview, it's named here and the overview is shareable on request during evaluation.
+A study studies AI shopping agents against public web surfaces. It does not ingest your consumer or customer data. Where a specific control is part of a longer security overview, it's named here, and the overview is shareable on request during evaluation.
 
 ## Personal data posture
 
 **A study does not require personal data from you to run.**
 
-The inputs we need are a category question, a brand set, and a surface set — none of which are personal data. Persona cohorts are _synthetic shopper profiles_, not real people; they are configured archetypes (e.g., _"SMB IT buyer evaluating CRMs"_), not identities.
+The inputs we need are a category question, a brand set, and a surface set, none of which are personal data. The agents under test are real AI shopping surfaces; only the persona framing is synthetic. Persona cohorts are _synthetic shopper profiles_, not real people: they are configured archetypes (e.g., _"SMB IT buyer evaluating CRMs"_), not identities.
 
 | Category | Posture |
 | --- | --- |
 | **Customer PII** (your customers' personal data) | Not ingested. Not required. The study runs against public web surfaces, not your customer dataset. |
-| **Incidental personal data** | A public listing may carry a salesperson name or dealer contact. We treat captured evidence as research material — we do not enrich, re-identify, or build profiles from it. |
-| **Employee PII** (your team's data) | Workspace user records only — email, name, role. Standard SaaS-account data. |
+| **Incidental personal data** | A public listing may carry a salesperson name or dealer contact. We treat captured evidence as research material: we do not enrich, re-identify, or build profiles from it. |
+| **Employee PII** (your team's data) | Workspace user records only: email, name, role. Standard SaaS-account data. |
 | **Persona cohorts** | Synthetic. Not derived from real people. |
 
 ## Token scrubbing
 
-Automated scrubbing today is scoped to **secret and credential tokens** — the capture path strips token-shaped strings (token prefixes and `token=`-style query values) from captured text before evidence is persisted.
+Automated scrubbing today is scoped to **secret and credential tokens**: the capture path strips token-shaped strings (token prefixes and `token=`-style query values) from captured text before evidence is persisted.
 
-A content-level, automated _personal-data_ redaction pass over transcripts — detecting and masking emails, phone numbers, names, or government IDs — is **not yet in place**. The study does not ingest your customer dataset (see above), and a founder reviews the deliverable before handoff.
+A content-level, automated _personal-data_ redaction pass over transcripts (detecting and masking emails, phone numbers, names, or government IDs) is **not yet in place**. The study does not ingest your customer dataset (see above), and a founder reviews the deliverable before handoff.
 
 <Note>
   We do not claim content-verified personal-data redaction today. Automated secret-token scrubbing plus the no-consumer-PII-ingest design is the posture; the content-level personal-data pass is on the roadmap, not live.
@@ -61,14 +61,14 @@ Categories of subprocessor we use:
 - **Agent providers** (the model vendors whose agents the panel runs).
 - **Observability** (logging, metrics, error tracking).
 
-The evidence-**scoring** layer runs on infrastructure we operate. The capture/fetch path — pulling public web content — may use a managed headless-browser provider; where it does, that provider is named in the subprocessor list. Transport (TLS) and at-rest encryption (AES-256) remain provider-backed as described above.
+The evidence-**scoring** layer runs on infrastructure we operate. The capture/fetch path (pulling public web content) may use a managed headless-browser provider; where it does, that provider is named in the subprocessor list. Transport (TLS) and at-rest encryption (AES-256) remain provider-backed as described above.
 
 ## Incident posture
 
 There is no formally documented incident-response or breach-notification program with contractual timelines today. What exists is operational:
 
 - The team monitors run health and security alerts directly.
-- A documented **24-hour kill switch**: on a request to stop touching a named surface, a deploy-config flag halts all traffic to that surface — in-flight and new sessions — within 24 hours, with the refusal recorded in the run's attempt ledger.
+- A documented **24-hour kill switch**: on a request to stop touching a named surface, a deploy-config flag halts all traffic to that surface (in-flight and new sessions) within 24 hours, with the refusal recorded in the run's attempt ledger.
 
 A formal incident-response runbook with a defined notification window is a gap we will close as an engagement formalizes; the notification window is committed in the engagement paper.
 

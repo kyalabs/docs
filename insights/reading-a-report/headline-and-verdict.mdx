@@ -19,27 +19,27 @@ A verdict is one of a fixed set of classes. The class is determined by the metri
 
 | Class | What it says | When you see it |
 | --- | --- | --- |
-| **A clear lead** | One brand led the majority of trips across the panel — a dominant winner, stated with its distribution ("leading, not unanimous"). | A study where one product consistently carries the agent's answer. |
-| **A contested lead** | A brand leads, but the margin is narrow and rivals trade places across agents and personas — the pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
+| **A clear lead** | One brand led the majority of trips across the panel: a dominant winner, stated with its distribution ("leading, not unanimous"). | A study where one product consistently carries the agent's answer. |
+| **A contested lead** | A brand leads, but the margin is narrow and rivals trade places across agents and personas. The pattern is the finding. | Most real-world reads. The receipts show which agents and personas, and why. |
 | **A genuine split** | No single brand leads; the panel divides across several products with no dominant winner. | Categories where the agent's recommendation set is genuinely fragmented. |
-| **No signal** | The evidence doesn't support naming a leader — too few informative trips, or no discernible pattern. | When the denominator is thin or the reads don't converge. |
+| **No signal** | The evidence doesn't support naming a leader: too few informative trips, or no discernible pattern. | When the denominator is thin or the reads don't converge. |
 
-A study can also carry **per-cut verdicts** — by agent, by persona cohort, by surface set — when the question warrants it. The verdict class is computed deterministically from the count ledger before any narrative is written — see [The Honesty Layer](/evidence/honesty-layer).
+A study can also carry **per-cut verdicts** (by agent, by persona cohort, by surface set) when the question warrants it. The verdict class is computed deterministically from the count ledger before any narrative is written. See [The Honesty Layer](/evidence/honesty-layer).
 
 ## How the class is decided
 
 The rule is fixed, not a judgment call. The winner is the brand that led the most informative trips, and the class follows from its share of them:
 
-- **A clear lead** — the leader took a **strict majority** (more than half) of the informative trips.
-- **A contested lead** — a unique leader, but under half.
-- **A genuine split** — the top two are tied; no single leader.
-- **No signal** — too few informative trips to name a leader.
+- **A clear lead**: the leader took a **strict majority** (more than half) of the informative trips.
+- **A contested lead**: a unique leader, but under half.
+- **A genuine split**: the top two are tied; no single leader.
+- **No signal**: too few informative trips to name a leader.
 
 ## How confident to be
 
-ShoppiPanel is a **directional instrument, not a statistical-significance test**. Each verdict carries a **confidence band** — *high*, *moderate*, or *directional* — set by how many trips actually carried evidence. A thin read is labelled *directional* and its wording softens from "won" to "led".
+ShoppiPanel is a **directional instrument, not a statistical-significance test**. Each verdict carries a **confidence band** (*high*, *moderate*, or *directional*), set by how many trips actually carried evidence. A thin read is labelled *directional* and its wording softens from "won" to "led".
 
-The standard panel is 25 trips, so a single study reads the **direction**; durable confidence comes from the **trend** on a fixed instrument — the same panel version, study over study — which is why comparability is the contract. When a question needs a hard statistical read, a research-grade engagement runs a **higher N**. ([The Panel as an Instrument](/how-it-works/panel-as-an-instrument) covers the instrument.)
+The standard panel is 25 trips, so a single study reads the **direction**; durable confidence comes from the **trend** on a fixed instrument, the same panel version, study over study, which is why comparability is the contract. When a question needs a hard statistical read, a research-grade engagement runs a **higher N**. ([The Panel as an Instrument](/how-it-works/panel-as-an-instrument) covers the instrument.)
 
 A **no-signal** verdict can still be **delivered**. When the evidence is thin, the report ships marked **not research-grade** at **low confidence**. A modest study is not held back; it's labeled. A low-confidence delivery may prompt a re-run, but the system does not auto-rerun in place of delivering the finding.
 
@@ -47,9 +47,9 @@ A **no-signal** verdict can still be **delivered**. When the evidence is thin, t
 
 Confidence is reported alongside the verdict. It's a function of three things:
 
-- **The denominator** — how many trips actually completed (see [the count ledger](/insights/reading-a-report/count-ledger)).
-- **The agreement across the panel** — do the agents agree, or do they split?
-- **The access posture** — how much of the relevant surface set was reachable in the runs.
+- **The denominator**: how many trips actually completed (see [the count ledger](/insights/reading-a-report/count-ledger)).
+- **The agreement across the panel**: do the agents agree, or do they split?
+- **The access posture**: how much of the relevant surface set was reachable in the runs.
 
 A high-confidence verdict has a full denominator, agreement across the panel, and reached surfaces. A low-confidence verdict shows **why** confidence dropped, on the same page as the verdict itself.
 

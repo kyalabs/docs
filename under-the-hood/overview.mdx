@@ -1,13 +1,13 @@
 ---
 title: "Under the hood"
-description: "The rig in one page — the five stages of a study, what's captured per trip, and where to go for the method, the outputs, and the data-handling posture."
+description: "The rig in one page: the five stages of a study, what's captured per trip, and where to go for the method, the outputs, and the data-handling posture."
 sidebarTitle: "Overview"
 ---
 
 ShoppiPanel is a versioned instrument, with every number bound to a receipt. Everything below is observable in a delivered study, down to the trip behind each count.
 
 <Note>
-  This section is for your **data and engineering evaluators** — the method, the schema, and the data-handling posture. If you're here for what ShoppiPanel does and how to read a study, [Evaluating the insights](/insights/overview) is your section.
+  This section is for your **data and engineering evaluators**: the method, the schema, and the data-handling posture. If you're here for what ShoppiPanel does and how to read a study, [Evaluating the insights](/insights/overview) is your section.
 </Note>
 
 ## The rig in one frame
@@ -15,20 +15,20 @@ ShoppiPanel is a versioned instrument, with every number bound to a receipt. Eve
 A study runs in five stages, in this order, every time:
 
 <Steps>
-  <Step title="Question — the mission a real shopper would ask">
+  <Step title="Question: the mission a real shopper would ask">
     A category question, scoped to a brand set and a surface set. Pinned to a panel version so reads stay comparable.
   </Step>
-  <Step title="Panel — the versioned instrument">
+  <Step title="Panel: the versioned instrument">
     A configured set of agents, model versions, and persona cohorts (the shopper profiles a mission runs as). Pinned, signed, and reproducible.
   </Step>
-  <Step title="Runs — agents shop the live web">
-    Each agent in the panel runs the mission against the live web, in its native retrieval mode — browse-native and search-native captured as [separate lanes, resolved to one denominator](/how-it-works/two-lanes).
+  <Step title="Runs: agents shop the live web">
+    Each agent in the panel runs the mission against the live web, in its native retrieval mode. Browse-native and search-native are captured as [separate lanes, resolved to one denominator](/how-it-works/two-lanes).
   </Step>
-  <Step title="Evidence — the receipt for every trip">
+  <Step title="Evidence: the receipt for every trip">
     Every trip is captured end to end: the question, the steps the agent took, the sources it touched, what it could and couldn't reach, the artifact it produced. Stored as queryable records.
   </Step>
-  <Step title="Report — bound to the evidence">
-    The read is computed from the data; the data is computed from the evidence. The headline cannot assert a result the counts don't support — see [the Honesty Layer](/evidence/honesty-layer).
+  <Step title="Report: bound to the evidence">
+    The read is computed from the data; the data is computed from the evidence. The headline cannot assert a result the counts don't support. See [the Honesty Layer](/evidence/honesty-layer).
   </Step>
 </Steps>
 
@@ -46,7 +46,7 @@ The appendix _is_ the receipts, not a summary of them. A number you can't walk b
   </Card>
 
   <Card title="Data outputs & schema" icon="layers" href="/under-the-hood/data-outputs">
-    The structured data a study returns — file layout in your cloud-storage handoff, schema reference, and field-level definitions.
+    The structured data a study returns: file layout in your cloud-storage handoff, schema reference, and field-level definitions.
   </Card>
 
   <Card title="Data handling & security" icon="shield-check" href="/under-the-hood/data-handling-and-security">
